@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 880" font-family="Archivo, 'Helvetica Neue', Arial, sans-serif">
+  <defs>
+    <marker id="seta" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto" fill="rgba(240,235,225,0.55)">
+      <polygon points="0 0, 8 3, 0 6"/>
+    </marker>
+  </defs>
+
+  <!-- fundo próprio: legível em documento claro ou escuro -->
+  <rect width="1600" height="880" fill="#0D0D0D"/>
+
+  <!-- ===== título ===== -->
+  <text x="48" y="56" font-size="13" font-weight="600" letter-spacing="4.5" fill="rgba(240,235,225,0.70)">ITXPRO</text>
+  <text x="48" y="106" font-family="Khand, 'Arial Narrow', sans-serif" font-size="46" font-weight="700" fill="#F0EBE1">PIPELINE <tspan fill="#F26101">SDD</tspan></text>
+  <text x="48" y="136" font-size="14" fill="rgba(240,235,225,0.70)">3 fases em mesa redonda &#183; 8 agentes ativos e 1 engatilhado &#183; 2 port&#245;es humanos fixos e 1 por exce&#231;&#227;o</text>
+
+  <!-- ===== fase 1: intenção ===== -->
+  <rect x="48" y="168" width="380" height="488" rx="4" fill="#141414" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="72" y="250" font-family="Khand, 'Arial Narrow', sans-serif" font-size="80" font-weight="700" fill="rgba(240,235,225,0.55)">1</text>
+  <text x="132" y="204" font-size="11" font-weight="600" letter-spacing="3.8" fill="rgba(240,235,225,0.70)">FASE 1</text>
+  <text x="132" y="240" font-family="Khand, 'Arial Narrow', sans-serif" font-size="26" font-weight="700" fill="#F0EBE1">INTEN&#199;&#195;O</text>
+
+  <text x="238" y="292" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="3.8" fill="rgba(240,235,225,0.70)">MESA REDONDA</text>
+  <rect x="88" y="308" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="238" y="329" text-anchor="middle" font-size="13" fill="#F0EBE1">spec-writer</text>
+  <rect x="88" y="348" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="238" y="369" text-anchor="middle" font-size="13" fill="#F0EBE1">security-privacy-architect</text>
+  <rect x="88" y="388" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="238" y="409" text-anchor="middle" font-size="13" fill="#F0EBE1">ux-architect</text>
+
+  <text x="238" y="470" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.55)">privacy e security by design</text>
+  <text x="238" y="494" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.55)">experi&#234;ncia de primeira classe</text>
+  <text x="238" y="518" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.55)">AI-first nos contratos</text>
+
+  <line x1="72" y1="584" x2="404" y2="584" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="238" y="610" text-anchor="middle" font-size="14" font-weight="600" fill="#F0EBE1">Sa&#237;da: spec</text>
+  <text x="238" y="632" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.70)">risco, experi&#234;ncia e postura AI-first</text>
+
+  <!-- portão 1: humano fixo -->
+  <line x1="428" y1="400" x2="452" y2="400" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+  <polygon points="485,372 513,400 485,428 457,400" fill="#F26101"/>
+  <line x1="513" y1="400" x2="537" y2="400" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+  <text x="485" y="452" text-anchor="middle" font-size="10" font-weight="700" letter-spacing="1" fill="#F0EBE1">PORT&#195;O HUMANO</text>
+  <text x="485" y="468" text-anchor="middle" font-size="10" fill="rgba(240,235,225,0.70)">FIXO</text>
+
+  <!-- ===== fase 2: desenho ===== -->
+  <rect x="543" y="168" width="380" height="488" rx="4" fill="#141414" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="567" y="250" font-family="Khand, 'Arial Narrow', sans-serif" font-size="80" font-weight="700" fill="rgba(240,235,225,0.55)">2</text>
+  <text x="627" y="204" font-size="11" font-weight="600" letter-spacing="3.8" fill="rgba(240,235,225,0.70)">FASE 2</text>
+  <text x="627" y="240" font-family="Khand, 'Arial Narrow', sans-serif" font-size="26" font-weight="700" fill="#F0EBE1">DESENHO</text>
+
+  <text x="733" y="292" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="3.8" fill="rgba(240,235,225,0.70)">MESA REDONDA</text>
+  <rect x="583" y="308" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="733" y="329" text-anchor="middle" font-size="13" fill="#F0EBE1">architect</text>
+  <rect x="583" y="348" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="733" y="369" text-anchor="middle" font-size="13" fill="#F0EBE1">security-privacy-architect</text>
+  <rect x="583" y="388" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="733" y="409" text-anchor="middle" font-size="13" fill="#F0EBE1">ux-architect</text>
+  <rect x="583" y="428" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="733" y="449" text-anchor="middle" font-size="13" fill="#F0EBE1">devsecops</text>
+
+  <text x="733" y="506" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.55)">o desenho passa sozinho sem bloqueio;</text>
+  <text x="733" y="530" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.55)">sobe ao humano com diverg&#234;ncia ou veto</text>
+
+  <line x1="567" y1="584" x2="899" y2="584" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="733" y="610" text-anchor="middle" font-size="14" font-weight="600" fill="#F0EBE1">Sa&#237;da: plano e tarefas</text>
+  <text x="733" y="632" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.70)">seguran&#231;a, intera&#231;&#227;o, deploy e budget juntos</text>
+
+  <!-- portão 2: humano por exceção -->
+  <line x1="923" y1="400" x2="946" y2="400" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+  <polygon points="980,372 1008,400 980,428 952,400" fill="#0D0D0D" stroke="#F26101" stroke-width="2"/>
+  <line x1="1008" y1="400" x2="1032" y2="400" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+  <text x="980" y="452" text-anchor="middle" font-size="10" font-weight="700" letter-spacing="1" fill="#F0EBE1">PORT&#195;O HUMANO</text>
+  <text x="980" y="468" text-anchor="middle" font-size="10" fill="rgba(240,235,225,0.70)">POR EXCE&#199;&#195;O</text>
+
+  <!-- ===== fase 3: construção e veredito ===== -->
+  <rect x="1038" y="168" width="380" height="488" rx="4" fill="#141414" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="1062" y="250" font-family="Khand, 'Arial Narrow', sans-serif" font-size="80" font-weight="700" fill="rgba(240,235,225,0.55)">3</text>
+  <text x="1122" y="204" font-size="11" font-weight="600" letter-spacing="3.8" fill="rgba(240,235,225,0.70)">FASE 3</text>
+  <text x="1122" y="240" font-family="Khand, 'Arial Narrow', sans-serif" font-size="26" font-weight="700" fill="#F0EBE1">CONSTRU&#199;&#195;O E VEREDITO</text>
+
+  <text x="1228" y="292" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="3.8" fill="rgba(240,235,225,0.70)">CONSTRU&#199;&#195;O</text>
+  <rect x="1078" y="308" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="1228" y="329" text-anchor="middle" font-size="13" fill="#F0EBE1">implementer &#183; uma tarefa por vez</text>
+
+  <line x1="1062" y1="362" x2="1394" y2="362" stroke="#2B2B2B" stroke-width="1"/>
+
+  <text x="1228" y="390" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="3.8" fill="rgba(240,235,225,0.70)">MESA DE VEREDITO</text>
+  <rect x="1078" y="404" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="1228" y="425" text-anchor="middle" font-size="13" fill="#F0EBE1">reviewer</text>
+  <rect x="1078" y="444" width="300" height="32" rx="4" fill="#1C1C1C" stroke="#E05252" stroke-width="1.5"/>
+  <text x="1228" y="465" text-anchor="middle" font-size="13" font-weight="600" fill="#E05252">grc-reviewer (veto)</text>
+  <rect x="1078" y="484" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="1228" y="505" text-anchor="middle" font-size="13" fill="#F0EBE1">ux-architect</text>
+  <rect x="1078" y="524" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="1228" y="545" text-anchor="middle" font-size="13" fill="#F0EBE1">devsecops</text>
+  <text x="1228" y="574" text-anchor="middle" font-size="11" fill="rgba(240,235,225,0.55)">+ security-privacy-architect conforme o risco</text>
+
+  <line x1="1062" y1="584" x2="1394" y2="584" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="1228" y="610" text-anchor="middle" font-size="14" font-weight="600" fill="#F0EBE1">Sa&#237;da: veredito &#250;nico</text>
+  <text x="1228" y="632" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.70)">a obje&#231;&#227;o dura fica de p&#233; no artefato</text>
+
+  <!-- portão 3: humano fixo + fatia no ar -->
+  <line x1="1418" y1="400" x2="1430" y2="400" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+  <polygon points="1464,372 1492,400 1464,428 1436,400" fill="#F26101"/>
+  <line x1="1492" y1="400" x2="1505" y2="400" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+  <circle cx="1528" cy="400" r="16" fill="#0CA30C"/>
+  <path d="M1520,400 L1525,406 L1537,393" fill="none" stroke="#0D0D0D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1464" y="452" text-anchor="middle" font-size="10" font-weight="700" letter-spacing="1" fill="#F0EBE1">PORT&#195;O HUMANO</text>
+  <text x="1464" y="468" text-anchor="middle" font-size="10" fill="rgba(240,235,225,0.70)">FIXO</text>
+
+  <!-- ===== faixa dos artefatos numerados ===== -->
+  <rect x="48" y="680" width="1504" height="56" rx="4" fill="#141414" stroke="#2B2B2B" stroke-width="1"/>
+  <text x="72" y="713" font-size="11" font-weight="600" letter-spacing="3" fill="rgba(240,235,225,0.70)">ARTEFATOS DA FATIA</text>
+
+  <rect x="288" y="695" width="71" height="26" rx="2" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="323" y="712" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="#F0EBE1">01-spec</text>
+  <line x1="364" y1="708" x2="378" y2="708" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+
+  <rect x="383" y="695" width="166" height="26" rx="2" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="466" y="712" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="#F0EBE1">02-registro-intencao</text>
+  <line x1="554" y1="708" x2="568" y2="708" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+
+  <rect x="573" y="695" width="78" height="26" rx="2" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="612" y="712" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="#F0EBE1">03-plan</text>
+  <line x1="656" y1="708" x2="670" y2="708" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+
+  <rect x="675" y="695" width="93" height="26" rx="2" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="721" y="712" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="#F0EBE1">04-tasks</text>
+  <line x1="773" y1="708" x2="787" y2="708" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+
+  <rect x="792" y="695" width="159" height="26" rx="2" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="871" y="712" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="#F0EBE1">05-registro-desenho</text>
+  <line x1="956" y1="708" x2="970" y2="708" stroke="rgba(240,235,225,0.55)" stroke-width="1.5" marker-end="url(#seta)"/>
+
+  <rect x="975" y="695" width="166" height="26" rx="2" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="1058" y="712" text-anchor="middle" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="#F0EBE1">06-registro-veredito</text>
+
+  <text x="1528" y="712" text-anchor="end" font-size="12" fill="rgba(240,235,225,0.70)">o ls da pasta conta a hist&#243;ria</text>
+
+  <!-- ===== engatilhado ===== -->
+  <rect x="48" y="752" width="1504" height="48" rx="4" fill="none" stroke="rgba(240,235,225,0.35)" stroke-width="1" stroke-dasharray="8,5"/>
+  <text x="72" y="781" font-size="11" font-weight="600" letter-spacing="3" fill="rgba(240,235,225,0.70)">ENGATILHADO</text>
+  <rect x="260" y="763" width="290" height="26" rx="4" fill="none" stroke="rgba(240,235,225,0.55)" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="405" y="780" text-anchor="middle" font-size="13" fill="rgba(240,235,225,0.70)">agent-experience-architect (AX)</text>
+  <text x="580" y="780" font-size="12" fill="rgba(240,235,225,0.55)">presente no pacote, n&#227;o convocado; entra quando a primeira fatia expuser MCP</text>
+
+  <!-- ===== legenda + rodapé ===== -->
+  <rect x="72" y="826" width="14" height="14" rx="2" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
+  <text x="96" y="838" font-size="12" fill="rgba(240,235,225,0.70)">agente da mesa</text>
+
+  <rect x="230" y="826" width="14" height="14" rx="2" fill="#1C1C1C" stroke="#E05252" stroke-width="1.5"/>
+  <text x="254" y="838" font-size="12" fill="rgba(240,235,225,0.70)">veto</text>
+
+  <rect x="330" y="826" width="14" height="14" rx="2" fill="none" stroke="rgba(240,235,225,0.55)" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="354" y="838" font-size="12" fill="rgba(240,235,225,0.70)">engatilhado</text>
+
+  <polygon points="500,826 508,833 500,840 492,833" fill="#F26101"/>
+  <text x="518" y="838" font-size="12" fill="rgba(240,235,225,0.70)">port&#227;o humano fixo</text>
+
+  <polygon points="680,826 688,833 680,840 672,833" fill="none" stroke="#F26101" stroke-width="1.5"/>
+  <text x="698" y="838" font-size="12" fill="rgba(240,235,225,0.70)">port&#227;o humano por exce&#231;&#227;o</text>
+
+  <circle cx="895" cy="833" r="7" fill="#0CA30C"/>
+  <text x="912" y="838" font-size="12" fill="rgba(240,235,225,0.70)">fatia no ar</text>
+
+  <text x="1552" y="838" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="rgba(240,235,225,0.55)">itxpro-sdd v0.1.0</text>
+</svg>

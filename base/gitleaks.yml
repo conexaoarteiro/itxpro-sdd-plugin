@@ -1,0 +1,60 @@
+# Varredura de segredos no CI — a linha autoritativa do enforcement da constituição.
+# Os hooks locais são a defesa rápida; este check é o que ninguém contorna com --no-verify.
+#
+# Por que binário pinado e não a gitleaks-action: a action exige GITLEAKS_LICENSE em
+# repositórios de organização, e o pino por versão + checksum SHA256 do release oficial
+# é mais auditável que confiar na resolução de tag de uma action de terceiro. As únicas
+# actions usadas são as oficiais (actions/checkout), pinadas por SHA de commit.
+#
+# Adoção em projeto novo: copie este arquivo para .github/workflows/ e siga
+# framework/hooks/README.md (fonte única de padrões: .gitleaks.toml na raiz).
+
+name: gitleaks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  gitleaks:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    env:
+      GITLEAKS_VERSION: "8.30.1"
+      # SHA256 de gitleaks_8.30.1_linux_x64.tar.gz, extraído de
+      # gitleaks_8.30.1_checksums.txt do release oficial em github.com/gitleaks/gitleaks.
+      GITLEAKS_SHA256: "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb"
+    steps:
+      - name: Checkout com histórico completo
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          fetch-depth: 0
+
+      - name: Baixa o gitleaks pinado e valida o checksum antes de executar
+        run: |
+          curl -sSL --fail -o gitleaks.tar.gz \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check --strict
+          tar -xzf gitleaks.tar.gz gitleaks
+          rm gitleaks.tar.gz
+          ./gitleaks version
+
+      - name: Varre o histórico do repositório (falha o job em achado)
+        # --redact mascara todo valor detectado; nenhum report bruto é gravado nem
+        # impresso: o log do job nunca ecoa segredo cru. Achado => exit 1 => check falha.
+        run: |
+          ./gitleaks git . --config .gitleaks.toml --redact --no-banner
+
+      - name: Fala a língua do catálogo em caso de achado (fato → regra → caminho)
+        # Texto da variante do CI em framework/hooks/mensagens.md, seção 3: a linha
+        # autoritativa usa a mesma anatomia e o mesmo vocabulário dos hooks locais.
+        if: failure()
+        run: |
+          echo 'Bloqueado: segredo detectado na varredura do CI. Os achados, com valor mascarado, estão no passo anterior deste job.'
+          echo ''
+          echo 'Regra: constituição, seção "O que nunca fazer" ("Nunca colocar segredo no repositório").'
+          echo ''
+          echo 'Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Esta varredura é a linha autoritativa: remova o segredo do histórico do branch e rotacione a credencial exposta.'

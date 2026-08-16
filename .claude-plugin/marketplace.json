@@ -1,0 +1,14 @@
+{
+  "name": "itxpro-sdd-plugin",
+  "description": "Marketplace privado de distribuição do plugin itxpro-sdd. O repositório é marketplace e plugin ao mesmo tempo.",
+  "owner": {
+    "name": "ITXPRO"
+  },
+  "plugins": [
+    {
+      "name": "itxpro-sdd",
+      "description": "Framework de Spec-Driven Development da ITXPRO como plugin instalável.",
+      "source": "./"
+    }
+  ]
+}

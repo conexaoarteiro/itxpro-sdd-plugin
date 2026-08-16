@@ -1,0 +1,49 @@
+# Fonte única de padrões e allowlist de segredos, consumida pelo gate local de
+# commit (secret-commit-gate.py) e pela varredura no CI (gitleaks.yml).
+#
+# Governança: mudança neste arquivo só entra via PR com revisão nomeada.
+# Ver framework/hooks/README.md, seção "Governança do .gitleaks.toml".
+# Entrada de allowlist referencia path exato, nunca regex de padrão de segredo.
+#
+# Versão mínima do gitleaks: 8.21.0 (sintaxe de allowlists por alvo).
+# Cópia-fonte para herança: framework/hooks/.gitleaks.toml (mantenha as duas iguais).
+
+title = "ITXPRO — configuração gitleaks"
+
+[extend]
+# Herda os padrões de provedores mantidos pelo projeto gitleaks (AWS, GitHub,
+# OpenAI, blocos PEM, generic-api-key com entropia, e dezenas de outros).
+useDefault = true
+
+# Regra própria: alta entropia em identificador sensível em português.
+# A default cobre keywords em inglês (key, secret, token, password...); esta
+# cobre senha/chave/credencial/segredo, comuns em código da ITXPRO.
+[[rules]]
+id = "itxpro-alta-entropia-pt"
+description = "String de alta entropia atribuída a identificador sensível em português (senha, chave, credencial, segredo)"
+regex = '''(?i)(?:senha|chave|credencial|segredo)[\w.-]*\s*[:=]\s*["']([0-9a-zA-Z\-_.=+/]{20,120})["']'''
+secretGroup = 1
+entropy = 3.5
+
+# Allowlist da regra própria, por path exato e ANCORADO na raiz do repo (o `^`
+# impede que um diretório aninhado tipo nested/framework/hooks/test/corpus/
+# seja engolido): o corpus de teste planta um segredo desta regra de propósito.
+[[rules.allowlists]]
+description = "Corpus de segredos sintéticos do framework"
+paths = ['''^framework/hooks/test/corpus/''']
+
+# Allowlist global, por path exato e ancorado (nunca por regex de padrão):
+# cobre as regras herdadas da default. O corpus existe para o CI provar que a
+# detecção funciona; todos os valores lá são inequivocamente falsos (ver README
+# do diretório). A suíte de simulação prova a âncora: um arquivo com segredo em
+# nested/framework/hooks/test/corpus/ TEM de ser detectado com esta config.
+[[allowlists]]
+description = "Corpus de segredos sintéticos do framework (^framework/hooks/test/corpus/)"
+paths = ['''^framework/hooks/test/corpus/''']
+
+# Exemplo de allowlist de falso positivo. Descomente e ajuste SÓ via PR com
+# revisão nomeada, sempre por path exato do arquivo:
+#
+# [[allowlists]]
+# description = "Falso positivo: hash de fixture em teste, não é segredo"
+# paths = ['''src/lib/__tests__/fixtures/hash-exemplo\.ts''']

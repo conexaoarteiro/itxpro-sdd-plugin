@@ -1,0 +1,27 @@
+{
+  "description": "Hooks de enforcement da constituição SDD: gate de segredo em commit (fail-closed), aviso de implementação sem spec aprovada e teto de 120 linhas do CLAUDE.md.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/secret-commit-gate.py\"" }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          { "type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/spec-approval-warn.py\"" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          { "type": "command", "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/hooks/scripts/claude-md-limit-warn.py\"" }
+        ]
+      }
+    ]
+  }
+}
