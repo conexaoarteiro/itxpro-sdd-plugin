@@ -73,7 +73,8 @@ Decisão tomada para reduzir superfície e aproveitar o que já existe. Mudar qu
 - Backend: [[LACUNA:stack-backend | pergunta: qual backend e banco o projeto usa | ex.: Supabase com Postgres, Auth, Storage e Row Level Security]]
 - Web: [[LACUNA:stack-web | pergunta: qual o framework web e a postura de entrega | ex.: Next.js com App Router, web-first com PWA]]
 - Mobile: [[LACUNA:stack-mobile | pergunta: o projeto tem mobile e com qual tecnologia | ex.: Expo (React Native) quando o roadmap pedir; não ter mobile vale]]
-- Integrações e visual: [[LACUNA:stack-integracoes | pergunta: quais integrações externas, serviços alugados e qual estilo visual | ex.: pagamento e e-mail como serviço, design system próprio]]
+- Integrações: [[LACUNA:stack-integracoes | pergunta: quais integrações externas e serviços alugados | ex.: pagamento e e-mail como serviço]]
+- Design system: [[LACUNA:design-system | pergunta: o projeto tem design system definido e qual é, apontando onde ele vive | ex.: tokens e CSS no repositório acme-designsystem; não ter vale]]
 
 ## Topologia de execução
 
@@ -94,8 +95,7 @@ Decisão tomada para reduzir superfície e aproveitar o que já existe. Mudar qu
 
 ## Convenções de código
 
-- Nomes de arquivo e pasta em kebab-case.
-- Componentes React em PascalCase.
+- Nomes de arquivo e pasta em kebab-case; componentes React em PascalCase.
 - Sem comentário óbvio. Comentário explica porquê, não o quê.
 - Migration de banco sempre versionada e reversível.
 - Toda função de acesso a dado assume que o RLS está ligado e testa isso.

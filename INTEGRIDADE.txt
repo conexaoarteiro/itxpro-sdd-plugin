@@ -1,28 +1,28 @@
-# INTEGRIDADE — itxpro-sdd@0.1.0
+# INTEGRIDADE — itxpro-sdd@0.2.0
 # Manifesto legível por máquina (plano da 003, R5).
 # conjunto: SHA-256 da lista ordenada de hashes de todos os arquivos,
 # excluindo INTEGRIDADE.txt e CHANGELOG.md (que carrega o próprio hash).
-versao: 0.1.0
-tag: v0.1.0
-commit-canonico: 659c18545aaa115ac46de3a0ef1152725e4d3508
-conjunto: 051e6958611b8c8322b8ce91ab4bb2ee02e6f6f52058419f9cf66ce176114292
+versao: 0.2.0
+tag: v0.2.0
+commit-canonico: a6133c1b0a516883fb4dc18cde0c9ca123afc2b5
+conjunto: 1a1a27ef536ba5c8198c32213d99a6dc83b7d051d314169d1dafcaac25b5b62f
 arquivos:
 3ab65490fcfa8e3527a549c11310a565d5ccfa643d15007a0e3ddedbcb54000c  ./.claude-plugin/marketplace.json
-a1f85692ae1c0eb63523ce11e38114d1de2572821d12cd92d608b3501a46bac4  ./.claude-plugin/plugin.json
-ab1f736bd4c2069ac0eb6657b7ef074da16c734ced4047c2ec460d79542d2c18  ./CHANGELOG.md
+5e066d4d33418d43177bbe14fa5eb0409324ac0debf7ef9b4ccfce21c4a16371  ./.claude-plugin/plugin.json
+279accd662fe88a033d7eeb809f58b5f54e98c033b85236bfb24c2e3391120d7  ./CHANGELOG.md
 20fbb9bb45a80d75b3b76b84d10967ddee6cb6cad0254341ef85eb70c793ebba  ./README.md
 53bf9fcb9c921e26289781262ba5087fe9d65ad2ada327973241abda095b12e7  ./agents/_engatilhados/agent-experience-architect.md
 239f44248ad6b2c65e31f091156223ef99a42218f167557b84dea1e750d380ee  ./agents/architect.md
 274e2071dde7e70799fe6e5714ac7e092b2a814bdd293873cae982dc137fbe4f  ./agents/devsecops.md
 4c784730344e94c1a4a6ba3c9b7c8962f58d42ee91acc4c626925db0a9df1f8e  ./agents/grc-reviewer.md
-3b9a3215a034318c420aa02950f2dddf7f241665e2f76eb5520e4e4539f022a3  ./agents/implementer.md
+e4a323578c3faccc1beabf182422b99c34503366e0721637a3c700109e45c3cd  ./agents/implementer.md
 3f9da8ceb9366c72f476c90a342d12a55c6da175fdaf451e06be3a5f6859d9fa  ./agents/reviewer.md
 ff08bdf12905f9a8beae8a0562ff2f5ce6205e1aaca2b40fe5e64c0090ee376b  ./agents/security-privacy-architect.md
 d84aa7a6bb6e275cfbe6e3d436dce9e0b9f8be379f4ca8801c5d7cc5ef032ca1  ./agents/spec-writer.md
-6ccd334f4dfd7501b73d33404490319a3e4f89b1874f726649c781d67abf1e39  ./agents/ux-architect.md
+8b5721ccf1d1eead496af7c4871492e197bb4b69e9a2c8f1dc52a99dd5ccc9e7  ./agents/ux-architect.md
 4e4811ef97f7874da8434e9e5ea77ca461fd313893b13a82e1c07d14af40b0dc  ./base/.gitleaks.toml
-d41cf0b13cc685112b1ac365fbfa5c06a08c541591c25abdea1e5d3ddb673407  ./base/constituicao-template.md
-484d80154bd1993746b79bd9ed469f17ed416b9e8dd84e93489a00b074f9f743  ./base/diagrama-pipeline-sdd.svg
+8a9c339602b31853163ca1afdaf1654427626f2cb0206765f8e5daf7493fb567  ./base/constituicao-template.md
+4bac3e50b20804ebe5174dc495339d78f96b22b4d44aa681b4c5fab829f2524d  ./base/diagrama-pipeline-sdd.svg
 2b16123b3e32f27b5739d6c6e3b057c4aecd67c494d0583d23d5c73a9ffd782a  ./base/fluxo-sdd.md
 2c1cc22988507df4cf33669858cced2d796acc078f2d49d741c3ddfa6e91c5a7  ./base/gitleaks.yml
 002558d10ed8fcd4f09fdee5d6d957b7ccc63b7e0a1019a565188b118cf0aa0e  ./base/hookify/hookify.block-backlog-md-bash.local.md
@@ -33,7 +33,7 @@ eae18e7d9a097810c6adf54a8d9ac1ed52cf8d4bdff6c8872b810281078aebb5  ./base/hookify
 5ba2fbc5d642f78b791155c04e5d692ed802d209c5411a91558073b126203df7  ./base/templates/01-spec-template.md
 b12642d9b0f46c3f13b42287f509fae59086f620c467cc491ea70099e2738432  ./base/templates/03-plan-template.md
 91a86fefe81ca3437d9f1f73597c744c45ecde820d50c34c4b2b90bf38f68f35  ./base/templates/04-tasks-template.md
-2c8f7cc8b1b0f6c42a271cd8bf99d8e779e8b8b2cc729578f9dc91c5da8901ba  ./commands/sdd.md
+7e2c3b06fa345a401abe8f9aec26a479bcd6514eeabcb2e5636a879183dc1fcc  ./commands/sdd.md
 dfb657336dab88aa1db6522a0d61b3155fb563a52a4de91df03d66efc2c9baeb  ./hooks/PINAGEM-HOOKIFY.md
 22961bfe57afe883550edc93190d684ace039bc77e884aac2c361c1dd5bbdfff  ./hooks/VERSION
 d180bf83a0ebb38aabba9f3c95529bc9c7af73b18ee5aaef091cd94d32c3ad31  ./hooks/check-prereqs.sh
@@ -43,4 +43,4 @@ e0f52661442d83b4122924db6e2bdee2688056c2adf217d3ce317b40c23e4ef4  ./hooks/mensag
 b3537e938d36f0c81f55c2d8f5e99fecbb39f7e8428da9899467e7563d960312  ./hooks/scripts/secret-commit-gate.py
 ba9a9c36ef11bd5b619801a53c5abb5ae527e4c2b98e12e23930cfc09ddb4b66  ./hooks/scripts/spec-approval-warn.py
 1250f9e156f7cf0eb5def3b4b8bfe16910409ea3167ca915a27c4421c4f29c54  ./skills/sdd-conductor/SKILL.md
-10f9a95c35efd2788fdebdb96e6dabc1b29957b081d16bbdd80edee1a0012858  ./skills/sdd-setup/SKILL.md
+43be6351348c46429086e5aa5b13855842b305d9e334ccd26d68031d4c4dc48c  ./skills/sdd-setup/SKILL.md

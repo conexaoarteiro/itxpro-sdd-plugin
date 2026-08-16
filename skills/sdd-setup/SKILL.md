@@ -47,14 +47,14 @@ A pergunta e o exemplo de cada id vivem na própria lacuna do template. Faça a 
 |---|---|---|
 | 1 de 6 | Identidade | `nome-projeto`, `descricao-produto`, `diferencial-negocio`, `referencia-estilo` |
 | 2 de 6 | Domínio e dado | `fonte-dado-dominio`, `dado-sensivel-dominio`, `papeis-projeto`, `nunca-do-dominio` |
-| 3 de 6 | Stack por camada | `stack-linguagem`, `stack-backend`, `stack-web`, `stack-mobile`, `stack-integracoes`, `topologia-dado`, `topologia-aplicacao`, `topologia-pipeline` |
+| 3 de 6 | Stack por camada | `stack-linguagem`, `stack-backend`, `stack-web`, `stack-mobile`, `stack-integracoes`, `topologia-dado`, `topologia-aplicacao`, `topologia-pipeline`, `design-system` |
 | 4 de 6 | Conhecimento e agentes | nenhum id; respostas vão só ao registro |
 | 5 de 6 | Compliance | `compliance-especifico` |
 | 6 de 6 | Fechamento | `versao-plugin` (automática, nunca perguntada) |
 
 - **Bloco 1**: do fácil pro denso. Nome, produto, diferencial, estilo de escrita.
 - **Bloco 2**: três a quatro abertas, cada uma com o exemplo da lacuna. Aviso de higiene antes.
-- **Bloco 3**: aviso de higiene antes. Para cada camada, apresente o default do template, uma alternativa e um insight de uma frase no formato "X te serve até Y; troque se Z". Aceite por camada em uma palavra; "aceitar o bloco inteiro" fecha as oito camadas de uma vez.
+- **Bloco 3**: aviso de higiene antes. Para cada camada, apresente o default do template, uma alternativa e um insight de uma frase no formato "X te serve até Y; troque se Z". Aceite por camada em uma palavra; "aceitar o bloco inteiro" fecha as nove camadas de uma vez. Na camada `design-system`, resposta "não tenho" grava este texto fixo (vem da skill, não é geração): `Sem design system definido. A primeira fatia com UI cria o do projeto em specs/_design-system/ e ele passa a reger daí em diante.` "Não sei" grava PENDENTE como qualquer id. Pergunta da camada, no ritmo desenhado: "Camada design system: o projeto já tem um design system definido? Se sim, diga qual e onde vive (repositório, pacote ou URL dos tokens). Ex.: tokens e CSS no repositório acme-designsystem. 'Não tenho' vale e fecha a camada: a primeira fatia com UI cria o do projeto. Insight: design system declarado vira o guia do ux-architect e das demais vozes em telas, relatórios e dashboards."
 - **Bloco 4**: o projeto tem base de conhecimento pra RAG? Existe MCP de acesso a dado? Quais outros MCPs os agentes usam? Nenhuma lacuna no template: a resposta vai ao registro da entrevista e o que exigir decisão vira pendência declarada lá.
 - **Bloco 5**: LGPD é afirmação, não pergunta: a constituição já a assume (contexto Brasil). Pergunte o compliance específico com o menu único abaixo. Múltipla escolha; "nenhum" e "não sei" valem.
 - **Bloco 6**: fechamento (seção Término).

@@ -22,7 +22,7 @@ Leia o campo `version` de `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`. To
 2. **`CLAUDE.md` existe e não tem `[[LACUNA:`** → constituição fechada. Antes de qualquer mesa:
 
    - Conte as pendências: `grep -cE 'PENDENTE:[a-z0-9-]+' CLAUDE.md`. Se houver, avise agora, nunca no meio da mesa: "N pendências abertas na constituição (enumere os ids com a pergunta ao lado, do registro da entrevista). Elas não bloqueiam; revise com a skill sdd-setup quando quiser." É ritmo, não bloqueio.
-   - Compare a versão da linha de origem (`> Nascida do plugin: itxpro-sdd@...` no `CLAUDE.md`) com a instalada. Divergência gera um aviso de uma linha ("constituição nascida em X.Y.Z, plugin instalado em A.B.C") e nada mais. Não bloqueie e não reescreva a linha: ela registra nascimento, não versão corrente.
+   - Compare a versão da linha de origem com a instalada. Leia a versão da linha com a regex ancorada `itxpro-sdd@[0-9]+\.[0-9]+\.[0-9]+` (nunca pegue pontuação vizinha: a linha pode terminar em ponto). Divergência gera um aviso de uma linha ("constituição nascida em X.Y.Z, plugin instalado em A.B.C") e nada mais. Não bloqueie e não reescreva a linha: ela registra nascimento, não versão corrente.
    - Invoque a skill `sdd-conductor`, repassando os argumentos do comando: $ARGUMENTS
 
 ## Abertura com constituição fechada

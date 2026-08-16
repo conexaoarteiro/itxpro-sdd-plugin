@@ -163,5 +163,5 @@
   <circle cx="895" cy="833" r="7" fill="#0CA30C"/>
   <text x="912" y="838" font-size="12" fill="rgba(240,235,225,0.70)">fatia no ar</text>
 
-  <text x="1552" y="838" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="rgba(240,235,225,0.55)">itxpro-sdd v0.1.0</text>
+  <text x="1552" y="838" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="rgba(240,235,225,0.55)">itxpro-sdd v0.2.0</text>
 </svg>
