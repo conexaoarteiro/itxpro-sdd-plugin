@@ -8,6 +8,10 @@
 
 Resumo da solução técnica em poucos parágrafos. A mais simples que atende a spec.
 
+## Fronteiras e módulos
+
+(architect) O módulo que a fatia cria ou estende, o que ele expõe e o que consome. A atualização correspondente de `specs/_arquitetura/mapa-do-sistema.md` entra como tarefa da fatia. Na primeira fatia com código, esta seção declara as entradas iniciais do mapa. Se a fatia não toca módulo, diga.
+
 ## Modelo de dados
 
 Tabelas, colunas, relações. Para cada tabela com dado pessoal, a política de acesso por papel (RLS quando a stack for Supabase).

@@ -16,8 +16,6 @@
 
 ## Princípios de engenharia (by design)
 
-Estes princípios moldam o desenho desde o começo. Valem junto com os princípios de produto.
-
 1. Privacy e security by design, proporcional ao risco. Toda fatia é classificada por sensibilidade de dado no início. A classificação calibra quanta cerimônia de segurança ela paga. Segurança molda o desenho, não só audita o resultado.
 2. Experiência é cidadã de primeira classe, para humano e para agente. O produto é desenhado para a pessoa (UX e DEX) e para os agentes dos usuários (AX), com a mesma seriedade.
 3. AI-first nos contratos. Todo contrato nasce consumível por agente, não só por tela. Expor superfície MCP é feature de fatia futura, mas a prontidão é princípio de agora.
@@ -26,6 +24,7 @@ Estes princípios moldam o desenho desde o começo. Valem junto com os princípi
 6. Procedência antes de afirmação. Afirmação sobre o repo, o dado ou o domínio nasce de fonte verificada com ferramenta (`grep`, build, teste), não de memória. Nenhuma mesa fecha citando arquivo que ninguém abriu.
 7. Artefato de registro imutável. Decisão registrada em `docs/decisoes/` não se reescreve. Entendimento novo gera nota nova, que referencia e supersede a antiga. O histórico fica auditável.
 8. Lacuna declarada vence lacuna silenciosa. O que falta ou não foi decidido se escreve no artefato: questão aberta na spec, lacuna entre colchetes. Agente que encontra lacuna a declara, nunca a preenche por inferência.
+9. Fronteira declarada antes de código. O mapa do sistema em `specs/_arquitetura/mapa-do-sistema.md` rege a estrutura: o plano declara o módulo que a fatia cria ou estende e a fatia atualiza o mapa no mesmo passo.
 
 ## Fluxo de construção: três fases em mesa redonda
 
@@ -61,7 +60,7 @@ Os cartões de padrão de engenharia (evals de IA, observabilidade e os que vier
 Estouro de contexto causa alucinação. Estas regras protegem toda sessão de trabalho:
 
 1. Este `CLAUDE.md` tem teto de 120 linhas. Ele é índice e regra dura: aponta para `docs/`, não inlina conteúdo.
-2. Contexto mínimo com recuperação sob demanda. Cada agente lê só o que o mandato pede: a constituição e a spec da fatia atual. Carregar spec de outra fatia, dump de arquivo inteiro ou backlog completo é violação.
+2. Contexto mínimo com recuperação sob demanda. Cada agente lê só o que o mandato pede: a constituição, a spec da fatia atual e o mapa do sistema, quando existir. Carregar spec de outra fatia, dump de arquivo inteiro ou backlog completo é violação.
 3. Estado vive em artefato, não em conversa. O disco é a memória, a sessão é descartável. Estado durável vive em arquivo: `04-tasks.md`, registro de decisão da mesa, nota em `docs/decisoes/`. Sessão nova retoma do arquivo, não da conversa. Prefira sessão nova por fase.
 4. Subagente lê, sessão principal decide. Leitura pesada vai pra subagente, que devolve síntese. Mesa com teto: máximo duas rodadas de crítica cruzada e registro de decisão curto.
 

@@ -22,7 +22,7 @@ Mesa: architect (conduz), security-privacy-architect, ux-architect, devsecops.
 
 Discussão: o architect propõe o desenho. A segurança molda o controle de acesso e a ameaça ao vivo. O UX molda interação e aplica o sistema de design. O DevSecOps molda deploy, config, observabilidade e orçamento de desempenho. Tudo tecido junto, não anexado depois.
 
-Saída: um plano e uma lista de tarefas, com modelo de dados e política de acesso, modelagem de ameaça proporcional, contratos prontos pra agente, design de interação, plano de deploy e config, e budget de desempenho.
+Saída: um plano e uma lista de tarefas, com modelo de dados e política de acesso, fronteiras e módulos declarados, modelagem de ameaça proporcional, contratos prontos pra agente, design de interação, plano de deploy e config, e budget de desempenho.
 
 Portão: por exceção. O desenho passa sozinho quando a mesa fecha sem bloqueio. Ele sobe pro humano só quando há divergência aberta ou veto de segurança. Nos primeiros slices de um projeto, dá pra manter portão fixo até confiar na mesa, e depois soltar para a exceção.
 
@@ -75,7 +75,7 @@ A cerimônia escala com três triagens feitas no começo:
 A mesa gasta token e contexto, e os dois têm teto:
 
 - Máximo duas rodadas de crítica cruzada. Mandato afiado entra, decisão unificada sai.
-- Cada voz recebe só o que o mandato pede: a constituição e a spec da fatia atual. Nada de spec antiga, backlog ou dump de arquivo.
+- Cada voz recebe só o que o mandato pede: a constituição, a spec da fatia atual e o mapa do sistema, quando existir. Nada de spec antiga, backlog ou dump de arquivo.
 - Leitura pesada (varrer código, auditar, pesquisar) vai pra subagente, que devolve síntese. O dump morre no contexto do subagente.
 - O produto da mesa vive em disco: o artefato (spec, plano ou veredito) e um registro de decisão curto. Sessão nova retoma do arquivo, não da conversa. Prefira sessão nova por fase.
 - Nenhuma mesa fecha citando arquivo que ninguém abriu. Afirmação sobre o repo se verifica com ferramenta, não de memória.
@@ -88,7 +88,7 @@ O framework implementa padrões conhecidos da engenharia de agentes. Os nomes al
 
 - Plan-and-Execute no macro. O fluxo spec, plano, execução com portões humanos. Escolhido sobre ReAct puro no nível de fatia: planejar uma vez e executar tarefas pequenas gasta menos token e alucina menos do que re-raciocinar a cada passo.
 - ReAct no micro. Cada agente, dentro da sua tarefa, opera no loop raciocínio-ação-observação do Claude Code.
-- Blackboard como contexto compartilhado. Os agentes não conversam entre si; colaboram por um quadro comum, os artefatos da fatia em disco (spec, plano, tarefas, threat-model). A mesa é a leitura cruzada desse quadro.
+- Blackboard como contexto compartilhado. Os agentes não conversam entre si; colaboram por um quadro comum, os artefatos da fatia em disco (spec, plano, tarefas, threat-model). A mesa é a leitura cruzada desse quadro. O mapa do sistema estende o quadro na dimensão entre fatias: memória estrutural curada que toda fatia mantém.
 - Taxonomia de memória. Semântica: a constituição, o que é sempre verdade. De trabalho: os artefatos da fatia atual. Episódica: `docs/decisoes/` e o registro de conhecimento do projeto, o que aconteceu e por quê. Os agentes são deliberadamente reativos e sem estado; a memória vive em disco, curada. Memória automática (captura de transcript) não entra sem nota de decisão.
 
 ## Governança de contribuição

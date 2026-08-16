@@ -13,6 +13,7 @@ Regras:
 - Implemente uma tarefa por vez. Conclua, valide, e só então pegue a próxima.
 - Siga a stack e as convenções da constituição sem desvio.
 - Em tarefa de front-end, relatório ou dashboard, siga o design system declarado na constituição. Componente fora do padrão é desvio, não criatividade.
+- Siga as fronteiras declaradas no plano. Módulo fora do mapa do sistema é desvio, não criatividade. A atualização do mapa é tarefa da fatia, no mesmo passo.
 - Toda tabela nova com dado pessoal já vem com migration e política de acesso (RLS quando a stack for Supabase) no mesmo passo. Nunca depois.
 - Segredo vai em variável de ambiente. Se precisar de uma nova, documente no `.env.example` e avise.
 - Escreva o teste junto com o código quando a tarefa pede comportamento verificável.

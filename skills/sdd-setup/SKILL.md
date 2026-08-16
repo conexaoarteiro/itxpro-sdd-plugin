@@ -91,7 +91,8 @@ Cópia é copy-if-absent: arquivo que já existe no projeto nunca é sobrescrito
 | Origem (base/) | Destino no projeto |
 |---|---|
 | `constituicao-template.md` | `CLAUDE.md` (preenchido pela entrevista) |
-| `templates/` (01-spec, 03-plan, 04-tasks) | `specs/_templates/` |
+| `templates/` (01-spec, 03-plan, 04-tasks, mapa-do-sistema-template) | `specs/_templates/` |
+| `padroes/*.md` (cartões de padrão de engenharia) | `docs/padroes/` |
 | `skills-padrao.md` | `docs/skills-padrao.md` |
 | `fluxo-sdd.md` | `docs/fluxo-sdd.md` |
 | `diagrama-pipeline-sdd.svg` | `docs/diagrama-pipeline-sdd.svg` |

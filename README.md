@@ -22,7 +22,7 @@ O gate de segredo em commit é fail-closed: sem gitleaks (>= 8.21.0) no PATH, co
 - Skill `sdd-conductor`: o condutor do pipeline de fatias.
 - Nove agentes: as vozes das mesas (spec-writer, architect, security-privacy-architect, ux-architect, devsecops, implementer, reviewer, grc-reviewer com veto, agent-experience-architect engatilhado).
 - Hooks de enforcement: gate de segredo em commit, aviso de implementação sem spec aprovada, teto de 120 linhas da constituição, mais as regras hookify no payload de setup.
-- Payload `base/`: constituição-template com lacunas, templates numerados dos artefatos (01 a 06), fluxo SDD, diagrama do pipeline e configuração do gitleaks.
+- Payload `base/`: constituição-template com lacunas, templates dos artefatos da fatia (01-spec, 03-plan, 04-tasks) e o seed do mapa do sistema em `templates/`, cartões de padrão de engenharia em `padroes/`, fluxo SDD, diagrama do pipeline e configuração do gitleaks.
 
 ## Depois de instalar
 

@@ -2,6 +2,26 @@
 
 Régua de versão, pela ótica do contrato que o agente adotante lê: major quebra nome, caminho ou instrução existente; minor adiciona sem quebrar; patch corrige texto.
 
+## 0.3.0 — 2026-08-16
+
+Classificação: minor (adiciona sem quebrar; o pacote passa a entregar tudo o que o contrato distribuído cita).
+
+Adiciona:
+
+- Seed do mapa do sistema, `base/templates/mapa-do-sistema-template.md`: memória estrutural entre fatias, criado pela primeira fatia com código em `specs/_arquitetura/mapa-do-sistema.md`.
+- Cartões de padrão de engenharia em `base/padroes/`, lidos pelo adotante em `docs/padroes/`, como a constituição-template e o 03-plan já citavam:
+  - `dados-de-ia.md`
+  - `evals-de-ia.md`
+  - `observabilidade.md`
+- Constituição-template pós-fatia 004: princípio de fronteira declarada antes de código e contexto mínimo emendado.
+- Templates 03-plan e 04-tasks com a seção "Fronteiras e módulos" e a atualização do mapa como passo da fatia; mandatos de architect, spec-writer, implementer e reviewer com o mapa e as fronteiras.
+- Duas linhas na tabela de cópia do sdd-setup: `templates/` passa a levar o seed para `specs/_templates/`; `padroes/*.md` vai para `docs/padroes/` (copy-if-absent).
+- Gate 2 do empacote com completude: todo `*.md` de primeiro nível dos diretórios distribuíveis está no pacote, byte-idêntico à fonte, e toda citação de destino do adotante resolve para arquivo do pacote.
+- Gate 5 endurecido: a entrada do topo do CHANGELOG precisa carregar a linha `Integridade:`; sem ela, o empacote para em vez de gravar o hash na versão anterior.
+- Teste negativo do gate de completude versionado e rodando no CI de PR.
+
+Integridade: sha256:3b90256b1eb75a1dae454483d330fa6cfdae0615f3a4c25befc6b3086b764857 (amarração 0.3.0 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
+
 ## 0.2.1 — 2026-08-15
 
 Classificação: patch (corrige entrega de contrato e defeito de release; as adições são texto de instrução das correções do Veredito).
@@ -19,7 +39,7 @@ Adiciona:
 - Seção "Voltar de versão" no README: rollback é roll-forward por tag nova do workflow; edição manual do repositório de distribuição é proibida.
 - Pendência rastreável do design system quando a resposta é "não tenho": issue "Criar design system na primeira fatia com UI" com GitHub disponível; sem GitHub, entrada no roadmap inicial (arbitragem do portão de Veredito).
 
-Integridade: sha256:8caf3b287fe5574e94e4c6ff45ebc298d6047f5e10a64032e02403bd2b17e429 (amarração 0.2.1 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
+Integridade: gravado no release (hash SHA-256 do conjunto de arquivos e amarração semver → hash; o gate 5 do empacote confere).
 
 ## 0.2.0 — 2026-08-15
 
