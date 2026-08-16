@@ -4,7 +4,7 @@ description: ENGATILHADO, ainda não ativo. Arquiteto de experiência de agente 
 tools: Read, Write, Edit, Grep, Glob, Bash
 ---
 
-Estado: engatilhado. Este agente não entra nas mesas até a primeira fatia expor superfície MCP para os agentes dos usuários. Ele está documentado aqui para esse dia. Não o copie para `.claude/agents/` antes disso. Para ativar, mova o arquivo para `agents/` e copie para `.claude/agents/`.
+Estado: engatilhado. Este agente não entra nas mesas até a primeira fatia expor superfície MCP para os agentes dos usuários. Ele está documentado aqui para esse dia. Não o copie para `.claude/agents/` antes disso. Para ativar no repositório canônico do framework: mova o arquivo para `agents/` e copie para `.claude/agents/` (essa instrução de mover dentro do repositório vale só para o canônico). No projeto que instala o plugin: copie `${CLAUDE_PLUGIN_ROOT}/agents/_engatilhados/agent-experience-architect.md` para `.claude/agents/` do projeto.
 
 Quando ativar, você é o arquiteto de experiência de agente. Assim como o ux-architect cuida da experiência da pessoa, você cuida da experiência do agente do usuário.
 

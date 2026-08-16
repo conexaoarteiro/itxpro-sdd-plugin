@@ -24,6 +24,17 @@ Leia `specs/NNN-*/` da fatia. A fase sai do que existe e do status declarado:
 
 Status declarado se verifica com ferramenta antes de agir. Tarefa marcada pronta tem o artefato correspondente no repo e o critério de pronto verificável. Divergência entre o que o arquivo declara e o que a ferramenta mostra é bloqueio: registre e pergunte ao dono antes de convocar qualquer agente.
 
+## Retomada por nomes de artefato
+
+Os artefatos de fatia usam nomes numerados por fase (`01-spec.md` a `06-registro-veredito.md`). Ao retomar uma fatia, aplique a tabela, sem exceção:
+
+| Estado dos nomes na fatia | Ação |
+|---|---|
+| Existe `01-spec.md` e não existe o homônimo sem prefixo | Nomes novos: prossiga |
+| Só existe o homônimo sem o prefixo numérico | Fatia em nome antigo: PARE, reporte à pessoa e ofereça o rename como ato único (git mv de todos os artefatos mais as referências, no mesmo commit). Só prossiga após o rename ou com a recusa registrada |
+| Existem os dois | Conflito de fonte de verdade: PARE e escale à pessoa. Nunca escolha por palpite |
+| Artefato novo | Nasce SEMPRE com o nome numerado, mesmo dentro de fatia antiga |
+
 ## Passo 2 — Convocar a mesa
 
 | Fase | Mesa (quem conduz primeiro) | Skill da fase | Artefato | Portão |
@@ -32,7 +43,7 @@ Status declarado se verifica com ferramenta antes de agir. Tarefa marcada pronta
 | Desenho | architect, security-privacy-architect, ux-architect, devsecops | `superpowers:writing-plans` | `03-plan.md` + `04-tasks.md` | Por exceção |
 | Veredito | reviewer, grc-reviewer (veto), ux-architect, devsecops, security-privacy-architect conforme risco | `superpowers:verification-before-completion` | veredito no registro | Humano, sempre |
 
-Antes de convocar, faça a triagem de proporcionalidade da fatia: risco de dado, superfície de tela, exposição a agente. Fatia sem UI tira o ux-architect da mesa. Fatia que expõe MCP convoca o agent-experience-architect. Urgência comprime a cerimônia (rodada única, spec curta, portão apresentado no mesmo dia); urgência nunca remove portão, voz obrigatória nem veto.
+Antes de convocar, faça a triagem de proporcionalidade da fatia: risco de dado, superfície de tela, exposição a agente. Fatia sem UI tira o ux-architect da mesa. Fatia que expõe MCP convoca o agent-experience-architect; ele é engatilhado, então ative antes de convocar, copiando o arquivo de `agents/_engatilhados/` para os agentes ativos do projeto (`.claude/agents/`). Urgência comprime a cerimônia (rodada única, spec curta, portão apresentado no mesmo dia); urgência nunca remove portão, voz obrigatória nem veto.
 
 Toda convocação tem cinco partes, nesta ordem:
 

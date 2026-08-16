@@ -28,6 +28,10 @@ O gate de segredo em commit é fail-closed: sem gitleaks (>= 8.21.0) no PATH, co
 
 Rode `/sdd`. Sem constituição no projeto, ele aponta o setup; com constituição fechada, ele conduz a fatia.
 
+## Voltar de versão
+
+Rollback do adotante é roll-forward: uma tag nova, publicada pelo workflow de release, com o conteúdo desejado. Reinstale pinado nessa tag. Nunca edite o repositório de distribuição na mão: só o workflow escreve nele.
+
 ## Local-only
 
 Nada sai da sua máquina. O plugin não tem telemetria, não faz chamada de rede em arquivo executável e as respostas da entrevista só vivem em arquivos do seu repositório.
