@@ -23,7 +23,7 @@
 5. Segregação de função, com veto que sobrevive ao consenso. Quem desenha a restrição não é o único que a julga. A mesa converge onde dá e nomeia a divergência onde não dá. Veto continua veto.
 6. Procedência antes de afirmação. Afirmação sobre o repo, o dado ou o domínio nasce de fonte verificada com ferramenta (`grep`, build, teste), não de memória. Nenhuma mesa fecha citando arquivo que ninguém abriu.
 7. Artefato de registro imutável. Decisão registrada em `docs/decisoes/` não se reescreve. Entendimento novo gera nota nova, que referencia e supersede a antiga. O histórico fica auditável.
-8. Lacuna declarada vence lacuna silenciosa. O que falta ou não foi decidido se escreve no artefato: questão aberta na spec, lacuna entre colchetes. Agente que encontra lacuna a declara, nunca a preenche por inferência.
+8. Lacuna declarada vence lacuna silenciosa. O que falta ou não foi decidido se escreve no artefato: questão aberta na spec, lacuna entre colchetes. Agente que encontra lacuna a declara, nunca a preenche por inferência. Lacuna do próprio framework SDD: inove com registro em `docs/decisoes/` e abra issue de melhoria no repositório do plugin, https://github.com/conexaoarteiro/itxpro-sdd-plugin/issues (pública: sem segredo, log bruto, `.env` nem dado pessoal).
 9. Fronteira declarada antes de código. O mapa do sistema em `specs/_arquitetura/mapa-do-sistema.md` rege a estrutura: o plano declara o módulo que a fatia cria ou estende e a fatia atualiza o mapa no mesmo passo.
 
 ## Fluxo de construção: três fases em mesa redonda
@@ -83,7 +83,7 @@ Decisão tomada para reduzir superfície e aproveitar o que já existe. Mudar qu
 
 ## Regras de domínio e privacidade
 
-- Toda tabela com dado pessoal usa Row Level Security no Supabase. Sem exceção.
+- Toda tabela com dado pessoal nasce com política de acesso por papel imposta no próprio banco (Row Level Security ou o equivalente da stack declarada). Sem exceção.
 - Cada usuário só enxerga o próprio dado. Os demais papéis enxergam conforme função.
 - Papéis mínimos: [[LACUNA:papeis-projeto | pergunta: quais os papéis de acesso do projeto | ex.: usuario, equipe, admin]]
 - Nenhum dado pessoal vai pra log, telemetria ou mensagem de erro.
@@ -97,7 +97,7 @@ Decisão tomada para reduzir superfície e aproveitar o que já existe. Mudar qu
 - Nomes de arquivo e pasta em kebab-case; componentes React em PascalCase.
 - Sem comentário óbvio. Comentário explica porquê, não o quê.
 - Migration de banco sempre versionada e reversível.
-- Toda função de acesso a dado assume que o RLS está ligado e testa isso.
+- Toda função de acesso a dado assume que a política de acesso do banco está ligada e testa isso.
 
 ## O que nunca fazer
 
@@ -106,7 +106,7 @@ Decisão tomada para reduzir superfície e aproveitar o que já existe. Mudar qu
 - Nunca colocar segredo no repositório.
 - Nunca pular o `grc-reviewer` em fatia que toca dado pessoal.
 - Nunca expor dado pessoal a agente via MCP sem token escopado e política de acesso idêntica.
-- Nunca trazer Kubernetes ou self-host de Supabase sem nota de decisão registrada em `docs/decisoes/`.
+- Nunca operar infraestrutura própria (orquestrador de containers, banco ou plataforma self-hosted) no lugar do serviço gerenciado declarado na stack sem nota de decisão registrada em `docs/decisoes/`.
 - Nunca deixar uma fase fechar engolindo um veto. Veto sobrevive ao consenso.
 - Nunca manter backlog em markdown no repo. Backlog é issue no GitHub, consultada sob demanda.
 - Nunca deixar esta constituição passar de 120 linhas. Conteúdo novo vai pra `docs/` e é referenciado.

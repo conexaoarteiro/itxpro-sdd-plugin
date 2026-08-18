@@ -4,7 +4,7 @@ Fonte única do texto que cada hook exibe. As regras hookify copiam o texto daqu
 
 Anatomia fixa de toda mensagem: **fato → regra → caminho**. O fato diz o que foi detectado. A regra cita a seção da constituição que fundamenta. O caminho é ação executável, não conselho vago.
 
-Âncoras verificadas em `framework/constituicao-template.md` (título literal das seções): "O que nunca fazer", "Gestão de trabalho", "Regras de domínio e privacidade", "Engenharia de contexto e harness". Mensagem nova só entra citando seção que existe no template.
+Âncoras verificadas em `base/constituicao-template.md` do pacote (título literal das seções): "O que nunca fazer", "Gestão de trabalho", "Regras de domínio e privacidade", "Engenharia de contexto e harness". Mensagem nova só entra citando seção que existe no template.
 
 Vocabulário único nas três camadas de segredo (aviso na escrita, gate de commit, varredura no CI), que contam a mesma história com os mesmos termos: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor; falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato); a varredura no CI é a linha autoritativa.
 
@@ -24,7 +24,7 @@ Bloqueio. Regras hookify `block-backlog-md` (evento file, `hookify.block-backlog
 
 ## 2. Segredo em escrita (shift-left)
 
-Aviso. Regras hookify `warn-segredo-shift-left-file` e `warn-segredo-shift-left-bash`. São dois arquivos com o mesmo texto porque o motor hookify aceita um evento por regra e avalia condições em AND sobre o input da ferramenta: `content` não existe em input de Bash e `command` não existe em input de Write/Edit. A exclusão por path de `framework/hooks/test/corpus/` está nas condições das duas regras, para o corpus de teste não disparar aviso. Restrição do parser do hookify, descoberta em execução real: o frontmatter não pode conter `---` literal (o parser corta ali e a regra quebra em silêncio), por isso o padrão PEM usa `-{5}` no lugar dos cinco hífens. Mensagem estática:
+Aviso. Regras hookify `warn-segredo-shift-left-file` e `warn-segredo-shift-left-bash`. São dois arquivos com o mesmo texto porque o motor hookify aceita um evento por regra e avalia condições em AND sobre o input da ferramenta: `content` não existe em input de Bash e `command` não existe em input de Write/Edit. A exclusão por path do corpus de teste do canônico está nas condições das duas regras, para o corpus de teste não disparar aviso. Restrição do parser do hookify, descoberta em execução real: o frontmatter não pode conter `---` literal (o parser corta ali e a regra quebra em silêncio), por isso o padrão PEM usa `-{5}` no lugar dos cinco hífens. Mensagem estática:
 
 > Aviso (heurística): o texto contém um padrão que parece segredo (chave AWS `AKIA…`, token GitHub `ghp_…`, chave `sk-…` ou bloco PEM de chave privada). A detecção é regex simples, sem entropia e sem allowlist: pode ser falso positivo.
 >
@@ -58,7 +58,7 @@ Fail-closed (gitleaks ausente do PATH ou erro de execução):
 >
 > `curl -sSL https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz | tar -xz gitleaks && sudo mv gitleaks /usr/local/bin/`
 >
-> Versão mínima: `framework/hooks/README.md`, seção "Pré-requisito: gitleaks".
+> Versão mínima: README do plugin, seção "Pré-requisito: gitleaks".
 
 Variante do CI (passo `if: failure()` do `gitleaks.yml` imprime no log do job, para a camada autoritativa falar a mesma língua; os achados, sempre com valor mascarado, ficam no passo anterior):
 

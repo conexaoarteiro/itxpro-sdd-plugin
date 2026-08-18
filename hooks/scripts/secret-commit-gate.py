@@ -50,7 +50,7 @@ Desempenho (orçamento do plano): caso não-commit é só parse de JSON + regex,
 ~instantâneo; caso commit p95 < 1s (o `git --pre-commit --staged` varre só o
 diff staged). Timeout de 30s na varredura ⇒ fail-closed.
 
-Texto das mensagens: catálogo `framework/hooks/mensagens.md`, seção 3.
+Texto das mensagens: catálogo `hooks/mensagens.md`, seção 3.
 Somente stdlib do Python 3.
 """
 
@@ -99,7 +99,7 @@ MSG_FAIL_CLOSED = (
     "`curl -sSL https://github.com/gitleaks/gitleaks/releases/download/"
     "v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz | tar -xz gitleaks && "
     "sudo mv gitleaks /usr/local/bin/`\n\n"
-    "Versão mínima: `framework/hooks/README.md`, "
+    "Versão mínima: README do plugin, "
     'seção "Pré-requisito: gitleaks".'
 )
 

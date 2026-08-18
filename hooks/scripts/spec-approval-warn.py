@@ -8,7 +8,7 @@ Fail-open por decisão do plano: erro interno nunca bloqueia a ferramenta.
 Gatilho de "implementação" (versionado aqui, junto à regra):
   - extensão do arquivo na lista EXTENSOES_DE_CODIGO; E
   - path fora dos diretórios de PATHS_EXCLUIDOS (specs/, docs/, .claude/,
-    .github/, framework/, _templates/). A exclusão vale para qualquer
+    .github/, framework, _templates). A exclusão vale para qualquer
     segmento do path relativo à raiz do projeto: escolha conservadora que
     prefere silêncio a falso positivo, coerente com o modo fail-open.
 
@@ -33,7 +33,7 @@ Escolha documentada: em PreToolUse, exit 2 bloqueia a ferramenta (proibido
 aqui, o modo é aviso) e stderr com exit 0 só aparece em modo debug, ou
 seja, o aviso morreria invisível. O `systemMessage` do formato JSON de
 saída de hooks exibe a mensagem sem decidir permissão: não bloqueia.
-Texto da mensagem: catálogo `framework/hooks/mensagens.md`, seção 4.
+Texto da mensagem: catálogo `hooks/mensagens.md`, seção 4.
 """
 
 import json

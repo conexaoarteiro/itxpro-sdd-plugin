@@ -13,11 +13,11 @@ Comportamento:
 - Só age quando o nome do arquivo é exatamente `CLAUDE.md` (case exato,
   qualquer diretório).
 - Conta as linhas do arquivo no disco. Acima de 120, emite o aviso do
-  catálogo (framework/hooks/mensagens.md, seção 5) com "N/120".
+  catálogo (hooks/mensagens.md, seção 5) com "N/120".
 - Em qualquer outro caso, silêncio total.
 
 Somente stdlib do Python 3. Texto da mensagem: fonte única em
-framework/hooks/mensagens.md.
+hooks/mensagens.md.
 """
 
 import json

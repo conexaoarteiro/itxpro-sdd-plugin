@@ -2,7 +2,7 @@
 # Check de pré-requisito dos hooks de enforcement (fatia 001, T01).
 # Verifica gitleaks no PATH e versão mínima. Mensagens seguem a anatomia
 # fato -> regra -> caminho, com comando de instalação copiável.
-# Uso: sh framework/hooks/check-prereqs.sh
+# Uso: sh hooks/check-prereqs.sh (a partir da raiz do plugin)
 
 set -u
 
@@ -31,7 +31,7 @@ EOF
 if ! command -v gitleaks >/dev/null 2>&1; then
   {
     echo "Fato: gitleaks não está no PATH."
-    echo "Regra: o gate de commit é fail-closed; sem gitleaks, nenhum commit passa (framework/hooks/README.md, seção 'Pré-requisito: gitleaks')."
+    echo "Regra: o gate de commit é fail-closed; sem gitleaks, nenhum commit passa (README do plugin itxpro-sdd, seção 'Pré-requisito: gitleaks')."
     install_hint
   } >&2
   exit 1
@@ -58,7 +58,7 @@ LOWEST="$(printf '%s\n%s\n' "$VERSION" "$MIN_VERSION" | sort -V | head -n1)"
 if [ "$LOWEST" != "$MIN_VERSION" ]; then
   {
     echo "Fato: gitleaks ${VERSION} instalado; a versão mínima é ${MIN_VERSION}."
-    echo "Regra: o .gitleaks.toml compartilhado usa allowlists por regra, sintaxe da 8.21.0 em diante; versão anterior ignora a allowlist em silêncio (framework/hooks/README.md)."
+    echo "Regra: o .gitleaks.toml compartilhado usa allowlists por regra, sintaxe da 8.21.0 em diante; versão anterior ignora a allowlist em silêncio (README do plugin itxpro-sdd, seção 'Pré-requisito: gitleaks')."
     install_hint
   } >&2
   exit 1

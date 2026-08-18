@@ -28,3 +28,8 @@ Leia o campo `version` de `${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json`. To
 ## Abertura com constituição fechada
 
 A primeira mensagem mostra, nesta ordem: a versão instalada, a fatia corrente (pelo disco, `specs/NNN-*/`), a fase (pela tabela de estado da skill do condutor) e uma única próxima ação. Uma ação, não um menu.
+
+Depois da próxima ação, dois complementos:
+
+- **Aviso de branch à frente**, só quando detectável e verdadeiro. Detecte o branch padrão com `git symbolic-ref --short refs/remotes/origin/HEAD` (sem `origin/HEAD` local, nenhum aviso: residual declarado, o fechamento de fase do condutor detecta com `set-head`). Se o branch corrente difere do padrão e `git rev-list --count origin/<padrão>..HEAD -- specs/` é maior que zero, uma linha: "Branch `<nome>` está N commit(s) à frente de origin/<padrão> em `specs/`; o estado da fatia só existe neste branch até o fechamento de fase integrar e publicar." Só nome do branch, contagem e `specs/`: nunca URL de remoto, caminho absoluto ou saída bruta de git.
+- **Rodapé de feedback**, sempre, uma linha: "Lacuna do framework? Abra issue em https://github.com/conexaoarteiro/itxpro-sdd-plugin/issues (pública: sem segredo, log bruto, .env nem dado pessoal; descreva por categoria e cite itxpro-sdd@X.Y.Z)."

@@ -17,7 +17,9 @@ Rode `sh "${CLAUDE_PLUGIN_ROOT}/hooks/check-prereqs.sh"` antes de qualquer outra
 
 > É proibido ao agente executar o download ou a instalação do gitleaks. A skill imprime o comando e devolve a execução à pessoa. Sem gitleaks, o gate de commit é fail-closed: commit nenhum passa.
 
-- **Plugin hookify ou superpowers ausente**: continue o setup e declare a ausência como pendência no fechamento e no registro da entrevista. Ausência nunca vira silêncio.
+Depois, rode `python3 "${CLAUDE_PLUGIN_ROOT}/hooks/check-plugins.py"`. Ele lê a tabela "Plugins de terceiros: instalação" de `${CLAUDE_PLUGIN_ROOT}/base/skills-padrao.md` e o registro local de plugins instalados (leitura somente); imprime, para cada ausente, o comando de instalação, a fonte oficial e o que degrada sem ele. Você não instala nada e não roda o comando impresso: repita a lista no fechamento e no registro da entrevista como pendência "plugin ausente: <nome>", com o comando ao lado. Se o script disser "não verificado", a lista inteira entra como não verificada (pendência "plugins não verificados: confira com /plugin"), nunca como presente. Nenhum plugin da tabela é pré-requisito: o setup continua.
+
+- **Plugin recomendado ausente (lista do check-plugins)**: continue o setup e declare a ausência como pendência no fechamento e no registro da entrevista. Ausência nunca vira silêncio.
 
 ## A entrevista
 
@@ -100,6 +102,15 @@ Cópia é copy-if-absent: arquivo que já existe no projeto nunca é sobrescrito
 | `.gitleaks.toml` | raiz do projeto |
 | `gitleaks.yml` | `.github/workflows/gitleaks.yml` |
 
+Quando `gitleaks.yml` for copiado ou já existir no destino, imprima este texto fixo da skill, na íntegra:
+
+> Proteção de segredo neste repositório, camada por camada: (1) o hook local do plugin bloqueia o `git commit` com segredo executado pelo agente nesta sessão do Claude Code (PreToolUse sobre Bash), fail-closed, na sua máquina; commit que você faz no seu terminal não passa por ele; (2) o workflow `.github/workflows/gitleaks.yml` varre o histórico no CI e reporta falha no job; (3) só um required check bloqueia o merge, e required check depende do plano e da visibilidade do repositório no GitHub (repositório privado em plano Free não tem required check). Nenhuma camada dessas é ativada por mim: a (1) e a (2) vêm com o esqueleto; a (3) é configuração sua no GitHub.
+
+Em seguida, uma pergunta opcional, resposta fechada: "Este repositório é privado e está em plano Free? sim / não / não sei." Um destino por resposta:
+
+- "Não" → registro da entrevista: "required check disponível; recomendação: marcar o job do gitleaks como required check nas regras do branch padrão".
+- "Sim", "não sei" ou sem resposta → PENDENTE `required-check-gitleaks` no registro da entrevista, com a recomendação (required check quando o plano permitir, ou repositório público) e os comandos para a própria pessoa verificar: `gh repo view --json isPrivate,visibility` e `gh api user --jq .plan.name` (organização: `gh api orgs/<org> --jq .plan.name`). Você não roda esses comandos nem infere a resposta de arquivo, remoto ou git config: a regra de anti-autopreenchimento vale aqui. A pendência segue o mesmo rito do design system: com GitHub no projeto, issue "Ativar required check do gitleaks quando o plano permitir"; sem GitHub, linha no `docs/roadmap.md` inicial. Ela aparece no fechamento junto das demais pendências.
+
 Crie também, vazios de conteúdo gerado: `docs/decisoes/` (recebe o registro da entrevista) e `docs/roadmap.md` inicial (título e uma linha: as fatias entram pela mesa de Intenção). Os hooks nativos não se copiam: vêm do plugin, via `hooks.json`.
 
 ## Término e idempotência
@@ -122,10 +133,11 @@ Fechamento (Bloco 6), nesta ordem:
 
 1. Resumo por bloco, uma linha cada.
 2. Pendências por id, com a pergunta original ao lado (a pergunta vive no registro da entrevista).
-3. Varredura anunciada: rode `grep -rni itxpro CLAUDE.md`, ignorando só o padrão exato `itxpro-sdd@` da linha de origem; qualquer outro hit é erro de preenchimento, corrija com a pessoa.
-4. Lista do que foi criado (arquivo por arquivo) e do que foi pulado por já existir.
-5. Versão gravada: "constituição nascida do plugin itxpro-sdd@X.Y.Z".
-6. Próximo passo único: "rode /sdd".
+3. Plugins recomendados ausentes (ou não verificados), um por linha, com o comando de instalação ao lado; a instalação é da pessoa.
+4. Varredura anunciada: rode `grep -rni itxpro CLAUDE.md`, ignorando só o padrão exato `itxpro-sdd@` da linha de origem e `itxpro-sdd-plugin` da regra de feedback; qualquer outro hit é erro de preenchimento, corrija com a pessoa.
+5. Lista do que foi criado (arquivo por arquivo) e do que foi pulado por já existir.
+6. Versão gravada: "constituição nascida do plugin itxpro-sdd@X.Y.Z".
+7. Próximo passo único: "rode /sdd".
 
 Re-execução da skill:
 
@@ -141,4 +153,6 @@ Re-execução da skill:
 | "A pessoa hesitou, insisto mais uma vez" | "Não sei" fecha o item na hora. Pendência declarada vence resposta arrancada. |
 | "Gero um roadmap inicial bem completo" | Esqueleto nasce de cópia ou de lacuna, nunca de geração. |
 | "Instalo o gitleaks pra ela, é rápido" | Download é da pessoa. Você imprime o comando e para. |
+| "Instalo o plugin que falta, é um comando" | Você imprime o comando; instalar é da pessoa. Ausente vira pendência, "não verificado" nunca vira presente. |
+| "Confiro com `gh` se o repositório é privado" | Nada sai da máquina e nada se infere: a pessoa responde ou o item vira PENDENTE com o comando para ela rodar. |
 | "A resposta parece um token, mas deve ser exemplo" | Cara de segredo não se grava. Descarte e peça reformulação. |

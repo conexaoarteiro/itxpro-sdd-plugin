@@ -48,8 +48,9 @@ O mandato do condutor:
 - Parar nos portões humanos e apresentar ao dono do projeto a decisão, as divergências e o que precisa de resposta.
 - Nunca implementar nem julgar. Quem constrói é o implementer, quem julga é a mesa de Veredito.
 - Manter o estado do pipeline em disco (`specs/NNN-*/`), nunca na conversa. Sessão nova de condução retoma do disco.
+- Fechar a fase publicando: estado em disco é o branch padrão do repositório publicado em `origin`; o condutor integra por fast-forward e publica antes de recomendar sessão nova, dentro dos limites declarados na skill.
 
-A skill `sdd-conductor` (`framework/skills/sdd-conductor/`) carrega esse mandato como comando invocável em qualquer projeto. O projeto instala a skill em `.claude/skills/` na adoção.
+A skill `sdd-conductor` carrega esse mandato como comando invocável em qualquer projeto e chega com o plugin (`skills/sdd-conductor/`).
 
 ## Como a mesa funciona
 
@@ -77,10 +78,10 @@ A mesa gasta token e contexto, e os dois têm teto:
 - Máximo duas rodadas de crítica cruzada. Mandato afiado entra, decisão unificada sai.
 - Cada voz recebe só o que o mandato pede: a constituição, a spec da fatia atual e o mapa do sistema, quando existir. Nada de spec antiga, backlog ou dump de arquivo.
 - Leitura pesada (varrer código, auditar, pesquisar) vai pra subagente, que devolve síntese. O dump morre no contexto do subagente.
-- O produto da mesa vive em disco: o artefato (spec, plano ou veredito) e um registro de decisão curto. Sessão nova retoma do arquivo, não da conversa. Prefira sessão nova por fase.
+- O produto da mesa vive em disco: o artefato (spec, plano ou veredito) e um registro de decisão curto. Sessão nova retoma do arquivo, não da conversa. "Estado em disco" significa branch padrão do repositório publicado no remoto: commit só em branch de trabalho é memória da sessão. Prefira sessão nova por fase.
 - Nenhuma mesa fecha citando arquivo que ninguém abriu. Afirmação sobre o repo se verifica com ferramenta, não de memória.
 
-O trabalho que alimenta as mesas vem do GitHub Issues (`P0`, `P1`, `P2`) e do `docs/roadmap.md`. Issue promovida entra na mesa de Intenção e vira fatia. Detalhe na nota `docs/decisoes/2026-08-14-gestao-de-trabalho-e-engenharia-de-contexto.md`.
+O trabalho que alimenta as mesas vem do GitHub Issues (`P0`, `P1`, `P2`) e do `docs/roadmap.md`. Issue promovida entra na mesa de Intenção e vira fatia. Detalhe na nota de decisão de origem do framework.
 
 ## Padrões nomeados
 

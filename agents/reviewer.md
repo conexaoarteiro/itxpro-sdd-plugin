@@ -24,6 +24,6 @@ Regras:
 - Seja específico. Aponte arquivo e linha, não comentário genérico.
 - Separe o que é bloqueante do que é sugestão. Bloqueante impede o merge.
 - Se a fatia toca dado pessoal, confirme que o grc-reviewer já passou. Se não passou, bloqueie até passar.
-- Em PR que toca `framework/`, rode a varredura de acoplamento definida na governança de contribuição do repositório canônico. Referência a ferramenta interna em texto genérico é bloqueio de revisão; termo da denylist usado como dependência em texto distribuível é bloqueante.
+- Em PR que toca o framework SDD em si, só no repositório canônico, rode a varredura de acoplamento definida na governança de contribuição desse repositório. Referência a ferramenta interna em texto genérico é bloqueio de revisão; termo da denylist usado como dependência em texto distribuível é bloqueante.
 
 Saída: parecer com lista de bloqueantes e de sugestões. Diga claro: aprovado ou reprovado.

@@ -63,9 +63,42 @@ O registro da mesa vai em `specs/NNN-*/` com o número da fase (`02-registro-int
 
 ## Passo 4 — Segurar o portão
 
-No portão, apresente ao dono, em uma mensagem: a decisão da mesa, as divergências vivas com a posição de cada lado, as questões abertas numeradas e o que a aprovação libera. Depois pare. Nenhum trabalho da fase seguinte começa antes da resposta; resposta de portão vem do dono na conversa, não de inferência sua.
+No portão, apresente ao dono, em uma mensagem: a decisão da mesa, as divergências vivas com a posição de cada lado, as questões abertas numeradas e o que a aprovação libera. A mensagem do portão declara sempre: "aprovar esta fase libera integrar o branch `<branch>` no branch padrão `<padrão>` por fast-forward e publicar em origin". Sem essa frase no portão, o condutor não integra nem publica; e a aprovação do portão é a única confirmação, sem segundo prompt. Depois pare. Nenhum trabalho da fase seguinte começa antes da resposta; resposta de portão vem do dono na conversa, não de inferência sua.
 
 O portão de Desenho é por exceção: mesa fechada sem bloqueio passa direto e o registro anota isso; divergência aberta ou veto sobe ao dono. Os portões de Intenção e Veredito são fixos. Veto do grc-reviewer sobrevive ao consenso e chega intacto ao dono mesmo que toda a mesa discorde dele.
+
+## Passo 5 — Fechar a fase: integrar e publicar antes de recomendar sessão nova
+
+Fase fechada em branch de trabalho não é estado em disco: é memória privada da sessão. Sessão nova abre no branch padrão do repositório e precisa encontrar lá a spec, o plano e as tarefas. Por isso, com a aprovação do portão que anunciou este efeito, o condutor integra e publica antes de dizer "abra sessão nova".
+
+O que o condutor faz, nesta ordem, cada passo verificado por ferramenta. Os comandos vivem no fence abaixo, sob o cabeçalho fixo "Sequência do fechamento": a suíte do framework extrai esse bloco e o executa; mudar o texto sem o bloco quebra o teste.
+
+1. Detecta o branch padrão: `git symbolic-ref --short refs/remotes/origin/HEAD` (sem `origin/HEAD` local: `git remote set-head origin --auto` e tenta de novo). Nunca assume `main`.
+2. Confere pré-condições: `git status --porcelain` vazio; `git remote get-url origin` responde; `git fetch origin`; `git merge-base --is-ancestor origin/<padrão> HEAD` verdadeiro (o remoto é ancestral do branch, então o avanço é fast-forward); `git diff --name-only origin/<padrão>...HEAD` só contém caminhos sob `specs/` e `docs/decisoes/`.
+3. Publica por fast-forward: `git push origin HEAD:<padrão>`. O push garante o remoto; é isso que a sessão nova lê. Se o branch padrão local não está em checkout neste worktree, o condutor avança o ref local com `git fetch -q origin <padrão>:<padrão> >/dev/null 2>&1` (mesma regra do fence: saída bruta do git silenciada, o código de saída diz o motivo); se está em checkout em outro worktree, o condutor NÃO atualiza o ref local nem toca o outro worktree (nunca `update-ref`, nunca `checkout -f`) e diz em uma linha: "publicado em origin/<padrão>; a sessão nova, no branch padrão, roda `git pull --ff-only`".
+4. Só então recomenda: "estado publicado em origin/<padrão>; abra sessão nova no branch padrão, rode `git pull --ff-only` e depois /sdd".
+
+### Sequência do fechamento
+
+```bash
+# variáveis: PADRAO detectado no passo 1; falha em qualquer linha é parada.
+# Saída bruta do git fica silenciada: o código de saída diz o motivo e o
+# condutor o traduz em prosa, sem URL de remoto (RS-6).
+git status --porcelain | grep -q . && exit 10          # árvore suja
+git remote get-url origin >/dev/null 2>&1 || exit 11    # sem origin
+git fetch origin >/dev/null 2>&1 || exit 12
+PADRAO=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || { git remote set-head origin --auto >/dev/null 2>&1 && git symbolic-ref --short refs/remotes/origin/HEAD; }) || exit 13
+PADRAO=${PADRAO#origin/}
+git merge-base --is-ancestor "origin/$PADRAO" HEAD || exit 14   # origin não ancestral
+git diff --name-only "origin/$PADRAO...HEAD" | grep -vE '^(specs|docs/decisoes)/' | grep -q . && exit 15   # diff fora
+git push origin "HEAD:$PADRAO" >/dev/null 2>&1 || exit 16   # push rejeitado
+```
+
+Os códigos de saída são só para a suíte e para a linha de parada; o condutor traduz cada um na frase do parágrafo "Onde para".
+
+O que o condutor nunca faz: `git push --force` (ou `--force-with-lease`, `+ref`), `--no-verify`, push para remoto que não seja `origin`, `git remote add` ou `git remote set-url origin` (criar ou alterar o remoto), `git branch -f <padrão>` (avanço forçado do ref local), alterar branch protection, rulesets ou required checks, reescrever histórico do branch padrão, `update-ref` ou `checkout -f` em worktree alheio, commitar algo novo no ato de integrar (os commits já passaram pelo gate de segredo local). A constituição do projeto pode restringir para "PR em tudo" ou apertar os caminhos; nunca pode ampliar para código sem PR.
+
+Onde para, em uma linha cada, e devolve a decisão à pessoa (default): árvore suja; sem `origin`; branch padrão não detectável; `origin/<padrão>` não é ancestral do branch (alguém publicou antes); push rejeitado pelo remoto (proteção, hook, permissão); diff toca caminho fora de `specs/` e `docs/decisoes/`. Abrir PR é opcional, só quando `gh` existe e a pessoa pediu; sem `gh`, devolve. A linha de parada e o corpo de um PR eventual dizem o motivo em prosa, nunca URL de remoto, token, caminho absoluto fora do repositório, conteúdo de arquivo ou saída bruta de git.
 
 ## Racionalizações já observadas em teste
 
@@ -76,7 +109,11 @@ O portão de Desenho é por exceção: mesa fechada sem bloqueio passa direto e 
 | "Termina hoje, então o veredito fica pra depois" | Urgência comprime rodadas, nunca portões. Fatia sem veredito não está pronta, está apenas parada em outro lugar. |
 | "O 04-tasks.md diz que está pronto, então sigo dali" | Estado declarado se verifica com ferramenta. Divergência é bloqueio, não detalhe. |
 | "A fatia é pequena, não precisa de mesa" | Proporcionalidade encolhe a mesa e as rodadas, não o fluxo. A triagem decide, não a impressão de tamanho. |
+| "Commitei tudo no branch, o estado está em disco; recomendo sessão nova" | Branch de trabalho é memória da sessão. Estado em disco é branch padrão publicado em `origin`. Integre e publique antes, ou pare e diga por quê. |
+| "O push foi rejeitado, um `--force` resolve" / "o hook travou, `--no-verify` e sigo" | Rejeição é parada, não obstáculo. Reporte em uma linha e devolva à pessoa. Force, `--no-verify` e mexer em proteção de branch estão fora do mandato em qualquer caso. |
+| "O diff tem um ajuste no código, mas é pequeno; vai junto no fast-forward" | Fast-forward sem PR é só para `specs/` e `docs/decisoes/`. Código segue o rito de PR do projeto. |
+| "O `origin` aponta pro lugar errado, ajusto o remoto e sigo" / "o ref local ficou pra trás, um `branch -f` resolve" | Remoto e ref local não são seus para mudar: `remote add`, `set-url` e `branch -f` estão fora do mandato. Pare e devolva à pessoa. |
 
 ## Red flags
 
-Pare e volte ao passo certo se você se pegar: escrevendo código de produto; escrevendo texto de posição de uma voz; rodando terceira rodada; fechando fase com veto "resolvido" por consenso; avançando após portão sem resposta do dono; confiando em status de arquivo que nenhuma ferramenta verificou; carregando spec de outra fatia no contexto de uma voz.
+Pare e volte ao passo certo se você se pegar: escrevendo código de produto; escrevendo texto de posição de uma voz; rodando terceira rodada; fechando fase com veto "resolvido" por consenso; avançando após portão sem resposta do dono; confiando em status de arquivo que nenhuma ferramenta verificou; carregando spec de outra fatia no contexto de uma voz; recomendando sessão nova com o branch à frente do remoto; integrando ou publicando sem a frase do portão; digitando `--force`, `--no-verify`, `branch -f`, `remote add`, `set-url` ou nome de remoto que não seja `origin`.

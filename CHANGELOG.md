@@ -2,6 +2,29 @@
 
 Régua de versão, pela ótica do contrato que o agente adotante lê: major quebra nome, caminho ou instrução existente; minor adiciona sem quebrar; patch corrige texto.
 
+O hash autoritativo de cada versão é o `INTEGRIDADE.txt` da tag correspondente no repositório de distribuição; a linha `Integridade:` aqui é cópia gravada após o release.
+
+## 0.4.0 — 2026-08-18
+
+Classificação: minor (adiciona comportamento ao condutor e ao setup e corrige instrução morta; nenhum nome ou caminho que resolvia deixa de resolver).
+
+Adiciona:
+
+- Condutor fecha a fase antes de recomendar sessão nova (plugin#1): com a aprovação do portão que anuncia o efeito, integra o branch de trabalho no branch padrão por fast-forward e publica em `origin`, só quando o diff se restringe a `specs/` e `docs/decisoes/`; nunca `--force`, `--no-verify` nem outro remoto; parada devolve à pessoa. "Estado em disco" passa a significar branch padrão publicado.
+- `/sdd` avisa em uma linha quando o branch corrente está à frente do remoto em `specs/` e aponta o canal de feedback.
+- Canal de feedback (plugin#2): seção "Feedback e melhorias" no README, rodapé do `/sdd` e regra na constituição gerada; issues públicas no repositório do plugin, sem segredo, log bruto, `.env` ou dado pessoal.
+- Setup lista todo plugin recomendado ausente com comando de instalação, fonte oficial e o que degrada sem ele (`hooks/check-plugins.py`, leitura local, nunca instala; "não verificado" vira pendência, nunca presente); a lista vive na tabela "Plugins de terceiros: instalação" de `base/skills-padrao.md`.
+- Setup explica a proteção de segredo camada por camada (hook local bloqueia commit; CI reporta; só required check bloqueia merge, e depende de plano e visibilidade) e grava pendência `required-check-gitleaks` com o comando para a própria pessoa verificar.
+
+Corrige:
+
+- Payload sem caminho que só existe no repositório de origem do framework: mensagens dos hooks, comentários do `.gitleaks.toml` e do `gitleaks.yml`, `base/fluxo-sdd.md`, `base/skills-padrao.md`, agente reviewer e README reescritos por efeito no adotante; gate de release passa a acusar reintrodução.
+- Cartões `dados-de-ia.md` e `observabilidade.md` sem stack afirmada como fato; decisões preservadas.
+- Constituição-template sem stack afirmada: política de acesso imposta no banco (RLS ou equivalente da stack declarada), política do banco ligada, nunca operar infraestrutura própria no lugar do serviço gerenciado declarado; 119 linhas mantidas.
+- CHANGELOG da fonte com hash real nas versões 0.2.1 e 0.3.0 e cabeçalho que declara o `INTEGRIDADE.txt` da tag como autoridade.
+
+Integridade: sha256:a5c1b66df3d57221e640878d944c4a9df5ee70791ed60848ffe8a5511ba1a8ac (amarração 0.4.0 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
+
 ## 0.3.0 — 2026-08-16
 
 Classificação: minor (adiciona sem quebrar; o pacote passa a entregar tudo o que o contrato distribuído cita).
@@ -39,7 +62,7 @@ Adiciona:
 - Seção "Voltar de versão" no README: rollback é roll-forward por tag nova do workflow; edição manual do repositório de distribuição é proibida.
 - Pendência rastreável do design system quando a resposta é "não tenho": issue "Criar design system na primeira fatia com UI" com GitHub disponível; sem GitHub, entrada no roadmap inicial (arbitragem do portão de Veredito).
 
-Integridade: gravado no release (hash SHA-256 do conjunto de arquivos e amarração semver → hash; o gate 5 do empacote confere).
+Integridade: sha256:8caf3b287fe5574e94e4c6ff45ebc298d6047f5e10a64032e02403bd2b17e429 (amarração 0.2.1 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
 
 ## 0.2.0 — 2026-08-15
 

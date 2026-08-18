@@ -9,14 +9,14 @@ Dado que alimenta IA continua sendo dado. Vetorização e envio a provider criam
 
 ## Nosso padrão
 
-- Vetor vive no Postgres com pgvector, na mesma Supabase do projeto. Sem banco vetorial dedicado. O índice vetorial entra no plano de índice do orçamento de desempenho, como qualquer índice.
-- Embedding de dado pessoal é dado pessoal. Herda a classificação da fonte, mora em tabela com RLS idêntica à da fonte, e entra no apagamento: quando o titular pede exclusão, o vetor derivado morre junto.
+- Vetor vive no mesmo banco transacional do projeto, com a extensão vetorial que a stack declarada oferece; sem banco vetorial dedicado. O índice vetorial entra no plano de índice do orçamento de desempenho, como qualquer índice.
+- Embedding de dado pessoal é dado pessoal. Herda a classificação da fonte, mora em tabela com a mesma política de acesso da fonte, e entra no apagamento: quando o titular pede exclusão, o vetor derivado morre junto.
 - Envio a provider de modelo é transferência a terceiro. Minimização (só o necessário da tarefa), base legal clara (LGPD), e preferência por provider e modalidade com zero data retention. O plano da fatia registra o que é enviado a quem.
 - Golden set e exemplos few-shot com dado real são anonimizados antes de entrar no repo. Dataset versionado é código: passa pela mesma revisão.
 
 ## Proibido
 
-- Vetorizar dado pessoal em tabela sem RLS.
+- Vetorizar dado pessoal em tabela sem política de acesso.
 - Enviar dado de usuário a provider sem base legal e minimização.
 - Dado pessoal cru em golden set ou exemplo versionado.
 

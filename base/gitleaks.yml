@@ -7,7 +7,7 @@
 # actions usadas são as oficiais (actions/checkout), pinadas por SHA de commit.
 #
 # Adoção em projeto novo: copie este arquivo para .github/workflows/ e siga
-# framework/hooks/README.md (fonte única de padrões: .gitleaks.toml na raiz).
+# o README do plugin itxpro-sdd, seção 'Pré-requisito: gitleaks' (padrão: .gitleaks.toml na raiz).
 
 name: gitleaks
 
@@ -49,7 +49,7 @@ jobs:
           ./gitleaks git . --config .gitleaks.toml --redact --no-banner
 
       - name: Fala a língua do catálogo em caso de achado (fato → regra → caminho)
-        # Texto da variante do CI em framework/hooks/mensagens.md, seção 3: a linha
+        # Texto da variante do CI em hooks/mensagens.md do plugin, seção 3: a linha
         # autoritativa usa a mesma anatomia e o mesmo vocabulário dos hooks locais.
         if: failure()
         run: |
