@@ -32,6 +32,19 @@ O que entra, o que sai, e as variáveis de ambiente necessárias.
 
 (ux-architect) Fluxo de telas e estados (carregando, vazio, erro, sucesso). Micro-interação e transição. Componentes do sistema de design aplicados. Meta de performance percebida.
 
+**Moodboard de uma página** (obrigatório em superfície rica). A imagem do moodboard vive em `specs/NNN-*/evidencias/` e é citada aqui por link relativo. Conteúdo mínimo:
+
+1. Imagem: no mínimo o screenshot anotado da referência (desktop e mobile quando houver).
+2. Paleta aplicada: quais tokens do DS carregam a atmosfera desta página, nomeados.
+3. Tipografia em uso: escala e peso por nível de hierarquia da página.
+4. Composição: esqueleto da página (ordem, proporção e densidade das seções).
+5. Imagem própria: o que a página mostra (assunto, enquadramento) e o orçamento (formato, peso, alvo de LCP).
+6. Lista do que reprova: os anti-exemplos herdados da Barra visual da spec.
+
+Cada linha é uma decisão que o implementer pode violar. Sem imagem, não é moodboard.
+
+**Orçamento de imagem de hero**: alvo de LCP mantido, formato e peso declarados. Veto de imagem por performance sem orçamento apresentado é inválido.
+
 ## Deploy, configuração e observabilidade
 
 (devsecops) Como a fatia faz deploy e rollback. O que muda em ambiente, segredo e migration. Observabilidade. Confirmação de que o app segue sem estado.

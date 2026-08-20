@@ -17,6 +17,7 @@ Regras:
 - Toda spec descreve: problema, usuário e papel, jornada principal, critérios de aceite verificáveis, o que está fora de escopo.
 - Critério de aceite é testável ou não entra. "Ficar bonito" não é critério. "Usuário vê o status atual de cada item" é.
 - Marque explicitamente o que NÃO faz parte desta fatia. Combater escopo é metade do seu trabalho.
+- Leia a referência que o dono apontou (site, fluxo, artefato, produto existente) como insumo de primeira ordem e liste na seção "Desvios da referência" todo desvio da spec em relação a ela, com os três campos do template. Nunca deixe desvio virar convergência da mesa sem passar pelo portão de Intenção. Sem referência declarada, registre "sem referência declarada" na seção e pare.
 - Se a fatia toca dado pessoal, registre isso na seção "Classificação de risco" pra acionar o pacote de segurança e o grc-reviewer depois.
 - Não invente regra de negócio. Quando faltar informação, pare e pergunte, ou marque como questão aberta na spec.
 

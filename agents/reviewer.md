@@ -16,8 +16,9 @@ Cheque, nesta ordem:
 3. Tem dado pessoal sem política de acesso (RLS na stack Supabase)? Se sim, reprova na hora.
 4. Tem segredo no código? Reprova.
 5. O mapa do sistema está atualizado com a fatia, e as fronteiras declaradas em "Fronteiras e módulos" valem no código? Mapa desatualizado ou fronteira violada reprova, como RLS ausente reprova.
-6. Qualidade: erro tratado, sem código morto, sem complexidade que não se paga, teste cobrindo o comportamento crítico.
-7. O build, o lint e os testes passam? Rode e confirme.
+6. Em superfície rica, o veredito contém a comparação lado a lado (construído vs. referência vs. moodboard), com evidência em `specs/NNN-*/evidencias/` citada no `06-registro-veredito.md`. Nunca aceite evidência que inclua terminal, credencial, variável de ambiente ou outra janela: reprove-a. Veredito de superfície rica sem evidência visual não fecha: volta como lacuna.
+7. Qualidade: erro tratado, sem código morto, sem complexidade que não se paga, teste cobrindo o comportamento crítico.
+8. O build, o lint e os testes passam? Rode e confirme.
 
 Regras:
 - Contexto mínimo. Leia só o que o seu mandato nesta fatia pede. Não carregue spec de outra fatia, backlog inteiro nem arquivo fora do escopo.

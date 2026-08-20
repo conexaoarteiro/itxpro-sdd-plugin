@@ -1,29 +1,29 @@
-# INTEGRIDADE — itxpro-sdd@0.4.0
+# INTEGRIDADE — itxpro-sdd@0.5.0
 # Manifesto legível por máquina (plano da 003, R5).
 # conjunto: SHA-256 da lista ordenada de hashes de todos os arquivos,
 # excluindo INTEGRIDADE.txt e CHANGELOG.md (que carrega o próprio hash).
-versao: 0.4.0
-tag: v0.4.0
-commit-canonico: 5be2900a11c44f4dcfb4343d2c7240baf0f702be
-conjunto: a5c1b66df3d57221e640878d944c4a9df5ee70791ed60848ffe8a5511ba1a8ac
+versao: 0.5.0
+tag: v0.5.0
+commit-canonico: 5a7f1e6a78fcd1d71fa76a2ebdb0ca4e740d03fb
+conjunto: 583b639d108676fc82d4cc1ed22933d2fc7f24f5b77f834f0d36a5ac43f8967e
 arquivos:
 efdab1c4d930ea83e52a571c8915df95bc7bd06acf9fc84641afdb1b08cf987d  ./.claude-plugin/marketplace.json
-eb913008cd0c4a3a763bc782522d4cc79bcb94560cfb8b5140628f2d9438fde2  ./.claude-plugin/plugin.json
-5f3856bc4ae2d3517a9d84cdc2880f9ad3bdf58a5cd95494435e279c91f1cfa9  ./CHANGELOG.md
+ac68078422d4b6d101570c3dfe6bd16d325c0992d398117b9f7d483527814cde  ./.claude-plugin/plugin.json
+51e1fb2230b3837b44c41cb21bc8d14ec466df771f2ac589e93df2c49440ed79  ./CHANGELOG.md
 5125d7ea690a67404f42f475401f2c076a5b1f3831b5ea984e878886341bc594  ./README.md
 d5bbbe7dd099800d8fbd87d5b5bbfa39892b13b3582b565258ce0773a3ed0157  ./agents/_engatilhados/agent-experience-architect.md
 132369268b3d413cdbcd39cdb0b4e3a14f7a3fa17269d2272e39ce3c770b8823  ./agents/architect.md
 274e2071dde7e70799fe6e5714ac7e092b2a814bdd293873cae982dc137fbe4f  ./agents/devsecops.md
 4c784730344e94c1a4a6ba3c9b7c8962f58d42ee91acc4c626925db0a9df1f8e  ./agents/grc-reviewer.md
-b02b289470c878a4b238881c53777ffa422e9759adce33bd65b3768ca803e21e  ./agents/implementer.md
-711144da99a8b6b3eee2c3eb13ed277848b69411a4c633f6506b1cded8873d15  ./agents/reviewer.md
+9f801117da1a5208d0cf1fa78d790c067dbad73c36c496b48669d878b0a6c798  ./agents/implementer.md
+e735cd0c5cdce90e06b7627e149f0a17845e42741cb72d234f2bdaec481ebaed  ./agents/reviewer.md
 ff08bdf12905f9a8beae8a0562ff2f5ce6205e1aaca2b40fe5e64c0090ee376b  ./agents/security-privacy-architect.md
-91cb2fd9849c4858afa76cc4feedc143d6b6040a943836cdadd4a539efca4685  ./agents/spec-writer.md
-8b5721ccf1d1eead496af7c4871492e197bb4b69e9a2c8f1dc52a99dd5ccc9e7  ./agents/ux-architect.md
+0c3a1c9b4ebd20a896e3683f59e813e957829926e3826a01c43c64555c9f4b1b  ./agents/spec-writer.md
+c3249c9264d9d0eec8cf7839fa67ddea6ed9bcc32512b5006ae2bbac283758e0  ./agents/ux-architect.md
 ccddf5509c40caa6c8dd059e99db55ae2e0f4a93744f28cd32db44a60e282ca6  ./base/.gitleaks.toml
 e93d1a931ac130047dd9e31a5b68e2593dccdd6c8225ab33fc43b57afff8bca9  ./base/constituicao-template.md
 d4da16080f149f36fa5bfc7af9be29dff5c4816694e25c809bd7860daab09918  ./base/diagrama-pipeline-sdd.svg
-9e6d2d47020ef877580533c3db0efc625ea3bf7ee5aa6dde6666da2c0ffb93e7  ./base/fluxo-sdd.md
+dbc34310c0b2d7425bbf10f2bf35a0564eb7c04ac69fba4ea2c8e02e3ccdf53b  ./base/fluxo-sdd.md
 318c6e448c847ce0652518141921ae80a7fb9d9e2c5dc4af6fac27cd248a39ab  ./base/gitleaks.yml
 002558d10ed8fcd4f09fdee5d6d957b7ccc63b7e0a1019a565188b118cf0aa0e  ./base/hookify/hookify.block-backlog-md-bash.local.md
 3926ce60308c4afddd6cb3b7efc3ecff84e7d3e8ee00ff29c72c5c34bf2e46c6  ./base/hookify/hookify.block-backlog-md.local.md
@@ -32,14 +32,14 @@ eae18e7d9a097810c6adf54a8d9ac1ed52cf8d4bdff6c8872b810281078aebb5  ./base/hookify
 41fb0c7baf1ace8a3dbe490c60222dd555de5201c080f4cb3ecaa71d320abfbc  ./base/padroes/dados-de-ia.md
 a9b71f5a35c0f67bfbbf3c4daad95e1c31b01511fa8b667cd10d4c50107087b9  ./base/padroes/evals-de-ia.md
 c5d45d11cb6e1dc0a3aab36476bff9bf1d2cfd05eb3aca747846ff0970dd0519  ./base/padroes/observabilidade.md
-ae8f24d82b9ec530c7fb455cc41b98f8b21b5872bac8f559551ab47c5e8bdd62  ./base/skills-padrao.md
-5ba2fbc5d642f78b791155c04e5d692ed802d209c5411a91558073b126203df7  ./base/templates/01-spec-template.md
-e902b6e16e4463220fccfec4583f47d01f7c49b4d73671be75484c88a4808435  ./base/templates/03-plan-template.md
-6e30d60d367ed041e0d636e034002a8fc02a32f1135f71e69ea0ffae1a01dc09  ./base/templates/04-tasks-template.md
+b7cac71d810172a0d8390fdf58f266b5e028483e6bb9354dcdf525f8e655902b  ./base/skills-padrao.md
+778831d3801facf38c9b138c1e287f21c8d3d1a5aed47abc4423e602a98305d1  ./base/templates/01-spec-template.md
+0c1312fb01c5958cace6c5ca6dfa366821daf556daecb4fc4fecbb57b36166d3  ./base/templates/03-plan-template.md
+75b8641078c972d1dd77341bc8de3c46ed82592ee741e45a2c7a18d82070592e  ./base/templates/04-tasks-template.md
 fbe41b194001befa0a536bc8b7cb649fe7bb5e3b776930d3d20533e3ae73bc20  ./base/templates/mapa-do-sistema-template.md
 ad304c496d6cee095d386c82bea62cf777816d0b426184a449693e2d34032461  ./commands/sdd.md
 dfb657336dab88aa1db6522a0d61b3155fb563a52a4de91df03d66efc2c9baeb  ./hooks/PINAGEM-HOOKIFY.md
-dbf0f5b575e1530990414023fc1a78415907db252995a6dfc4e5ca13844ced81  ./hooks/VERSION
+3a84a42a315fccd1f12d8e405c0d9160002aadb4ca7477733f7400734c5f9526  ./hooks/VERSION
 64cb1511f737a869748fc24594cd79e653a6240f058768228ee5c2e0fa6007f3  ./hooks/check-plugins.py
 3ac85618b365d19ab4fb9b3a7579ed87b007e1a64124060f2900bf0bc72a2f81  ./hooks/check-prereqs.sh
 682729745400874760d279412b996b4f98d858d502d8b9d36b5e5441fed56d9d  ./hooks/hooks.json
@@ -47,5 +47,5 @@ dbf0f5b575e1530990414023fc1a78415907db252995a6dfc4e5ca13844ced81  ./hooks/VERSIO
 39c61c7ef1df54ba43756ebaaa540064c6e716dcb6da0b91fa63125afdab734a  ./hooks/scripts/claude-md-limit-warn.py
 192fc284b0636824d4d6a443b9b7abb285eedcde00cd8b121ff1b096269ce91b  ./hooks/scripts/secret-commit-gate.py
 171cf8280e398080bc93ba1017acac9501ff04c9afd32f9c97af7eeb532212c0  ./hooks/scripts/spec-approval-warn.py
-7ed8e13c483ea2e62d0ff8532d61a4e78a04b5e40673a11272a7b78f39670de1  ./skills/sdd-conductor/SKILL.md
+96f647e42167bb8575305b1ef064883dce7c3d475a5c2e5e68be2e981498dfac  ./skills/sdd-conductor/SKILL.md
 b76023077771ec433449c43abbf99952fcfb5d7d4268e6e1589b20bf5771cbca  ./skills/sdd-setup/SKILL.md

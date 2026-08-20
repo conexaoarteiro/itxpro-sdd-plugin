@@ -11,7 +11,7 @@
 | spec-writer | `superpowers:brainstorming` | Mesa de Intenção com hard gate: nada se constrói sem design aprovado |
 | architect | `superpowers:writing-plans`, `supabase:supabase-postgres-best-practices`, `vercel:nextjs`, `context7` | Plano rigoroso em tarefas pequenas; boas práticas da stack; docs de biblioteca sob demanda em vez de memória do modelo |
 | security-privacy-architect | `security-review`, `claude-security` (scan sob demanda) | Modelagem de ameaça com varredura real, proporcional ao risco |
-| ux-architect | `frontend-design:frontend-design`, `impeccable:impeccable`, `dataviz` | Sistema de design, crítica de UI, visualização de dados |
+| ux-architect | `frontend-design:frontend-design`, `impeccable:impeccable` (obrigatória no Veredito de superfície rica), `dataviz` | Sistema de design, crítica de UI, visualização de dados |
 | devsecops | `commit-commands:commit`, `supabase:supabase` | Disciplina de commit, migrations e pipeline |
 | implementer | `superpowers:test-driven-development`, `superpowers:systematic-debugging`, `superpowers:using-git-worktrees` | TDD como regra, debug por causa raiz, isolamento por worktree |
 | reviewer | `pr-review-toolkit:review-pr`, `superpowers:verification-before-completion` | Revisores especializados na mesa de Veredito; evidência antes de afirmação |
@@ -39,11 +39,12 @@ Fonte única da lista que o setup confere. O script `hooks/check-plugins.py` do 
 | `supabase` | marketplace `claude-plugins-official` | `/plugin install supabase@claude-plugins-official` | architect e devsecops sem skill de stack; só importa se a stack declarada usar |
 | `vercel` | marketplace `claude-plugins-official` | `/plugin install vercel@claude-plugins-official` | architect sem skill de stack; só importa se a stack declarada usar |
 | `frontend-design` | marketplace `claude-plugins-official` | `/plugin install frontend-design@claude-plugins-official` | ux-architect sem crítica de UI assistida |
+| `impeccable` | `https://impeccable.style` (`github.com/pbakaus/impeccable`) | `/plugin marketplace add pbakaus/impeccable e depois /plugin install impeccable@impeccable` | o ato de comparação visual lado a lado no Veredito continua obrigatório; some a assistência da skill |
 | `claude-security` | marketplace `claude-plugins-official` | `/plugin install claude-security@claude-plugins-official` | security-privacy-architect sem varredura sob demanda |
 | `claude-md-management` | marketplace `claude-plugins-official` | `/plugin install claude-md-management@claude-plugins-official` | sem auditoria assistida do teto da constituição |
 | `skill-creator` | marketplace `claude-plugins-official` | `/plugin install skill-creator@claude-plugins-official` | criação de skills próprias sem assistência |
 
-Fora da tabela, e por isso fora do check: `impeccable` e `dataviz` (fonte oficial não verificada; `impeccable` só apareceu instalado por upload local, `dataviz` sem marketplace conhecido) e as skills ITXPRO de GRC (privadas). Regra: skill do per-agente sem linha nesta tabela não entra no check; entra quando tiver fonte pública verificada. Todo nome da tabela ocorre também na tabela por agente ou na seção "Do harness" deste arquivo (guarda de deriva do gate de referências).
+Fora da tabela, e por isso fora do check: `dataviz` (sem marketplace conhecido) e as skills ITXPRO de GRC (privadas). Regra: skill do per-agente sem linha nesta tabela não entra no check; entra quando tiver fonte pública verificada, como a `impeccable`, que entrou com fonte verificada em 2026-08-20. Todo nome da tabela ocorre também na tabela por agente ou na seção "Do harness" deste arquivo (guarda de deriva do gate de referências).
 
 ## Não adotados como padrão
 

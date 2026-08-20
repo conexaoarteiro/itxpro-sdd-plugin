@@ -12,7 +12,8 @@ Regras:
 - Contexto mínimo. Leia só o que o seu mandato nesta fatia pede. Não carregue spec de outra fatia, backlog inteiro nem arquivo fora do escopo.
 - Implemente uma tarefa por vez. Conclua, valide, e só então pegue a próxima.
 - Siga a stack e as convenções da constituição sem desvio.
-- Em tarefa de front-end, relatório ou dashboard, siga o design system declarado na constituição. Componente fora do padrão é desvio, não criatividade.
+- Em tarefa de front-end, relatório ou dashboard, use o vocabulário do design system declarado na constituição (tokens, marca, fonte, cor, componentes base) sem desvio e siga a frase do moodboard (composição, hierarquia, imagem, atmosfera) quando ele existe. Nunca achate a composição do moodboard em nome do DS nem invente identidade fora dele. Violar linha do moodboard é desvio, como componente fora do padrão. Desempate: DS em identidade, moodboard em layout. Gap real do DS vira issue no DS e para aí: não construa o componente por conta.
+- Em tarefa de front, use a skill `frontend-design`. Em superfície rica, antes de fechar a tarefa, compare o screenshot do resultado com o moodboard e registre a comparação. A captura é do artefato do próprio projeto e nunca inclui terminal, credencial, variável de ambiente ou outra janela; captura suja se refaz. Nunca capture URL externa nova por conta própria: a captura de referência é do condutor, sob as regras dele.
 - Siga as fronteiras declaradas no plano. Módulo fora do mapa do sistema é desvio, não criatividade. A atualização do mapa é tarefa da fatia, no mesmo passo.
 - Toda tabela nova com dado pessoal já vem com migration e política de acesso (RLS quando a stack for Supabase) no mesmo passo. Nunca depois.
 - Segredo vai em variável de ambiente. Se precisar de uma nova, documente no `.env.example` e avise.

@@ -12,9 +12,11 @@ Mesa: spec-writer (conduz), security-privacy-architect, ux-architect.
 
 Discussão: o spec-writer traz o quê e por quê. A segurança classifica o risco e nomeia o que está em jogo de privacidade. O UX nomeia a barra de experiência. Ninguém decide técnica aqui.
 
-Saída: uma spec só, que já carrega problema, jornada, critérios de aceite, classificação de risco, intenção de experiência, postura AI-first, exposição a agente e questões abertas.
+Insumo visual: referência visual do dono entra na mesa como imagem, desktop e mobile, gravada em `specs/NNN-*/insumos/`; referência que virou só texto é lacuna. A mecânica de captura e a regra de persistência vivem na skill do condutor.
 
-Portão: humano, sempre. Você lê a spec, responde as questões e aprova.
+Saída: uma spec só, que já carrega problema, jornada, critérios de aceite, classificação de risco, intenção de experiência, postura AI-first, exposição a agente, desvios da referência e questões abertas.
+
+Portão: humano, sempre. Você lê a spec, responde as questões e aprova. O condutor apresenta a seção "Desvios da referência" item a item, ao lado das divergências e das questões abertas; desvio sem a sua resposta é lacuna, não convergência, e bloqueia o portão. Convergência da mesa que contraria a referência ou o seu pedido não se veste de decisão: sobe ao portão, sempre.
 
 ### Fase 2 — Desenho
 
@@ -61,7 +63,7 @@ No Claude Code os subagents não conversam sozinhos. A sessão principal conduz 
 A cerimônia escala com três triagens feitas no começo:
 
 - Risco de dado (segurança). Baixo risco passa leve. Fatia que toca dado pessoal sensível dispara o pacote completo: modelagem de ameaça (STRIDE e LINDDUN), classificação e análise de risco.
-- Superfície de tela (UX). Tela rica recebe tratamento completo. CRUD simples recebe leve. Fatia sem UI tira o UX da mesa.
+- Superfície de tela (UX), em três níveis. Sem UI: o ux-architect sai da mesa. UI simples (CRUD, form interno, dashboard operacional): barra visual de uma linha + DS, sem moodboard. Superfície rica: Barra visual completa na spec, moodboard obrigatório na mesa de Desenho, veredito visual lado a lado. É rica quando o dono deu referência visual OU a página é pública e carrega a marca. Referência do dono a artefato visual (site, documento, relatório, apresentação) sempre convoca o ux-architect na mesa de Intenção.
 - Exposição a agente (AX). Fatia que expõe MCP convoca o agent-experience-architect e faz a segurança co-desenhar a superfície. Fatia que não expõe fica só com o princípio AI-first nos contratos.
 
 ## Os portões e o veto
