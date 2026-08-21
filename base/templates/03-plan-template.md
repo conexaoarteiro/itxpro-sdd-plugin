@@ -8,6 +8,10 @@
 
 Resumo da solução técnica em poucos parágrafos. A mais simples que atende a spec.
 
+## Classe e orçamento de tarefas
+
+(architect) A classe herdada do registro de Intenção (leve, média ou plena) e o teto correspondente. A contagem de tarefas contra o teto, com a divisão núcleo/sustentação. O que a mesa cortou para caber; mesa que não corta nada num plano com mais sustentação que núcleo justifica aqui. Fundação presente com versão verificada por ferramenta (seção "Como verificar herança" de cada cartão em `docs/padroes/`), nunca presumida; o plano declara só o delta sobre a fundação, e tarefa que reconstrói item herdado é inválida. A fatia pode endurecer controle da fundação, nunca afrouxar sem escalada. Estouro ou reclassificação para cima sobe ao portão de Desenho; o teto nunca corta o piso de segurança da classe (normativo na triagem de proporcionalidade de `docs/fluxo-sdd.md`).
+
 ## Fronteiras e módulos
 
 (architect) O módulo que a fatia cria ou estende, o que ele expõe e o que consome. A atualização correspondente de `specs/_arquitetura/mapa-do-sistema.md` entra como tarefa da fatia. Na primeira fatia com código, esta seção declara as entradas iniciais do mapa. Se a fatia não toca módulo, diga.

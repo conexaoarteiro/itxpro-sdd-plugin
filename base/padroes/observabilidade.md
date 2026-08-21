@@ -2,6 +2,7 @@
 
 > Consulte na mesa de Desenho de toda fatia que sobe para produção. Dono: devsecops.
 > Base: Observability Engineering, Designing Data-Intensive Applications. A teoria fica com o modelo; aqui é a nossa posição.
+> Versão: 1.0 · Revisado: 2026-08-20 · Gatilho de revisão: release do plugin
 
 ## Contexto
 

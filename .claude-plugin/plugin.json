@@ -1,6 +1,6 @@
 {
   "name": "itxpro-sdd",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Framework de Spec-Driven Development da ITXPRO: pipeline de mesas com portões humanos, entrevista de setup que preenche a constituição do projeto e hooks de enforcement.",
   "author": {
     "name": "ITXPRO"

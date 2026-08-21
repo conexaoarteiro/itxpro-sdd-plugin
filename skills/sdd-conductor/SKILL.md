@@ -18,7 +18,7 @@ Leia `specs/NNN-*/` da fatia. A fase sai do que existe e do status declarado:
 | Nada, ou só issue promovida | Intenção | Convocar a mesa de Intenção |
 | `01-spec.md` rascunho ou em revisão | Intenção | Fechar a mesa ou apresentar o portão |
 | `01-spec.md` aprovada, sem `03-plan.md` | Desenho | Convocar a mesa de Desenho |
-| `03-plan.md` aprovado, `04-tasks.md` com tarefa aberta | Construção | Convocar o implementer, uma tarefa por vez |
+| `03-plan.md` aprovado, `04-tasks.md` com tarefa aberta | Construção | Convocar o implementer; uma tarefa por vez, por implementer |
 | Todas as tarefas fechadas, sem veredito registrado | Veredito | Convocar a mesa de Veredito |
 | Veredito registrado | Portão final | Apresentar ao dono, que decide o merge |
 
@@ -43,7 +43,7 @@ Os artefatos de fatia usam nomes numerados por fase (`01-spec.md` a `06-registro
 | Desenho | architect, security-privacy-architect, ux-architect, devsecops | `superpowers:writing-plans` | `03-plan.md` + `04-tasks.md` | Por exceção |
 | Veredito | reviewer, grc-reviewer (veto), ux-architect, devsecops, security-privacy-architect conforme risco | `superpowers:verification-before-completion` | veredito no registro | Humano, sempre |
 
-Antes de convocar, faça a triagem de proporcionalidade da fatia: risco de dado, superfície de tela, exposição a agente. Superfície de tela em três níveis: sem UI, o ux-architect sai da mesa; UI simples (CRUD, form interno, dashboard operacional), barra visual de uma linha + DS, sem moodboard; superfície rica, Barra visual completa na spec, moodboard obrigatório na mesa de Desenho, veredito visual lado a lado. É rica quando o dono deu referência visual OU a página é pública e carrega a marca. Referência do dono a artefato visual (site, documento, relatório, apresentação) sempre convoca o ux-architect na mesa de Intenção. Fatia que expõe MCP convoca o agent-experience-architect; ele é engatilhado, então ative antes de convocar, copiando o arquivo de `agents/_engatilhados/` para os agentes ativos do projeto (`.claude/agents/`). Urgência comprime a cerimônia (rodada única, spec curta, portão apresentado no mesmo dia); urgência nunca remove portão, voz obrigatória nem veto.
+Antes de convocar, faça a triagem de proporcionalidade da fatia, em quatro eixos: risco de dado, superfície de tela, exposição a agente e tamanho da entrega. O quarto eixo atribui a classe da fatia (leve, média ou plena), assinada pela voz de segurança, e a classe carrega o teto de tarefas do plano; o normativo das classes, dos tetos e do piso por classe vive na triagem de proporcionalidade de `docs/fluxo-sdd.md`, e o teto corta cerimônia, nunca piso. Superfície de tela em três níveis: sem UI, o ux-architect sai da mesa; UI simples (CRUD, form interno, dashboard operacional), barra visual de uma linha + DS, sem moodboard; superfície rica, Barra visual completa na spec, moodboard obrigatório na mesa de Desenho, veredito visual lado a lado. O gatilho de rica, em paráfrase: referência visual do dono ou página pública com marca; o texto normativo vive na triagem de proporcionalidade de `docs/fluxo-sdd.md`. Referência do dono a artefato visual (site, documento, relatório, apresentação) sempre convoca o ux-architect na mesa de Intenção. Fatia que expõe MCP convoca o agent-experience-architect; ele é engatilhado, então ative antes de convocar, copiando o arquivo de `agents/_engatilhados/` para os agentes ativos do projeto (`.claude/agents/`). Urgência comprime a cerimônia (rodada única, spec curta, portão apresentado no mesmo dia); urgência nunca remove portão, voz obrigatória nem veto.
 
 Quando o dono aponta referência visual (site, documento, relatório, apresentação), prepare a mesa capturando a referência como imagem: página inteira, desktop e mobile, gravada em `specs/NNN-*/insumos/`. A imagem entra na mesa ao lado do texto; referência visual que virou só texto (WebFetch) é lacuna.
 
@@ -69,15 +69,37 @@ No Veredito de superfície rica, o veredito inclui a comparação visual lado a 
 
 O registro da mesa vai em `specs/NNN-*/` com o número da fase (`02-registro-intencao.md`, `05-registro-desenho.md`, `06-registro-veredito.md`) e tem quatro blocos curtos: o que a mesa decidiu, o que convergiu, o que divergiu (incluindo veto, intacto), o que precisa do humano. Retomada ou bloqueio fora de fase entra no registro da fase corrente com data.
 
+Na Intenção, o bloco do que a mesa decidiu grava a linha `Classe: X, assinada por security`, onde X é leve, média ou plena, com a assinatura da voz de segurança da mesa. Registro de Intenção sem essa linha bloqueia a convocação da mesa de Desenho: o condutor não convoca, volta à voz de segurança para assinar a classe e só então segue.
+
+No Desenho, o 05-registro declara o rastro de contestação: a contagem de tarefas contra o teto da classe e o que a mesa cortou. Mesa que não corta nada num plano com mais sustentação que núcleo justifica isso no registro.
+
+Os registros de Intenção e de Desenho carregam o campo fixo `Pré-autorização: emitida | ausente | anulada(<gatilho>)`. Na Intenção: `emitida` quando o dono aprovou com a frase-modelo do Passo 4; senão, `ausente`. No Desenho: o campo repete o estado herdado e, quando um gatilho anula, grava `anulada(<gatilho>)`; quando o Passo 5 publica sob pré-autorização, o 05-registro anota "publicado por pré-autorização da Intenção, commit X".
+
 ## Passo 4 — Segurar o portão
 
 No portão, apresente ao dono, em uma mensagem: a decisão da mesa, as divergências vivas com a posição de cada lado, as questões abertas numeradas e o que a aprovação libera. No portão de Intenção, a mensagem apresenta também a seção "Desvios da referência" item a item, ao lado das divergências e das questões abertas; desvio sem resposta do dono é lacuna, não convergência, e bloqueia o fechamento do portão. Quando a fatia tem insumo visual, a mensagem do portão declara em uma linha que a imagem persiste em `specs/NNN-*/insumos/` no git do projeto se contém pessoa identificável ou contato de terceiro; sem resposta do dono, a imagem não persiste. Quando a URL capturada não é do dono nem da organização dele, o portão nomeia isso; persistir imagem de site alheio nunca é default. Quando o dono nega a persistência, a imagem é removida ou substituída antes de qualquer commit; o que já tiver sido gravado no branch sai no mesmo ato. Spec de fatia com referência declarada sem a seção "Desvios da referência" preenchida, ou de superfície rica sem Barra visual, é lacuna: o portão não fecha. A mensagem do portão declara sempre: "aprovar esta fase libera integrar o branch `<branch>` no branch padrão `<padrão>` por fast-forward e publicar em origin". Sem essa frase no portão, o condutor não integra nem publica; e a aprovação do portão é a única confirmação, sem segundo prompt. Depois pare. Nenhum trabalho da fase seguinte começa antes da resposta; resposta de portão vem do dono na conversa, não de inferência sua.
 
-O portão de Desenho é por exceção: mesa fechada sem bloqueio passa direto e o registro anota isso; divergência aberta ou veto sobe ao dono. Os portões de Intenção e Veredito são fixos. Veto do grc-reviewer sobrevive ao consenso e chega intacto ao dono mesmo que toda a mesa discorde dele.
+No portão de Intenção, a frase de liberação segue este modelo literal, casa única deste texto, e quem o fala é o condutor: "aprovar esta fase libera integrar e publicar a spec agora, e também os artefatos de Desenho desta fatia (`03-plan.md`, `04-tasks.md`, registro) quando a mesa de Desenho fechar sem divergência, sem veto e sem estouro de teto; qualquer desses gatilhos anula esta liberação e o Desenho sobe a você". A aprovação do dono com essa frase emite a pré-autorização, que só vale emitida nesse portão. Regra de morte: divergência aberta, veto ou estouro de teto anula a pré-autorização, e anulada ela não renasce; Desenho escalado só publica com frase nova do dono no próprio portão, e a mensagem desse portão nomeia o gatilho que anulou. Sem frase emitida na Intenção, vale o comportamento atual: o Desenho publica pelo rito normal do Passo 5, com a frase do portão. A constituição do projeto pode restringir (portão de Desenho fixo, sem pré-autorização), nunca ampliar; fatia com Intenção aprovada antes desta regra não ganha pré-autorização retroativa.
+
+O portão de Desenho é por exceção e tem três gatilhos nomeados: divergência aberta, veto e estouro de teto (reclassificação da classe para cima durante o Desenho conta como estouro). Mesa fechada sem nenhum dos três passa direto e o registro anota isso; qualquer gatilho sobe ao dono. Os portões de Intenção e Veredito são fixos. Veto do grc-reviewer sobrevive ao consenso e chega intacto ao dono mesmo que toda a mesa discorde dele.
+
+No estouro de teto, a mensagem do portão tem formato fixo, até cinco linhas, neste modelo literal:
+
+```
+Portão de Desenho — estouro de teto.
+Classe: <leve|média|plena> (teto <N>). Plano: <M> tarefas.
+Causa do estouro: <uma frase>.
+Opções: (1) aprovar <M> com a justificativa acima; (2) devolver para caber em <N>.
+A mesa recomenda a opção <1|2>: <meia frase>.
+```
+
+A mensagem nunca anexa o plano; se a decisão exigir releitura do plano, o formato falhou. Havendo tarefa `[DONO]`, a mensagem traz a lista "Tarefas suas", uma linha por tarefa com os quatro campos (o quê em uma linha, quando, o que bloqueia, duração estimada); tarefa do dono no caminho crítico só existe com aceite explícito do dono nesta mensagem. O normativo das classes, dos tetos e do piso vive na triagem de proporcionalidade de `docs/fluxo-sdd.md`.
 
 ## Passo 5 — Fechar a fase: integrar e publicar antes de recomendar sessão nova
 
 Fase fechada em branch de trabalho não é estado em disco: é memória privada da sessão. Sessão nova abre no branch padrão do repositório e precisa encontrar lá a spec, o plano e as tarefas. Por isso, com a aprovação do portão que anunciou este efeito, o condutor integra e publica antes de dizer "abra sessão nova".
+
+No fechamento do Desenho por exceção, este passo dispara sob pré-autorização somente quando as duas condições valem, verificadas por ferramenta nos registros: o `02-registro-intencao.md` marca `Pré-autorização: emitida` E o `05-registro-desenho.md` registra a mesa fechada sem divergência, sem veto e sem estouro de teto. Nesse caso o condutor publica pela mesma sequência abaixo, sem exceção nova de caminho, e declara em uma linha o que publicou e sob qual autorização; o 05-registro anota "publicado por pré-autorização da Intenção, commit X", e a mensagem do Veredito repete o rastro em uma linha. Com qualquer gatilho presente, a pré-autorização está anulada: o portão sobe nomeando o gatilho e nada publica sem frase nova do dono. Sem pré-autorização emitida, vale o comportamento atual deste passo: publicar com a aprovação do portão que anunciou o efeito.
 
 O que o condutor faz, nesta ordem, cada passo verificado por ferramenta. Os comandos vivem no fence abaixo, sob o cabeçalho fixo "Sequência do fechamento": a suíte do framework extrai esse bloco e o executa; mudar o texto sem o bloco quebra o teste.
 

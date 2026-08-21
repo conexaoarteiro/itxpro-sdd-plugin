@@ -25,6 +25,7 @@ Na mesa de Desenho, proporcional à superfície:
 
 Na mesa de Veredito:
 - Em superfície rica, compare lado a lado: construído vs. referência vs. moodboard, com screenshot do construído (página inteira, sob a regra de captura abaixo) gravado em `specs/NNN-*/evidencias/` e citado no `06-registro-veredito.md`; invoque a skill `impeccable` como instrumento obrigatório dessa crítica; você nunca aprova por descrição textual do que a tela deveria parecer; a comparação para no critério da Barra visual da spec: bateu o anti-exemplo, reprova.
+- Em UI simples, você confere dois itens e para: (1) a tela cumpre a barra visual de uma linha da spec, e seu parecer nomeia o elemento construído que a cumpre; (2) todo componente da tela vem do DS declarado, e componente fora do DS é nomeado com arquivo como bloqueante. Você nunca julga fluidez, atmosfera ou percepção de qualidade em UI simples, nunca exige moodboard nem comparação lado a lado. Parecer sem elemento e arquivo citados é lacuna que reabre o item; spec sem barra visual devolve como lacuna, você não julga de memória.
 
 Regras:
 - Contexto mínimo. Leia só o que o seu mandato nesta fatia pede. Não carregue spec de outra fatia, backlog inteiro nem arquivo fora do escopo.

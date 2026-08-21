@@ -4,6 +4,25 @@ Régua de versão, pela ótica do contrato que o agente adotante lê: major queb
 
 O hash autoritativo de cada versão é o `INTEGRIDADE.txt` da tag correspondente no repositório de distribuição; a linha `Integridade:` aqui é cópia gravada após o release.
 
+## 0.6.0 — 2026-08-20
+
+Classificação: minor (adiciona triagem, teto, gatilho, cartões e mandatos; nenhum nome ou caminho que resolvia deixa de resolver).
+
+Adiciona:
+
+- Quarta triagem de proporcionalidade (#39 do canônico): tamanho da entrega vira classe de fatia (leve, média ou plena), assinada pela voz de segurança no registro de Intenção (`Classe: X, assinada por security`); registro sem a linha bloqueia a convocação do Desenho. Tetos de tarefas por classe: leve até 10, média até 20, plena sem teto fixo com justificativa; default do framework, recalibrável pela constituição do projeto com registro. Invariante de granularidade: um critério de pronto por tarefa, tarefa composta conta por critérios, fundir para caber é estouro disfarçado.
+- Piso por classe em casa única na triagem de `base/fluxo-sdd.md`: o teto corta cerimônia, nunca piso; colisão entre piso e teto é estouro e sobe ao dono; página pública nunca dispensa headers e CSP herdados; templates e agentes apontam, não copiam.
+- Portão de Desenho com três gatilhos nomeados (divergência, veto, estouro de teto; reclassificação para cima conta como estouro) e mensagem de estouro em formato fixo de até cinco linhas, com modelo literal na skill do condutor, sem anexar o plano; tarefa `[DONO]` com quatro campos, fora do caminho crítico, listada em "Tarefas suas".
+- Pré-autorização condicional do portão de Intenção (#42 do canônico): frase-modelo literal em casa única no Passo 4 da skill; o Passo 5 dispara no fechamento do Desenho por exceção só com `Pré-autorização: emitida` no registro de Intenção e mesa fechada sem divergência, sem veto e sem estouro; regra de morte (anulada não renasce; Desenho escalado só publica com frase nova do dono); rastro triplo em campos fixos; a sequência de fechamento existente não mudou um byte.
+- Fundação repetível em cinco cartões de padrão (`base/padroes/`): `ci-base.md`, `headers-csp.md`, `lighthouse-pa11y.md`, `deploy.md` e `gitleaks.md`, uma página cada, com versão, data de revisão e seção "Como verificar herança"; o plano declara só o delta e o gate de release verifica o formato de todo cartão distribuído; os três cartões anteriores ganham a mesma linha de versão.
+- Texto canônico único do gatilho de superfície rica (#43 do canônico): o normativo vive na triagem de `base/fluxo-sdd.md`; skill do condutor e template de spec viram paráfrase marcada com apontador; a suíte do framework passa a acusar duplicata.
+- Mandato de Veredito em UI simples (#44 do canônico): o ux-architect confere dois itens e para (barra visual com elemento construído nomeado; componentes contra o DS com desvio nomeado por arquivo), nunca julga fluidez nem exige moodboard em UI simples; o reviewer exige a citação nominal no veredito.
+- "Uma tarefa por vez" passa a valer por implementer, não por fatia; o template de tarefas ganha marcadores em sufixo (núcleo, sustentação com motivo, `[DONO]`, `depende de:`/`independente`) e a marcação de independência é declarativa e dormente; o template de plano ganha a seção "Classe e orçamento de tarefas".
+
+Migração (nota da 0.6.0): fatia com Intenção aprovada antes da 0.6.0 não ganha pré-autorização retroativa; sem frase-modelo emitida no portão de Intenção vale o comportamento anterior, documentado na skill. A constituição do projeto pode restringir o mecanismo (portão de Desenho fixo, sem pré-autorização), nunca ampliar.
+
+Integridade: sha256:b7b925bd7a7229a423945f20a4a7f0f9eb368b153e66fbbeebde3d243c269f2b (amarração 0.6.0 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
+
 ## 0.5.0 — 2026-08-20
 
 Classificação: minor (só adiciona seção, mandato e regra; nenhum nome ou caminho que resolvia deixa de resolver).

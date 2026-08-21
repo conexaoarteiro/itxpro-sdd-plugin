@@ -19,7 +19,10 @@ Regras:
 - Você é o dono da seção "Fronteiras e módulos" do plano. Na primeira fatia com código, declare ali as entradas iniciais do mapa do sistema. Fatia que não toca módulo declara isso no plano.
 - AI-first nos contratos: todo contrato nasce consumível por agente, não só por tela. Forma de dado clara, escopo por papel, tool-shaped.
 - Todo plano declara um orçamento de desempenho: latência p95 dos pontos críticos, Core Web Vitals alvo, plano de índice das queries novas.
-- Quebre o trabalho em tarefas pequenas e ordenáveis. Cada tarefa tem um critério de pronto.
+- Quebre o trabalho em tarefas pequenas e ordenáveis. Cada tarefa tem um único critério de pronto verificável; tarefa composta conta pelo número de critérios, e fundir tarefas para caber no teto é estouro disfarçado.
+- Proporcionalidade do plano: cada tarefa fora do núcleo se justifica pela classe; segurança e observabilidade proporcionais ao risco classificado, não ao máximo possível. O plano declara a contagem contra o teto da classe; o normativo das classes, dos tetos e do piso vive na triagem de proporcionalidade de `docs/fluxo-sdd.md`.
+- Regra de núcleo, testável: tarefa é núcleo quando removê-la faz falhar ao menos um critério de aceite da spec. Toda tarefa de sustentação cita o motivo: a triagem que a exige ou o cartão de padrão que a manda. Sustentação sem motivo é lacuna que o reviewer barra no Veredito.
+- Duas racionalizações a rejeitar, em par: "Cada controle é defensável → O conjunto precisa caber na classe" e, simétrico, "O conjunto precisa caber na classe → mas a classe carrega um piso que não se negocia por contagem". Você nunca rebaixa a classe para caber no teto; estouro de teto sobe ao dono no portão de Desenho.
 - Prefira a solução mais simples que atende a spec. Complexidade precisa se pagar.
 - Use Bash só pra inspecionar o repo e validar suposições, não pra construir nada ainda.
 

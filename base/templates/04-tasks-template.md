@@ -3,17 +3,19 @@
 > Autor: mesa de Desenho
 > Baseado em: 03-plan.md
 
-Tarefas pequenas, ordenáveis, cada uma com critério de pronto. O implementer pega uma por vez.
+Tarefas pequenas, ordenáveis, cada uma com um único critério de pronto. Cada implementer pega uma por vez.
 
 Este arquivo é o estado durável da fatia. Sessão nova retoma daqui, não da conversa. Marque o checkbox no momento em que a tarefa fecha.
 
-- [ ] T01 — [descrição]. Pronto quando: [critério].
-- [ ] T02 — [descrição]. Pronto quando: [critério].
-- [ ] T03 — ...
+Cada tarefa é uma linha e um único critério de pronto; tarefa composta conta pelo número de critérios. Núcleo: removê-la falha um critério de aceite da spec; sustentação sem motivo é lacuna. A marcação de independência é declarativa e dormente até a issue #40. Regra anti-inchaço: metadado de tarefa nunca ganha linha própria; a tarefa permanece uma linha, marcadores em sufixo entre parênteses; só `[DONO]` carrega os quatro campos, só sustentação carrega motivo.
+
+- [ ] T01 — [descrição]. Pronto quando: [critério]. (núcleo | independente)
+- [ ] T02 — [descrição]. Pronto quando: [critério]. (sustentação: [a triagem que a exige ou o cartão de padrão que a manda] | depende de: T01)
+- [ ] T03 — [DONO] [o quê em uma linha]. Pronto quando: [critério]. (quando: [momento, fora do caminho crítico] | bloqueia: [o que espera por ela] | duração: [estimativa] | independente)
 
 ## Ordem e dependências
 
-Qual tarefa depende de qual.
+Qual tarefa depende de qual. Tarefa `[DONO]` fica fora do caminho crítico; no caminho crítico só com aceite explícito do dono na mensagem do portão de Desenho.
 
 ## Disciplinas embutidas
 

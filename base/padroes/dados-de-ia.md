@@ -2,6 +2,7 @@
 
 > Consulte quando a fatia vetoriza dado, envia dado a provider de modelo, ou monta dataset (golden set, exemplos few-shot).
 > Base: AI Engineering, Data Governance, Designing Data-Intensive Applications. A teoria fica com o modelo; aqui é a nossa posição.
+> Versão: 1.0 · Revisado: 2026-08-20 · Gatilho de revisão: release do plugin
 
 ## Contexto
 

@@ -31,7 +31,7 @@ Lista de afirmações verificáveis. Cada uma é testável.
 
 (ux-architect) A barra de experiência desta fatia. O que faz o usuário entender onde está em poucos segundos. A superfície de tela: rica, simples ou sem UI.
 
-**Barra visual** (obrigatória em superfície rica; é rica quando o dono deu referência visual OU a página é pública e carrega a marca):
+**Barra visual** (obrigatória em superfície rica; em paráfrase: referência visual do dono ou página pública com marca — o texto normativo do gatilho vive na triagem de proporcionalidade de `docs/fluxo-sdd.md`, uma vez só):
 
 1. O que a página transmite em cinco segundos. Substantivo concreto; adjetivo genérico ("moderno", "clean", "profissional") é proibido.
 2. Ativos visuais da referência que se preservam. Lista nominal (ex.: "hero com foto de pessoa real", "grade de 3 cards com ícone").

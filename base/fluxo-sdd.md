@@ -26,11 +26,11 @@ Discussão: o architect propõe o desenho. A segurança molda o controle de aces
 
 Saída: um plano e uma lista de tarefas, com modelo de dados e política de acesso, fronteiras e módulos declarados, modelagem de ameaça proporcional, contratos prontos pra agente, design de interação, plano de deploy e config, e budget de desempenho.
 
-Portão: por exceção. O desenho passa sozinho quando a mesa fecha sem bloqueio. Ele sobe pro humano só quando há divergência aberta ou veto de segurança. Nos primeiros slices de um projeto, dá pra manter portão fixo até confiar na mesa, e depois soltar para a exceção.
+Portão: por exceção, com três gatilhos nomeados. O desenho passa sozinho quando a mesa fecha sem divergência, sem veto e sem estouro do teto da classe. Ele sobe pro humano quando há divergência aberta, veto de segurança ou estouro de teto (reclassificação da classe para cima conta como estouro). Quando o portão de Intenção emitiu a pré-autorização (frase-modelo dita pelo condutor e aprovada pelo dono; o texto literal e os campos de rastro vivem na skill do condutor), o Desenho fechado sem nenhum gatilho é publicado pelo condutor, que declara isso em uma linha; qualquer gatilho anula a pré-autorização, que não renasce, e o portão sobe nomeando-o. Nos primeiros slices de um projeto, dá pra manter portão fixo até confiar na mesa, e depois soltar para a exceção.
 
 ### Fase 3 — Construção e veredito
 
-Construção: o implementer constrói, uma tarefa por vez.
+Construção: cada implementer constrói uma tarefa por vez; a regra vale por implementer, não por fatia. A marcação de independência das tarefas no plano é declarativa e dormente: execução paralela de implementers aguarda decisão própria do framework.
 
 Mesa de veredito: reviewer (conduz), grc-reviewer (veto), ux-architect, devsecops, e security-privacy-architect conforme o risco.
 
@@ -50,7 +50,7 @@ O mandato do condutor:
 - Parar nos portões humanos e apresentar ao dono do projeto a decisão, as divergências e o que precisa de resposta.
 - Nunca implementar nem julgar. Quem constrói é o implementer, quem julga é a mesa de Veredito.
 - Manter o estado do pipeline em disco (`specs/NNN-*/`), nunca na conversa. Sessão nova de condução retoma do disco.
-- Fechar a fase publicando: estado em disco é o branch padrão do repositório publicado em `origin`; o condutor integra por fast-forward e publica antes de recomendar sessão nova, dentro dos limites declarados na skill.
+- Fechar a fase publicando: estado em disco é o branch padrão do repositório publicado em `origin`; o condutor integra por fast-forward e publica antes de recomendar sessão nova, dentro dos limites declarados na skill. Vale também para o Desenho fechado por exceção sob pré-autorização da Intenção, com o rastro declarado em uma linha; o mecanismo e o literal vivem na skill.
 
 A skill `sdd-conductor` carrega esse mandato como comando invocável em qualquer projeto e chega com o plugin (`skills/sdd-conductor/`).
 
@@ -60,16 +60,30 @@ No Claude Code os subagents não conversam sozinhos. A sessão principal conduz 
 
 ## Proporcionalidade
 
-A cerimônia escala com três triagens feitas no começo:
+A cerimônia escala com quatro triagens feitas no começo:
 
 - Risco de dado (segurança). Baixo risco passa leve. Fatia que toca dado pessoal sensível dispara o pacote completo: modelagem de ameaça (STRIDE e LINDDUN), classificação e análise de risco.
 - Superfície de tela (UX), em três níveis. Sem UI: o ux-architect sai da mesa. UI simples (CRUD, form interno, dashboard operacional): barra visual de uma linha + DS, sem moodboard. Superfície rica: Barra visual completa na spec, moodboard obrigatório na mesa de Desenho, veredito visual lado a lado. É rica quando o dono deu referência visual OU a página é pública e carrega a marca. Referência do dono a artefato visual (site, documento, relatório, apresentação) sempre convoca o ux-architect na mesa de Intenção.
 - Exposição a agente (AX). Fatia que expõe MCP convoca o agent-experience-architect e faz a segurança co-desenhar a superfície. Fatia que não expõe fica só com o princípio AI-first nos contratos.
+- Tamanho da entrega (classe de fatia). A triagem atribui a classe: leve, média ou plena. A classe entra no registro de Intenção na linha `Classe: X, assinada por security`, assinada pela voz de segurança. Registro de Intenção sem essa linha bloqueia a convocação da mesa de Desenho. Reclassificação para baixo depois do desenho sobe ao portão; ninguém rebaixa classe para caber no teto.
+
+### Classe de fatia e teto de tarefas
+
+Cada classe carrega um teto de tarefas do plano: leve até 10, média até 20, plena sem teto fixo e com justificativa por excedente registrada no plano. Os números são default do framework; a constituição do projeto pode recalibrá-los, com registro. Invariante de granularidade: cada tarefa tem um único critério de pronto verificável, e tarefa composta conta pelo número de critérios; fundir tarefas para caber no teto é estouro disfarçado. Estouro de teto sobe sempre ao dono, no portão de Desenho, mesmo com a mesa fechada sem bloqueio; não há margem delegada à mesa. Reclassificação da classe para cima durante o Desenho conta como estouro.
+
+### Piso por classe
+
+O teto corta cerimônia, nunca piso. O piso de segurança de cada classe vive aqui, casa única: templates, agentes e skills apontam para esta seção, não a copiam. Colisão entre piso e teto não se resolve pela aritmética: é estouro e sobe ao dono.
+
+- Piso universal (toda classe, toda fatia com código): fundação presente e verificada com versão; nenhum segredo em código, log ou artefato (gitleaks ativo); nenhum dado pessoal em log, telemetria ou mensagem de erro.
+- Leve: piso universal. Leve com página pública NUNCA dispensa headers de segurança e CSP herdados da fundação, verificados e não presumidos. Leve que toca dado pessoal nunca dispensa política de acesso por papel na tabela ou endpoint tocado.
+- Média: tudo da leve + validação de entrada em todo endpoint novo + política de acesso nasce junto com a tabela, nunca em tarefa separada cortável.
+- Plena: tudo da média + modelagem de ameaça conforme o risco de dado (STRIDE/LINDDUN quando sensível) + security obrigatório no Veredito.
 
 ## Os portões e o veto
 
 - Dois portões humanos fixos: aprovação da spec (Intenção) e decisão de merge (Veredito).
-- Um portão por exceção: o Desenho.
+- Um portão por exceção: o Desenho, com três gatilhos nomeados: divergência aberta, veto e estouro de teto (reclassificação da classe para cima conta como estouro). O estouro chega ao dono em mensagem de formato fixo, até cinco linhas, sem anexar o plano; o modelo literal vive na skill do condutor, e o normativo das classes e dos tetos vive na triagem de proporcionalidade, acima. O portão de Intenção pode pré-autorizar a publicação do Desenho fechado sem gatilho; a frase-modelo é casa única na skill do condutor, a anulação por gatilho é definitiva, e a constituição do projeto pode restringir esse mecanismo, nunca ampliar.
 - O veto do grc-reviewer sobrevive ao consenso da mesa. Uma fase nunca fecha engolindo um veto.
 - Segregação de função: o security-privacy-architect desenha a restrição no começo, o grc-reviewer julga o resultado no fim. Um não substitui o outro.
 
