@@ -1,15 +1,15 @@
-# INTEGRIDADE — itxpro-sdd@0.6.0
+# INTEGRIDADE — itxpro-sdd@0.6.1
 # Manifesto legível por máquina (plano da 003, R5).
 # conjunto: SHA-256 da lista ordenada de hashes de todos os arquivos,
 # excluindo INTEGRIDADE.txt e CHANGELOG.md (que carrega o próprio hash).
-versao: 0.6.0
-tag: v0.6.0
-commit-canonico: 824b4ae0cd8ff5c4af7267cbce4867d369ff5146
-conjunto: b7b925bd7a7229a423945f20a4a7f0f9eb368b153e66fbbeebde3d243c269f2b
+versao: 0.6.1
+tag: v0.6.1
+commit-canonico: cc881c342ca07cb85c27983638ef14c4b87868ea
+conjunto: 49f5c431fafe4a1625a4d929af0a91fd3922f34593416e630c98cb2d5051ad07
 arquivos:
 efdab1c4d930ea83e52a571c8915df95bc7bd06acf9fc84641afdb1b08cf987d  ./.claude-plugin/marketplace.json
-80ad317664499de8200e17e3a9876e9f2dddfe6275773573a4f794a65f1e64c0  ./.claude-plugin/plugin.json
-f26875f689d84a9eeeea6d81e2e958a5057e0d61b5a9cddf07bf8f5908eb9f89  ./CHANGELOG.md
+67ad981ed685049a01638036fb7e73815aaf4856b903aff59c4693f591e2c676  ./.claude-plugin/plugin.json
+197e49ba23d874e82a463e3bf3642b4fd1b652b0202408cb73deb27389deb71c  ./CHANGELOG.md
 5125d7ea690a67404f42f475401f2c076a5b1f3831b5ea984e878886341bc594  ./README.md
 d5bbbe7dd099800d8fbd87d5b5bbfa39892b13b3582b565258ce0773a3ed0157  ./agents/_engatilhados/agent-experience-architect.md
 7cd706b11e20985d372fb8d3258f55aa4439d3fe75f5254019cc25b05ac2c0bc  ./agents/architect.md
@@ -22,7 +22,7 @@ e99b1672d9ebabc84c4072ba4542256b73a63509dd98a6b68664d98f2654547e  ./agents/imple
 d70ea165e5504848fa3259285d9d2c780be16909ef3a69e42ddf3ca3290feff8  ./agents/ux-architect.md
 ccddf5509c40caa6c8dd059e99db55ae2e0f4a93744f28cd32db44a60e282ca6  ./base/.gitleaks.toml
 57e40da88b4b48e803c780f0b0320f3dc1f20886f1df6b58250e68ba66d60815  ./base/constituicao-template.md
-d4da16080f149f36fa5bfc7af9be29dff5c4816694e25c809bd7860daab09918  ./base/diagrama-pipeline-sdd.svg
+dd407246cb489348b39a4f39bddc2d5e6a0e8830e0cedb8de669af5bee33bd4a  ./base/diagrama-pipeline-sdd.svg
 ab2a550bafc055837a340ce887e034304692a04de120a35c4646ab8ddb6f2342  ./base/fluxo-sdd.md
 318c6e448c847ce0652518141921ae80a7fb9d9e2c5dc4af6fac27cd248a39ab  ./base/gitleaks.yml
 002558d10ed8fcd4f09fdee5d6d957b7ccc63b7e0a1019a565188b118cf0aa0e  ./base/hookify/hookify.block-backlog-md-bash.local.md

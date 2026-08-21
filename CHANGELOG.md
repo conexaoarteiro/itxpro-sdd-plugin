@@ -4,6 +4,16 @@ Régua de versão, pela ótica do contrato que o agente adotante lê: major queb
 
 O hash autoritativo de cada versão é o `INTEGRIDADE.txt` da tag correspondente no repositório de distribuição; a linha `Integridade:` aqui é cópia gravada após o release.
 
+## 0.6.1 — 2026-08-21
+
+Classificação: patch (corrige texto ilustrativo; nenhum nome, caminho ou instrução muda).
+
+Corrige:
+
+- Diagrama do pipeline (`base/diagrama-pipeline-sdd.svg`) alinhado à 0.6.0: a legenda do portão de Desenho nomeia os três gatilhos (divergência, veto, estouro de teto), a construção diz "cada implementer · uma tarefa por vez" e o carimbo de versão sai de 0.2.1. O normativo textual já saiu correto na 0.6.0; o diagrama tinha ficado fora do mapeamento da fatia 008.
+
+Integridade: sha256:49f5c431fafe4a1625a4d929af0a91fd3922f34593416e630c98cb2d5051ad07 (amarração 0.6.1 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
+
 ## 0.6.0 — 2026-08-20
 
 Classificação: minor (adiciona triagem, teto, gatilho, cartões e mandatos; nenhum nome ou caminho que resolvia deixa de resolver).
@@ -21,7 +31,7 @@ Adiciona:
 
 Migração (nota da 0.6.0): fatia com Intenção aprovada antes da 0.6.0 não ganha pré-autorização retroativa; sem frase-modelo emitida no portão de Intenção vale o comportamento anterior, documentado na skill. A constituição do projeto pode restringir o mecanismo (portão de Desenho fixo, sem pré-autorização), nunca ampliar.
 
-Integridade: sha256:b7b925bd7a7229a423945f20a4a7f0f9eb368b153e66fbbeebde3d243c269f2b (amarração 0.6.0 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
+Integridade: sha256:b7b925bd7a7229a423945f20a4a7f0f9eb368b153e66fbbeebde3d243c269f2b (amarração 0.6.0 → hash; autoritativo no `INTEGRIDADE.txt` da tag v0.6.0)
 
 ## 0.5.0 — 2026-08-20
 

@@ -59,7 +59,7 @@
   <text x="733" y="449" text-anchor="middle" font-size="13" fill="#F0EBE1">devsecops</text>
 
   <text x="733" y="506" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.55)">o desenho passa sozinho sem bloqueio;</text>
-  <text x="733" y="530" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.55)">sobe ao humano com diverg&#234;ncia ou veto</text>
+  <text x="733" y="530" text-anchor="middle" font-size="12" fill="rgba(240,235,225,0.55)">sobe com diverg&#234;ncia, veto ou estouro de teto</text>
 
   <line x1="567" y1="584" x2="899" y2="584" stroke="#2B2B2B" stroke-width="1"/>
   <text x="733" y="610" text-anchor="middle" font-size="14" font-weight="600" fill="#F0EBE1">Sa&#237;da: plano e tarefas</text>
@@ -80,7 +80,7 @@
 
   <text x="1228" y="292" text-anchor="middle" font-size="11" font-weight="600" letter-spacing="3.8" fill="rgba(240,235,225,0.70)">CONSTRU&#199;&#195;O</text>
   <rect x="1078" y="308" width="300" height="32" rx="4" fill="#1C1C1C" stroke="rgba(240,235,225,0.15)" stroke-width="1"/>
-  <text x="1228" y="329" text-anchor="middle" font-size="13" fill="#F0EBE1">implementer &#183; uma tarefa por vez</text>
+  <text x="1228" y="329" text-anchor="middle" font-size="13" fill="#F0EBE1">cada implementer &#183; uma tarefa por vez</text>
 
   <line x1="1062" y1="362" x2="1394" y2="362" stroke="#2B2B2B" stroke-width="1"/>
 
@@ -163,5 +163,5 @@
   <circle cx="895" cy="833" r="7" fill="#0CA30C"/>
   <text x="912" y="838" font-size="12" fill="rgba(240,235,225,0.70)">fatia no ar</text>
 
-  <text x="1552" y="838" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="rgba(240,235,225,0.55)">itxpro-sdd v0.2.1</text>
+  <text x="1552" y="838" text-anchor="end" font-family="'JetBrains Mono', ui-monospace, Menlo, monospace" font-size="12" fill="rgba(240,235,225,0.55)">itxpro-sdd v0.6.0</text>
 </svg>
