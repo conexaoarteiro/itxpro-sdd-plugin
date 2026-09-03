@@ -94,7 +94,7 @@ Decisão tomada para reduzir superfície e aproveitar o que já existe. Mudar qu
 
 ## Convenções de código
 
-- Nomes de arquivo e pasta em kebab-case; componentes React em PascalCase.
+- Nomes de arquivo e pasta em kebab-case; nomes no código seguem a convenção idiomática da linguagem declarada na stack, e o projeto declara qual vale quando há mais de uma.
 - Sem comentário óbvio. Comentário explica porquê, não o quê.
 - Migration de banco sempre versionada e reversível.
 - Toda função de acesso a dado assume que a política de acesso do banco está ligada e testa isso.

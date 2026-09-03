@@ -13,7 +13,7 @@
 | security-privacy-architect | `security-review`, `claude-security` (scan sob demanda) | Modelagem de ameaça com varredura real, proporcional ao risco |
 | ux-architect | `frontend-design:frontend-design`, `impeccable:impeccable` (obrigatória no Veredito de superfície rica), `dataviz` | Sistema de design, crítica de UI, visualização de dados |
 | devsecops | `commit-commands:commit`, `supabase:supabase` | Disciplina de commit, migrations e pipeline |
-| implementer | `superpowers:test-driven-development`, `superpowers:systematic-debugging`, `superpowers:using-git-worktrees` | TDD como regra, debug por causa raiz, isolamento por worktree |
+| implementer | `superpowers:test-driven-development`, `superpowers:systematic-debugging`, `superpowers:using-git-worktrees` | TDD como regra, debug por causa raiz, isolamento por worktree, que é git nativo e não depende do plugin |
 | reviewer | `pr-review-toolkit:review-pr`, `superpowers:verification-before-completion` | Revisores especializados na mesa de Veredito; evidência antes de afirmação |
 | grc-reviewer | `security-review`; skills ITXPRO de GRC (`iso27001`, `nist-csf`, `soc2`, `pci-compliance`) quando o domínio pedir | Parecer de conformidade com base em framework real |
 
@@ -22,7 +22,7 @@
 - `hookify` — transforma os "nunca fazer" da constituição em hooks executáveis: bloquear segredo em commit, bloquear fatia sem spec aprovada, avisar estouro do teto de 120 linhas. Regra escrita vira regra imposta pela máquina.
 - `claude-md-management` — auditoria periódica da constituição e do teto de linhas.
 - `superpowers:writing-skills` e `skill-creator` — criação das skills próprias da ITXPRO.
-- `superpowers:dispatching-parallel-agents` — quando a fase tiver trabalho independente paralelizável.
+- `superpowers:dispatching-parallel-agents` — quando a fase tiver trabalho independente paralelizável. A skill assiste o despacho, não o habilita: o paralelismo do fluxo roda em `git worktree` nativo e continua sem o plugin.
 - `superpowers:finishing-a-development-branch` — fechamento de branch ao fim da fatia.
 
 ## Plugins de terceiros: instalação
@@ -31,7 +31,7 @@ Fonte única da lista que o setup confere. O script `hooks/check-plugins.py` do 
 
 | Plugin | Fonte oficial | Instalação | Sem ele |
 |---|---|---|---|
-| `superpowers` | marketplace `claude-plugins-official` | `/plugin install superpowers@claude-plugins-official` | Intenção sem brainstorming, Desenho sem writing-plans, implementer sem TDD e debug sistemático, Veredito sem verification-before-completion |
+| `superpowers` | marketplace `claude-plugins-official` | `/plugin install superpowers@claude-plugins-official` | Intenção sem brainstorming, Desenho sem writing-plans, implementer sem TDD e sem debug sistemático, Veredito sem verificação antes de concluir. O despacho paralelo não cai: ele roda em `git worktree` nativo. Quem derruba a janela para serial é o gate não provado no worktree, nunca a ausência de plugin |
 | `hookify` | marketplace `claude-plugins-official` | `/plugin install hookify@claude-plugins-official` | As regras `.claude/hookify.*.local.md` não rodam: sem bloqueio de `backlog.md` e sem aviso shift-left de segredo (o gate de commit e o CI continuam) |
 | `pr-review-toolkit` | marketplace `claude-plugins-official` | `/plugin install pr-review-toolkit@claude-plugins-official` | reviewer sem revisores especializados na mesa de Veredito |
 | `commit-commands` | marketplace `claude-plugins-official` | `/plugin install commit-commands@claude-plugins-official` | devsecops sem disciplina de commit assistida |

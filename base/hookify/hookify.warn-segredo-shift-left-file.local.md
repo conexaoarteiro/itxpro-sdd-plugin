@@ -16,4 +16,4 @@ Aviso (heurística): o texto contém um padrão que parece segredo (chave AWS `A
 
 Regra: constituição, seção "O que nunca fazer" ("Nunca colocar segredo no repositório") e seção "Regras de domínio e privacidade" (segredo em variável de ambiente, nunca no código).
 
-Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Esta é a camada de aviso na escrita: o gate de commit roda gitleaks e bloqueia; a varredura no CI é a linha autoritativa.
+Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Esta é a camada de aviso na escrita: o gate de commit roda gitleaks e bloqueia; a varredura no CI barra o merge onde a proteção de branch exige o check, e onde não exige ela é sinal e o controle é a leitura humana do diff no PR.

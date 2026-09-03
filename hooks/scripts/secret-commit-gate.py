@@ -27,8 +27,10 @@ Limites declarados (lacuna já nomeada no plano e documentada em T08): alias
 de shell, `sh -c 'git commit'` e outras indireções ficam FORA do match
 (falso negativo); um comando que só menciona `git commit` fora de aspas
 (ex.: `grep git commit`) entra no match (falso positivo), o que no máximo
-roda uma varredura a mais — o gate erra para o lado de varrer. A linha
-autoritativa contra bypass é a varredura no CI.
+roda uma varredura a mais — o gate erra para o lado de varrer. Contra bypass
+local sobra a varredura no CI: ela barra o merge onde a proteção de branch
+exige o check; onde não exige, ela é sinal e o controle é a leitura humana do
+diff no PR.
 
 Resolução de caminho: a raiz do repo vem de `git rev-parse --show-toplevel`
 executado no `cwd` do tool-input (o cwd da sessão onde o Bash vai rodar),
@@ -84,8 +86,9 @@ MSG_ACHADO_RODAPE = (
     "Caminho: o segredo sai do código e vai pra variável de ambiente; a chave "
     "se documenta no `.env.example`, nunca o valor. Depois, `git add` e repita "
     "o commit. Falso positivo entra no `.gitleaks.toml` via PR (allowlist "
-    "versionada, path exato). A varredura no CI é a linha autoritativa: "
-    "contornar este gate não passa do PR."
+    "versionada, path exato). Contornar este gate não encerra o assunto: a "
+    "varredura no CI barra o merge onde a proteção de branch exige o check; "
+    "onde não exige, ela é sinal e o controle é a leitura humana do diff no PR."
 )
 
 MSG_FAIL_CLOSED = (

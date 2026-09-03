@@ -6,7 +6,7 @@ Anatomia fixa de toda mensagem: **fato → regra → caminho**. O fato diz o que
 
 Âncoras verificadas em `base/constituicao-template.md` do pacote (título literal das seções): "O que nunca fazer", "Gestão de trabalho", "Regras de domínio e privacidade", "Engenharia de contexto e harness". Mensagem nova só entra citando seção que existe no template.
 
-Vocabulário único nas três camadas de segredo (aviso na escrita, gate de commit, varredura no CI), que contam a mesma história com os mesmos termos: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor; falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato); a varredura no CI é a linha autoritativa.
+Vocabulário único nas três camadas de segredo (aviso na escrita, gate de commit, varredura no CI), que contam a mesma história com os mesmos termos: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor; falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato); a varredura no CI é autoritativa onde a proteção de branch exige o check, e onde não exige ela é sinal e o controle é a leitura humana do diff no PR.
 
 ## 1. `backlog.md` proibido
 
@@ -30,7 +30,7 @@ Aviso. Regras hookify `warn-segredo-shift-left-file` e `warn-segredo-shift-left-
 >
 > Regra: constituição, seção "O que nunca fazer" ("Nunca colocar segredo no repositório") e seção "Regras de domínio e privacidade" (segredo em variável de ambiente, nunca no código).
 >
-> Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Esta é a camada de aviso na escrita: o gate de commit roda gitleaks e bloqueia; a varredura no CI é a linha autoritativa.
+> Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Esta é a camada de aviso na escrita: o gate de commit roda gitleaks e bloqueia; a varredura no CI barra o merge onde a proteção de branch exige o check, e onde não exige ela é sinal e o controle é a leitura humana do diff no PR.
 
 ## 3. Segredo em commit (gate)
 
@@ -42,7 +42,7 @@ Achado do gitleaks (o script preenche os campos com dados estruturados do report
 >
 > Regra: constituição, seção "O que nunca fazer" ("Nunca colocar segredo no repositório").
 >
-> Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Depois, `git add` e repita o commit. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). A varredura no CI é a linha autoritativa: contornar este gate não passa do PR.
+> Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Depois, `git add` e repita o commit. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Contornar este gate não encerra o assunto: a varredura no CI barra o merge onde a proteção de branch exige o check; onde não exige, ela é sinal e o controle é a leitura humana do diff no PR.
 
 Fail-closed (gitleaks ausente do PATH ou erro de execução):
 
@@ -60,13 +60,13 @@ Fail-closed (gitleaks ausente do PATH ou erro de execução):
 >
 > Versão mínima: README do plugin, seção "Pré-requisito: gitleaks".
 
-Variante do CI (passo `if: failure()` do `gitleaks.yml` imprime no log do job, para a camada autoritativa falar a mesma língua; os achados, sempre com valor mascarado, ficam no passo anterior):
+Variante do CI (passo `if: failure()` do `gitleaks.yml` imprime no log do job, para a varredura do CI falar a mesma língua; os achados, sempre com valor mascarado, ficam no passo anterior):
 
 > Bloqueado: segredo detectado na varredura do CI. Os achados, com valor mascarado, estão no passo anterior deste job.
 >
 > Regra: constituição, seção "O que nunca fazer" ("Nunca colocar segredo no repositório").
 >
-> Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Esta varredura é a linha autoritativa: remova o segredo do histórico do branch e rotacione a credencial exposta.
+> Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Esta varredura barra o merge onde a proteção de branch exige o check; onde não exige, ela é sinal e o controle é a leitura humana do diff no PR. Nos dois casos, remova o segredo do histórico do branch e rotacione a credencial exposta.
 
 ## 4. Implementação sem spec aprovada
 

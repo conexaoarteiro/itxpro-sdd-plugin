@@ -36,6 +36,20 @@ Além do gitleaks, o plugin usa `python3` (hooks nativos) e `gh` (backlog fora d
 
 Rode `/sdd`. Sem constituição no projeto, ele aponta o setup; com constituição fechada, ele conduz a fatia.
 
+## Paralelismo: versione a camada de enforcement
+
+O condutor despacha em paralelo as tarefas que o plano declara independentes, cada uma no seu worktree. Antes de despachar, ele confere se o gate de segredo está vivo dentro daquele worktree: `.gitleaks.toml` na raiz de lá, o hook respondendo e uma prova de fail-closed com segredo sintético. Arquivo presente não basta.
+
+Worktree novo nasce só com o que o git rastreia. Recomendação de adoção: comite a camada de enforcement no seu repositório e confira que o `.gitignore` não a exclui.
+
+- `.gitleaks.toml` na raiz: o gate resolve a raiz daquele worktree e exige a configuração ali; sem ela, ele nega todo commit de lá.
+- `.github/workflows/gitleaks.yml`: os ramos paralelos entram por um PR de integração. A varredura de CI é autoritativa onde a proteção de branch exige o check, e ali ela barra o merge; onde a proteção não exige, ela é sinal e o controle é a leitura humana do diff no PR.
+- `.claude/` com as regras de aviso do setup: elas avisam no worktree onde o trabalho acontece, antes do commit.
+
+Faltando qualquer peça, a conferência pega e o despacho cai para execução serial, sem perguntar. É o fail-closed funcionando, não defeito. Nada disso é pré-requisito de instalação: o plugin instala, o `/sdd` conduz e a fatia fecha do mesmo jeito, uma tarefa por vez. O que você perde é o paralelismo.
+
+**Ao resolver conflito, feche com `git commit`, nunca com `--continue`.** A razão é mecânica, não é preferência de estilo. O gate de segredo roda antes do comando e varre o índice: em `git commit`, ele lê a resolução que você adicionou e nega antes de ela virar commit. Os três `--continue` passam calados por ele. Em dois deles a varredura do CI ainda pega o segredo, mas pega depois, no PR, com a credencial já gravada no ramo e já exposta, e ali o caminho deixa de ser bloquear e passa a ser rotacionar. `git merge --continue` é o que mais dói: é a forma que a mão escolhe sozinha ao sair de um conflito de merge, e a única que nem o gate nem a varredura veem. A medição das quatro formas, camada por camada, está na seção "Integração dos ramos" de `skills/sdd-conductor/SKILL.md`.
+
 ## Voltar de versão
 
 Rollback do adotante é roll-forward: uma tag nova, publicada pelo workflow de release, com o conteúdo desejado. Reinstale pinado nessa tag. Nunca edite o repositório de distribuição na mão: só o workflow escreve nele.

@@ -1,4 +1,4 @@
-# Varredura de segredos no CI — a linha autoritativa do enforcement da constituição.
+# Varredura de segredos no CI, autoritativa onde a proteção de branch exige o check.
 # Os hooks locais são a defesa rápida; este check é o que ninguém contorna com --no-verify.
 #
 # Por que binário pinado e não a gitleaks-action: a action exige GITLEAKS_LICENSE em
@@ -49,12 +49,12 @@ jobs:
           ./gitleaks git . --config .gitleaks.toml --redact --no-banner
 
       - name: Fala a língua do catálogo em caso de achado (fato → regra → caminho)
-        # Texto da variante do CI em hooks/mensagens.md do plugin, seção 3: a linha
-        # autoritativa usa a mesma anatomia e o mesmo vocabulário dos hooks locais.
+        # Texto da variante do CI em hooks/mensagens.md do plugin, seção 3: esta
+        # varredura usa a mesma anatomia e o mesmo vocabulário dos hooks locais.
         if: failure()
         run: |
           echo 'Bloqueado: segredo detectado na varredura do CI. Os achados, com valor mascarado, estão no passo anterior deste job.'
           echo ''
           echo 'Regra: constituição, seção "O que nunca fazer" ("Nunca colocar segredo no repositório").'
           echo ''
-          echo 'Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Esta varredura é a linha autoritativa: remova o segredo do histórico do branch e rotacione a credencial exposta.'
+          echo 'Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Esta varredura barra o merge onde a proteção de branch exige o check; onde não exige, ela é sinal e o controle é a leitura humana do diff no PR. Nos dois casos, remova o segredo do histórico do branch e rotacione a credencial exposta.'

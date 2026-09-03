@@ -30,7 +30,9 @@ Portão: por exceção, com três gatilhos nomeados. O desenho passa sozinho qua
 
 ### Fase 3 — Construção e veredito
 
-Construção: cada implementer constrói uma tarefa por vez; a regra vale por implementer, não por fatia. A marcação de independência das tarefas no plano é declarativa e dormente: execução paralela de implementers aguarda decisão própria do framework.
+Construção: cada implementer constrói uma tarefa por vez; a regra vale por implementer, não por fatia. Quem paraleliza é o condutor. O implementer nunca dispara outra execução por conta.
+
+Despacho paralelo: o plano marca cada tarefa com um perfil de vocabulário fechado (`texto`, `front`, `back`, `infra`) e com a superfície de arquivo que ela toca. O condutor despacha junto só o que passa na conferência de superfície: antes do despacho ele expande a superfície declarada de cada tarefa e cruza os conjuntos par a par. Superfícies disjuntas rodam ao mesmo tempo, cada execução no seu worktree e no seu ramo. Serial é o default: superfície não disjunta, declaração ausente, `depende de:` em aberto ou qualquer dúvida significa uma tarefa de cada vez. Paralelismo sem essa conferência é desvio, não otimização. O teto de concorrência é de três execuções simultâneas, e a constituição do projeto pode recalibrá-lo com registro; o número mede raio de explosão, não gasto de token. A mecânica de worktree, a verificação de cobertura do gate por ambiente e a consolidação dos ramos vivem na skill do condutor, casa única.
 
 Mesa de veredito: reviewer (conduz), grc-reviewer (veto), ux-architect, devsecops, e security-privacy-architect conforme o risco.
 
@@ -62,7 +64,7 @@ No Claude Code os subagents não conversam sozinhos. A sessão principal conduz 
 
 A cerimônia escala com quatro triagens feitas no começo:
 
-- Risco de dado (segurança). Baixo risco passa leve. Fatia que toca dado pessoal sensível dispara o pacote completo: modelagem de ameaça (STRIDE e LINDDUN), classificação e análise de risco.
+- Risco de dado (segurança). Baixo risco passa leve. Fatia que toca dado pessoal sensível dispara o pacote completo: modelagem de ameaça (STRIDE e LINDDUN), classificação e análise de risco. O perfil `dados` está engatilhado e ainda não entra em plano. O evento que o acorda é observável e é um só: a primeira fatia cujo plano cria tabela, altera esquema ou move dado em lote. Essa fatia dispara duas coisas, não uma: a reavaliação do perfil e do agente de dados, e a re-triagem de segurança da própria fatia, refeita do zero. Nenhum perfil rebaixa classe, teto ou piso.
 - Superfície de tela (UX), em três níveis. Sem UI: o ux-architect sai da mesa. UI simples (CRUD, form interno, dashboard operacional): barra visual de uma linha + DS, sem moodboard. Superfície rica: Barra visual completa na spec, moodboard obrigatório na mesa de Desenho, veredito visual lado a lado. É rica quando o dono deu referência visual OU a página é pública e carrega a marca. Referência do dono a artefato visual (site, documento, relatório, apresentação) sempre convoca o ux-architect na mesa de Intenção.
 - Exposição a agente (AX). Fatia que expõe MCP convoca o agent-experience-architect e faz a segurança co-desenhar a superfície. Fatia que não expõe fica só com o princípio AI-first nos contratos.
 - Tamanho da entrega (classe de fatia). A triagem atribui a classe: leve, média ou plena. A classe entra no registro de Intenção na linha `Classe: X, assinada por security`, assinada pela voz de segurança. Registro de Intenção sem essa linha bloqueia a convocação da mesa de Desenho. Reclassificação para baixo depois do desenho sobe ao portão; ninguém rebaixa classe para caber no teto.
@@ -79,6 +81,10 @@ O teto corta cerimônia, nunca piso. O piso de segurança de cada classe vive aq
 - Leve: piso universal. Leve com página pública NUNCA dispensa headers de segurança e CSP herdados da fundação, verificados e não presumidos. Leve que toca dado pessoal nunca dispensa política de acesso por papel na tabela ou endpoint tocado.
 - Média: tudo da leve + validação de entrada em todo endpoint novo + política de acesso nasce junto com a tabela, nunca em tarefa separada cortável.
 - Plena: tudo da média + modelagem de ameaça conforme o risco de dado (STRIDE/LINDDUN quando sensível) + security obrigatório no Veredito.
+
+O piso se ancora na matéria tocada, nunca no rótulo. Quem manda o controle entrar é o que a tarefa toca (dado pessoal, tabela, endpoint, página pública), não o perfil escrito no plano. Perfil acrescenta item de pronto e nunca dispensa item do piso. Política de acesso é o caso exemplar: ela mora aqui, no piso, e não dentro de um perfil.
+
+Piso não paraleliza. Tarefa que carrega controle de piso nunca é `independente` em relação ao artefato que protege, e controle e artefato nunca caem em ramos distintos: a política nasce no ramo da tabela, o header de segurança nasce no ramo da página pública. O caminho de enforcement do piso segue a mesma regra e serializa sozinho, em qualquer perfil. Colisão entre piso e paralelismo termina como a colisão entre piso e teto: é estouro e sobe ao dono.
 
 ## Os portões e o veto
 
