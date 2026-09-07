@@ -4,6 +4,33 @@ Régua de versão, pela ótica do contrato que o agente adotante lê: major queb
 
 O hash autoritativo de cada versão é o `INTEGRIDADE.txt` da tag correspondente no repositório de distribuição; a linha `Integridade:` aqui é cópia gravada após o release.
 
+## 0.8.0 — 2026-09-04
+
+Classificação: minor (adiciona cobertura ao gate local e à varredura do CI; muda comportamento de enforcement e pode pintar de vermelho check que era verde; nenhum nome, caminho ou instrução deixa de resolver).
+
+Adiciona:
+
+- Gate local de segredo nos três `--continue` (#56 do canônico): `git merge --continue`, `git rebase --continue` e `git cherry-pick --continue` passam pela mesma varredura do índice que o `git commit` já tinha, com o mesmo fail-closed e a mesma negação, regra citada e valor mascarado. Opções entre o verbo e o `--continue` são toleradas (`git cherry-pick --no-edit --continue` cai no gate); `--abort`, `--skip` e `--quit` não o disparam. O gate casa também a abreviação que o git aceita: `git merge --cont` e `git rebase --cont` são a mesma opção `--continue` e caem nele, `--co` e `--c` o git recusa como ambíguas, e no `cherry-pick`, onde o git recusa toda abreviação, o gate varre mesmo assim.
+- Dois passos de varredura no workflow `gitleaks.yml` (#57 do canônico), no mesmo job e com o nome do check inalterado. O passo de histórico roda com `--log-opts="--full-history --all --diff-filter=tuxdb -m"`: a opção substitui o comando default do binário em vez de acrescentar a ele, por isso o valor repete o default inteiro e soma o `-m`, que faz o merge commit ser lido contra cada pai. O passo de árvore roda `gitleaks dir .` sobre o resultado do checkout e enxerga o conteúdo que nasce na resolução de conflito, invisível ao patch. Os dois passos usam `--redact`, e nenhum tem `continue-on-error`.
+- Cartão de padrão `gitleaks` na v1.1, com a cobertura dos dois passos e o que fica fora dela.
+- Instrução dos quatro caminhos liberados, na redação aceita na spec: "Feche conflito por qualquer dos quatro caminhos (`git commit` ou `--continue`): o gate local varre o índice nos quatro. Código de ramo paralelo entra por PR, obrigatório; o CI é autoritativo onde a proteção de branch exige o check e sinal onde não exige."
+
+Corrige:
+
+- Texto que declarava o buraco aberto nas casas que viajam. O README do plugin e a skill `sdd-conductor` diziam que o gate local casava só `git commit`, que a varredura do CI não enxergava o que nascia numa resolução de conflito e que o caminho era fechar conflito com `git commit`, nunca com `--continue`. O cartão `gitleaks` dizia outra coisa: na v1.0 ele descrevia o hook local como bloqueio de `git commit`, não citava os `--continue` e resumia o CI como o workflow que varre o repositório, sem separar histórico de árvore. Essa linha genérica prometia alcance que a varredura não tinha. As três casas passam a descrever o estado fechado, com a redação acima.
+- Gate local que podia ficar preso antes de varrer (0.7.0 e anteriores). O reconhecimento do comando custava tempo demais em parte dos casos, e o Claude Code descarta o hook que estoura o timeout do host, sem bloquear a ferramenta: ali o commit nascia sem varredura nenhuma. O reconhecimento desta versão decide em fração de milissegundo e em tempo linear no tamanho do comando, e os timeouts internos do gate seguem fechando antes do timeout do host. Quem está na 0.7.0 atualiza por isso, e não só pela cobertura nova.
+
+Migração (nota da 0.8.0):
+1. Check `gitleaks` que era verde pode ficar vermelho onde há segredo em merge commit. Segredo que já estava no histórico: remova e rotacione. Falso positivo: allowlist de path exato no `.gitleaks.toml`, via PR.
+2. Fingerprint de `.gitleaksignore` gravado no modo histórico não vale no modo de árvore: o `gitleaks dir` usa `arquivo:regra:linha`, sem commit.
+3. Achado antigo silenciado por fingerprint de commit ganha fingerprint novo com a leitura do merge commit, e o silêncio antigo deixa de cobri-lo.
+4. Com o `-m`, achado em merge commit aparece uma vez por pai, com o mesmo fingerprint: duas linhas são um segredo, não dois.
+5. Migre o silêncio para path exato no `.gitleaks.toml`, via PR; nunca diretório inteiro nem regex.
+6. O `sdd-setup` copia só o que não existe (copy-if-absent) e nunca sobrescreve arquivo que já está no projeto: leve você mesmo o `base/gitleaks.yml` da v0.8.0 para o seu `.github/workflows/gitleaks.yml`. Compare os dois antes de copiar, na sessão com o plugin carregado: `diff "${CLAUDE_PLUGIN_ROOT}/base/gitleaks.yml" .github/workflows/gitleaks.yml`. Se você mudou o gatilho (`on:`), o runner (`runs-on:`), o nome do job (`name:`) ou acrescentou passos, a cópia cega apaga a sua customização, e aí traga só os dois passos de varredura para o seu arquivo em vez de sobrescrever. O nome do job é o nome do check: a cópia cega renomeia o check, a proteção de branch fica exigindo um nome que ninguém mais reporta e a fila de PR trava.
+7. Quem ainda não copiou o `gitleaks.yml` da v0.8.0 está no estado da 0.7.0, com a cegueira declarada no CHANGELOG 0.7.0; copiar é o único caminho que fecha.
+
+Integridade: sha256:e7e882c8d4e8e3b0725fc5c5decf7198a9913c89744a59016076e83e47366a03 (amarração 0.8.0 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
+
 ## 0.7.0 — 2026-08-21
 
 Classificação: minor (adiciona perfil de tarefa, superfície declarada, despacho paralelo e estado de execução; com a regra de migração abaixo, nenhum plano escrito antes desta versão deixa de resolver e nenhum nome ou caminho muda).
@@ -28,7 +55,7 @@ Corrige:
 
 Migração (nota da 0.7.0): plano escrito antes desta versão continua rodando. A detecção é do arquivo de tarefas inteiro e é binária: zero token de perfil em todas as tarefas significa plano legado, e o condutor avisa uma vez, roda serial e segue, sem bloquear tarefa nenhuma. Um token que seja põe o arquivo sob a regra nova, e ali a tarefa sem perfil bloqueia a si mesma, nomeada, enquanto as demais seguem; tarefa `[DONO]` não entra nessa conta. Nenhum arquivo de tarefas escrito sob 0.6.x deixa de resolver e nenhum nome ou caminho muda: sobra adição. O modo legado é shim declarado e morre na 1.0.0, reservada para uma declaração de estabilidade do framework que esta versão não faz.
 
-Integridade: sha256:61beba86019649aed996f99eccb823f6b823b7e39319a6e2d1287849175189d2 (amarração 0.7.0 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
+Integridade: sha256:61beba86019649aed996f99eccb823f6b823b7e39319a6e2d1287849175189d2 (amarração 0.7.0 → hash; autoritativo no `INTEGRIDADE.txt` da tag v0.7.0)
 
 ## 0.6.1 — 2026-08-21
 

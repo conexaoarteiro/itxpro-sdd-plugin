@@ -42,18 +42,37 @@ jobs:
           rm gitleaks.tar.gz
           ./gitleaks version
 
-      - name: Varre o histórico do repositório (falha o job em achado)
+      - name: Varre o histórico do repositório, merge commits inclusive (falha o job em achado)
         # --redact mascara todo valor detectado; nenhum report bruto é gravado nem
         # impresso: o log do job nunca ecoa segredo cru. Achado => exit 1 => check falha.
+        # --log-opts SUBSTITUI o `git log` default do binário (8.30.1: -p -U0
+        # --full-history --all --diff-filter=tuxdb), não acrescenta a ele. Por isso o
+        # valor repete o default inteiro e acrescenta só o `-m`, que mostra o merge
+        # commit como diff contra cada pai: segredo nascido na resolução de um
+        # conflito, sem patch próprio em commit nenhum de um pai, aparece (uma vez por
+        # pai, mesmo fingerprint). Sem repetir `--all`, ref fora da ancestralidade do
+        # HEAD deixaria de ser lida.
         run: |
-          ./gitleaks git . --config .gitleaks.toml --redact --no-banner
+          ./gitleaks git . --config .gitleaks.toml --redact --no-banner --log-opts="--full-history --all --diff-filter=tuxdb -m"
+
+      - name: Varre o resultado da integração, a árvore do checkout (falha o job em achado)
+        # Segundo passo do MESMO job: o check mantém o nome, e a proteção de branch
+        # que o exige passa a exigir os dois. `dir .` é relativo de propósito: a
+        # allowlist do .gitleaks.toml é ancorada em caminho relativo à raiz do
+        # checkout, e com caminho absoluto ela não casa (o que ela cala voltaria a
+        # ser achado).
+        # `dir` lê a árvore como está, não rastreado e ignorado inclusive; no CI o
+        # checkout é limpo, então o que aparece aqui está no resultado da integração.
+        # Sem `if:`: se o histórico falhou, este passo não roda e o job já falhou.
+        run: |
+          ./gitleaks dir . --config .gitleaks.toml --redact --no-banner
 
       - name: Fala a língua do catálogo em caso de achado (fato → regra → caminho)
         # Texto da variante do CI em hooks/mensagens.md do plugin, seção 3: esta
         # varredura usa a mesma anatomia e o mesmo vocabulário dos hooks locais.
         if: failure()
         run: |
-          echo 'Bloqueado: segredo detectado na varredura do CI. Os achados, com valor mascarado, estão no passo anterior deste job.'
+          echo 'Bloqueado: segredo detectado na varredura do CI. Os achados, com valor mascarado, estão nos passos de varredura deste job.'
           echo ''
           echo 'Regra: constituição, seção "O que nunca fazer" ("Nunca colocar segredo no repositório").'
           echo ''

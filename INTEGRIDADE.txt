@@ -1,16 +1,16 @@
-# INTEGRIDADE — itxpro-sdd@0.7.0
+# INTEGRIDADE — itxpro-sdd@0.8.0
 # Manifesto legível por máquina (plano da 003, R5).
 # conjunto: SHA-256 da lista ordenada de hashes de todos os arquivos,
 # excluindo INTEGRIDADE.txt e CHANGELOG.md (que carrega o próprio hash).
-versao: 0.7.0
-tag: v0.7.0
-commit-canonico: 7a2cf0c70537c655804ce4a2cc7443fc8a11c41f
-conjunto: 61beba86019649aed996f99eccb823f6b823b7e39319a6e2d1287849175189d2
+versao: 0.8.0
+tag: v0.8.0
+commit-canonico: edfbd0b420eff83150b5db5d07f00992902e7d51
+conjunto: e7e882c8d4e8e3b0725fc5c5decf7198a9913c89744a59016076e83e47366a03
 arquivos:
 efdab1c4d930ea83e52a571c8915df95bc7bd06acf9fc84641afdb1b08cf987d  ./.claude-plugin/marketplace.json
-4a7a3ceed69f8f95e5bcb54c546da292fb923828e861de0bf1886e0881c9619a  ./.claude-plugin/plugin.json
-e72f01138af6bfda3a25926562ad3895eff7145af4cc250d7ec70bbb21565f0d  ./CHANGELOG.md
-0a19060f3ed7eac8245df0bd37aba48a11dbdfa1c7ce26575916df4d766ccc2c  ./README.md
+d9e9282b6586377d93ba197072390b162d60be2679a9ebe4ccc0ada8ef3a0d68  ./.claude-plugin/plugin.json
+08b51303ef84a5f01aa6ed9daee15ead344750397e91adf57fb42bd3ceb029b4  ./CHANGELOG.md
+3db4853e8f1c06b088f1c13d7caf0ba97bf8ef00a4f281b4438aaca6292c07bd  ./README.md
 d5bbbe7dd099800d8fbd87d5b5bbfa39892b13b3582b565258ce0773a3ed0157  ./agents/_engatilhados/agent-experience-architect.md
 751aeb18fac10e19a47ef3e19719d1860da7bc8aa9a81c8117739650d3bdaf92  ./agents/architect.md
 274e2071dde7e70799fe6e5714ac7e092b2a814bdd293873cae982dc137fbe4f  ./agents/devsecops.md
@@ -24,7 +24,7 @@ ccddf5509c40caa6c8dd059e99db55ae2e0f4a93744f28cd32db44a60e282ca6  ./base/.gitlea
 996c5e807a37f98655bbf8b04fbdc6d67615f8a891c77051d34c1e36f5b8a0ee  ./base/constituicao-template.md
 dd407246cb489348b39a4f39bddc2d5e6a0e8830e0cedb8de669af5bee33bd4a  ./base/diagrama-pipeline-sdd.svg
 9b1aa4d0cbe4da9102ba2901d04addb65bc2379eba94e8729b366af32c8a0e94  ./base/fluxo-sdd.md
-5fb3c8919e917b90ddd6f44b711dd694e662f4e13b4a611822bcab4ade081a3a  ./base/gitleaks.yml
+b0e5880274c83e662b1cd016332adc02b94ebc8569ff5ed783c879149bf5d54c  ./base/gitleaks.yml
 002558d10ed8fcd4f09fdee5d6d957b7ccc63b7e0a1019a565188b118cf0aa0e  ./base/hookify/hookify.block-backlog-md-bash.local.md
 3926ce60308c4afddd6cb3b7efc3ecff84e7d3e8ee00ff29c72c5c34bf2e46c6  ./base/hookify/hookify.block-backlog-md.local.md
 34a321355306a430bf5caaec0ac1a46c602a1f2d1b124ade1cab6fba0cb32b56  ./base/hookify/hookify.warn-segredo-shift-left-bash.local.md
@@ -33,7 +33,7 @@ dd407246cb489348b39a4f39bddc2d5e6a0e8830e0cedb8de669af5bee33bd4a  ./base/diagram
 a8b2fb3cfd88a2e36a1f61e143f6c8dff0acfbed7133ef096b4ae9d161e93749  ./base/padroes/dados-de-ia.md
 b4cae1cae8368babd9f95debdee127c81d81fc241b073e0293279a0bfe4172fb  ./base/padroes/deploy.md
 bef6414c5db4a56119cdb8d588e05e4bed8a347b8ae4fabdab37790827f01d01  ./base/padroes/evals-de-ia.md
-2472780b05ad0be897847ba4b0bc42e825fc7f5aeadbc5c92f4ffac6046be894  ./base/padroes/gitleaks.md
+c949717e13c6a96fb278af86241a0c2774d1024f0e02423d3818d3d369475965  ./base/padroes/gitleaks.md
 69b0f3b5c273da3adcdb56d64c2ec9590b69c09358a70ccc3a584da7410f90ef  ./base/padroes/headers-csp.md
 47a9596e69c227089ca01c78b4ceaf51373925ba4a32342d5596443be9bf324f  ./base/padroes/lighthouse-pa11y.md
 90af55cea605d425184ced3b860845b56c91a7621d2e64fbc9c583b7ed07a3e2  ./base/padroes/observabilidade.md
@@ -44,13 +44,13 @@ bef6414c5db4a56119cdb8d588e05e4bed8a347b8ae4fabdab37790827f01d01  ./base/padroes
 fbe41b194001befa0a536bc8b7cb649fe7bb5e3b776930d3d20533e3ae73bc20  ./base/templates/mapa-do-sistema-template.md
 ad304c496d6cee095d386c82bea62cf777816d0b426184a449693e2d34032461  ./commands/sdd.md
 dfb657336dab88aa1db6522a0d61b3155fb563a52a4de91df03d66efc2c9baeb  ./hooks/PINAGEM-HOOKIFY.md
-b25d0395e25082a4fe868a059537e57afbc30cbcadac8da67c3464230390a2b8  ./hooks/VERSION
+c6868dd7eb3f24e1adc7a2137b8e386aa513403cc1ad2f1956b833b7472c6c9a  ./hooks/VERSION
 64cb1511f737a869748fc24594cd79e653a6240f058768228ee5c2e0fa6007f3  ./hooks/check-plugins.py
 3ac85618b365d19ab4fb9b3a7579ed87b007e1a64124060f2900bf0bc72a2f81  ./hooks/check-prereqs.sh
 682729745400874760d279412b996b4f98d858d502d8b9d36b5e5441fed56d9d  ./hooks/hooks.json
-3a787afd3aa87327de99f89be463d9b60d6fb7d60b6b6174a9c21e78274af898  ./hooks/mensagens.md
+6f33d7358bdfdb2aa62a00840f3776bc69a213daeb34cdaf819ff114a7a93483  ./hooks/mensagens.md
 39c61c7ef1df54ba43756ebaaa540064c6e716dcb6da0b91fa63125afdab734a  ./hooks/scripts/claude-md-limit-warn.py
-720b8adcd8291919f08cdf4ebf51e8992896fc6171819aece5c48fccc99698bb  ./hooks/scripts/secret-commit-gate.py
+157f610fc3be009e7863ca46cdfd04c3885f27d447435c01a3a2383d7ba1590e  ./hooks/scripts/secret-commit-gate.py
 171cf8280e398080bc93ba1017acac9501ff04c9afd32f9c97af7eeb532212c0  ./hooks/scripts/spec-approval-warn.py
-761ea694a194018565e2932626a44c048308704214329202a1aab864b59074d2  ./skills/sdd-conductor/SKILL.md
+21881a5acbf9f1bbf63e218de6e48397d4c1703946cc2e8ad9a47dba6bebd0a2  ./skills/sdd-conductor/SKILL.md
 b76023077771ec433449c43abbf99952fcfb5d7d4268e6e1589b20bf5771cbca  ./skills/sdd-setup/SKILL.md

@@ -1,12 +1,19 @@
 #!/usr/bin/env python3
 """Hook PreToolUse (Bash): gate de segredo no commit. Bloqueio, FAIL-CLOSED.
 
+Gatilhos: `git commit` e os três fechamentos de conflito que deixam a
+resolução no índice antes de virar commit, `git merge --continue`,
+`git rebase --continue` e `git cherry-pick --continue`.
+
 Regra da fatia 001 (plano, seção "Contratos"): intercepta `git commit` e roda
 `gitleaks git --pre-commit --staged` com a config do repo (o plano nomeou
 `protect --staged`, que o gitleaks deprecou; a rodada de correção do Veredito
 migrou após verificar com o binário 8.30.1 que o comando novo se comporta
 igual nos casos da suíte: achado ⇒ exit 1 + report JSON com os mesmos campos,
-staged limpo ⇒ exit 0). Achado bloqueia o commit.
+staged limpo ⇒ exit 0). Achado bloqueia o commit. A fatia 010 (#56) estende
+o gatilho aos três `--continue`: no instante em que a mão os digita, a
+resolução do conflito já está no índice, e é o índice que o gate varre.
+Mesma varredura, mesmo `roda_gate`, mesmo fail-closed, nenhum ramo novo.
 Qualquer falha do próprio gate (gitleaks ausente do PATH, erro de execução,
 timeout, config ausente, entrada ilegível) também bloqueia: fail-closed, sem
 varredura nenhum commit passa. Nenhum caminho de erro passa em silêncio.
@@ -17,20 +24,50 @@ e exit 0. É o mecanismo que o Claude Code documenta para negar a ferramenta
 em PreToolUse (o exit 2 com stderr é o equivalente legado). A razão vai para
 o modelo e para o usuário; a ferramenta não executa.
 
-Detecção de `git commit` (documentada, simples de propósito):
+Detecção do gatilho (documentada, simples de propósito):
   1. Remove segmentos entre aspas simples e duplas do comando (evita o falso
      positivo óbvio de `echo "git commit ..."`). A remoção é ingênua: não
      entende aspas aninhadas nem escapes.
-  2. Procura `git`, seguido de zero ou mais opções com hífen (`-C <dir>`,
-     `-c <cfg>`, `--flag[=v]`), seguido da palavra `commit`.
-Limites declarados (lacuna já nomeada no plano e documentada em T08): alias
-de shell, `sh -c 'git commit'` e outras indireções ficam FORA do match
-(falso negativo); um comando que só menciona `git commit` fora de aspas
-(ex.: `grep git commit`) entra no match (falso positivo), o que no máximo
-roda uma varredura a mais — o gate erra para o lado de varrer. Contra bypass
-local sobra a varredura no CI: ela barra o merge onde a proteção de branch
-exige o check; onde não exige, ela é sinal e o controle é a leitura humana do
-diff no PR.
+  2. Procura `git`, seguido de zero ou mais opções globais com hífen
+     (`-C <dir>`, `-c <cfg>`, `--flag[=v]`), seguido da palavra `commit`;
+     OU o mesmo prefixo seguido de `merge`, `rebase` ou `cherry-pick`, zero
+     ou mais opções com hífen (o git aceita `cherry-pick --no-edit
+     --continue`) e `--continue`, escrito por inteiro ou na abreviação que
+     o git aceita, de `--con` em diante (`--con`, `--cont`, `--conti`,
+     `--continu`). O git resolve prefixo único de opção longa, e em `merge`
+     e `rebase` a abreviação fecha o conflito exatamente como a forma
+     inteira: o gate a reconhece porque é o comando que a mão usa.
+     `--co` e `--c` NÃO casam, e não precisam: o git as recusa por
+     ambiguidade (`--commit`, `--cleanup`) e nenhum commit nasce delas.
+     Em `cherry-pick` o git recusa toda abreviação; ali o match é varredura
+     a mais seguida de erro do git, que é o lado seguro do erro.
+     `--abort`, `--skip` e `--quit` não casam: quem desiste do conflito sai
+     sem o gate no caminho. Positional entre o verbo e o `--continue`
+     (`rebase --onto a b --continue`) não casa, e `git merge -- --continue`
+     também não, porque o `--` encerra as opções e o git não fecha o
+     conflito ali. `merge`, `rebase <ramo>` e `cherry-pick <sha>` sem
+     `--continue` não casam: nada do outro ramo está no índice ali.
+Limites declarados (RS-10 da fatia 010, issue #62): `git revert --continue`
+e `git am --continue` ficam FORA do gatilho; alias de shell, alias do git,
+comando entre aspas (`sh -c "git commit"`, heredoc) e tudo que não passa
+pela ferramenta Bash do Claude Code (terminal humano, IDE) ficam FORA do
+match (falso negativo); um comando que só menciona `git commit` fora de
+aspas (ex.: `grep git commit`) entra no match (falso positivo), o que no
+máximo roda uma varredura a mais: o gate erra para o lado de varrer. O
+reconhecimento depende da versão do git: `--con` é prefixo único hoje, e se
+um git futuro criar outra opção com esse prefixo, o git recusa o comando por
+ambiguidade e o gate segue varrendo, que é o lado seguro. O custo do
+reconhecimento é linear no tamanho do comando, e essa propriedade é
+requisito, não detalhe: hook `command` cancelado no timeout do Claude Code
+NÃO bloqueia a ferramenta (fail-open por desenho da plataforma), então um
+comando forjado com muitas opções hifenadas prenderia o hook até o
+cancelamento e passaria. O reconhecimento anterior era ambíguo em cada token
+e levava dezenas de segundos com pouco mais de vinte opções; o token sem
+ambiguidade fecha essa porta, e pelo mesmo motivo os timeouts internos de
+10 s e 30 s precisam fechar antes do timeout do host. Contra bypass local
+sobra a varredura no CI: ela barra o merge onde a proteção de branch exige o
+check; onde não exige, ela é sinal e o controle é a leitura humana do diff
+no PR.
 
 Resolução de caminho: a raiz do repo vem de `git rev-parse --show-toplevel`
 executado no `cwd` do tool-input (o cwd da sessão onde o Bash vai rodar),
@@ -48,9 +85,11 @@ Segurança da saída (modelagem de ameaça do plano):
   - O report vai para arquivo temporário criado com mkstemp (modo 0600) e
     apagado no finally: sem report residual em disco.
 
-Desempenho (orçamento do plano): caso não-commit é só parse de JSON + regex,
-~instantâneo; caso commit p95 < 1s (o `git --pre-commit --staged` varre só o
-diff staged). Timeout de 30s na varredura ⇒ fail-closed.
+Desempenho (orçamento do plano): caso sem gatilho é só parse de JSON + regex,
+~instantâneo; caso com gatilho p95 < 1s (o `git --pre-commit --staged` varre
+só o diff staged). Timeout de 30s na varredura ⇒ fail-closed. No `merge
+--continue` o diff staged carrega o ramo incoming inteiro: merge grande pode
+estourar o timeout e negar com o texto fail-closed (issue #63).
 
 Texto das mensagens: catálogo `hooks/mensagens.md`, seção 3.
 Somente stdlib do Python 3.
@@ -71,10 +110,20 @@ TIMEOUT_GIT = 10  # segundos, git rev-parse
 TIMEOUT_GITLEAKS = 30  # segundos, varredura
 MAX_ACHADOS_NA_MENSAGEM = 10
 
-# git [opções com hífen]* commit — avaliado sobre o comando SEM os trechos
-# entre aspas (ver docstring, detecção).
-RE_GIT_COMMIT = re.compile(
-    r"\bgit(?:\s+(?:-C\s+\S+|-c\s+\S+|--?[\w-]+(?:=\S+)?))*\s+commit\b"
+# Dois gatilhos sobre um prefixo só, `git [opções globais]*`, avaliados sobre
+# o comando SEM os trechos entre aspas (ver docstring, detecção):
+#   `commit`, e `merge|rebase|cherry-pick [opções]* --continue` (fatia 010,
+#   contrato C1). O segundo ancora no prefixo `--con` e aceita a abreviação
+#   que o git aceita, de `--con` a `--continue`: `--abort`, `--skip` e
+#   `--quit` não casam, e `--co` e `--c` também não, porque o git as recusa
+#   por ambiguidade. Cada token do prefixo começa por `\w` depois dos
+#   hífens, e o argumento de `-C`/`-c` nunca começa por hífen: sem essa
+#   âncora o mesmo token casaria de duas formas e o reconhecimento custaria
+#   2^n no comando longo (ver docstring, limites).
+PREFIXO_GIT = r"\bgit(?:\s+(?:-[Cc]\s+[^-\s]\S*|--?\w[\w-]*(?:=\S+)?))*\s+"
+RE_GIT_COMMIT = re.compile(PREFIXO_GIT + r"commit\b")
+RE_GIT_CONTINUE = re.compile(
+    PREFIXO_GIT + r"(?:merge|rebase|cherry-pick)(?:\s+--?\w[\w-]*(?:=\S+)?)*\s+--con(?:t(?:i(?:n(?:u(?:e)?)?)?)?)?\b"
 )
 RE_ASPAS = re.compile(r"'[^']*'|\"[^\"]*\"")
 
@@ -85,7 +134,7 @@ MSG_ACHADO_RODAPE = (
     '("Nunca colocar segredo no repositório").\n\n'
     "Caminho: o segredo sai do código e vai pra variável de ambiente; a chave "
     "se documenta no `.env.example`, nunca o valor. Depois, `git add` e repita "
-    "o commit. Falso positivo entra no `.gitleaks.toml` via PR (allowlist "
+    "o comando. Falso positivo entra no `.gitleaks.toml` via PR (allowlist "
     "versionada, path exato). Contornar este gate não encerra o assunto: a "
     "varredura no CI barra o merge onde a proteção de branch exige o check; "
     "onde não exige, ela é sinal e o controle é a leitura humana do diff no PR."
@@ -96,7 +145,7 @@ MSG_FAIL_CLOSED = (
     "O gate é fail-closed: sem varredura, nenhum commit passa.\n\n"
     'Regra: constituição, seção "O que nunca fazer" '
     '("Nunca colocar segredo no repositório").\n\n'
-    "Caminho: instale o gitleaks e repita o commit:\n\n"
+    "Caminho: instale o gitleaks e repita o comando:\n\n"
     "`brew install gitleaks`\n\n"
     "Linux (binário oficial, ajuste versão e arquitetura):\n\n"
     "`curl -sSL https://github.com/gitleaks/gitleaks/releases/download/"
@@ -124,9 +173,12 @@ def nega(mensagem):
     sys.exit(0)
 
 
-def e_git_commit(comando):
-    """True se o comando contém uma invocação de git commit (ver docstring)."""
-    return bool(RE_GIT_COMMIT.search(RE_ASPAS.sub(" ", comando)))
+def e_gatilho_do_gate(comando):
+    """True se o comando contém `git commit` ou `git merge|rebase|cherry-pick
+    --continue` fora de aspas (ver docstring, detecção). Qualquer dos dois
+    leva ao mesmo `roda_gate`."""
+    sem_aspas = RE_ASPAS.sub(" ", comando)
+    return bool(RE_GIT_COMMIT.search(sem_aspas) or RE_GIT_CONTINUE.search(sem_aspas))
 
 
 def raiz_do_repo(cwd):
@@ -240,13 +292,13 @@ def main():
         if dados.get("tool_name") != "Bash":
             return
         comando = (dados.get("tool_input") or {}).get("command") or ""
-        if not e_git_commit(comando):
+        if not e_gatilho_do_gate(comando):
             return  # caminho quente: todo Bash da sessão passa por aqui
         cwd = dados.get("cwd") or os.getcwd()
     except SystemExit:
         raise
     except Exception as e:
-        # Entrada ilegível: sem ler o comando não dá pra saber se é commit.
+        # Entrada ilegível: sem ler o comando não dá pra saber se é gatilho.
         # O gate prefere bloquear a falhar em silêncio (fail-closed).
         nega(MSG_FAIL_CLOSED.format(motivo=f"entrada do hook ilegível ({type(e).__name__})"))
     try:

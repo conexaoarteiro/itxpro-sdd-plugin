@@ -34,7 +34,7 @@ Aviso. Regras hookify `warn-segredo-shift-left-file` e `warn-segredo-shift-left-
 
 ## 3. Segredo em commit (gate)
 
-Bloqueio, fail-closed. Script `secret-commit-gate.py` (T04). Duas variantes.
+Bloqueio, fail-closed. Script `secret-commit-gate.py` (T04 da fatia 001; gatilhos estendidos na fatia 010). Dispara em `git commit` e em `git merge`, `git rebase` e `git cherry-pick` com `--continue`, quando a resolução do conflito já está no índice; `--abort`, `--skip` e `--quit` não disparam. Duas variantes.
 
 Achado do gitleaks (o script preenche os campos com dados estruturados do report, valor sempre mascarado):
 
@@ -42,7 +42,7 @@ Achado do gitleaks (o script preenche os campos com dados estruturados do report
 >
 > Regra: constituição, seção "O que nunca fazer" ("Nunca colocar segredo no repositório").
 >
-> Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Depois, `git add` e repita o commit. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Contornar este gate não encerra o assunto: a varredura no CI barra o merge onde a proteção de branch exige o check; onde não exige, ela é sinal e o controle é a leitura humana do diff no PR.
+> Caminho: o segredo sai do código e vai pra variável de ambiente; a chave se documenta no `.env.example`, nunca o valor. Depois, `git add` e repita o comando. Falso positivo entra no `.gitleaks.toml` via PR (allowlist versionada, path exato). Contornar este gate não encerra o assunto: a varredura no CI barra o merge onde a proteção de branch exige o check; onde não exige, ela é sinal e o controle é a leitura humana do diff no PR.
 
 Fail-closed (gitleaks ausente do PATH ou erro de execução):
 
@@ -50,7 +50,7 @@ Fail-closed (gitleaks ausente do PATH ou erro de execução):
 >
 > Regra: constituição, seção "O que nunca fazer" ("Nunca colocar segredo no repositório").
 >
-> Caminho: instale o gitleaks e repita o commit:
+> Caminho: instale o gitleaks e repita o comando:
 >
 > `brew install gitleaks`
 >
@@ -60,9 +60,9 @@ Fail-closed (gitleaks ausente do PATH ou erro de execução):
 >
 > Versão mínima: README do plugin, seção "Pré-requisito: gitleaks".
 
-Variante do CI (passo `if: failure()` do `gitleaks.yml` imprime no log do job, para a varredura do CI falar a mesma língua; os achados, sempre com valor mascarado, ficam no passo anterior):
+Variante do CI (passo `if: failure()` do `gitleaks.yml` imprime no log do job, para a varredura do CI falar a mesma língua; os achados, sempre com valor mascarado, ficam nos passos de varredura deste job):
 
-> Bloqueado: segredo detectado na varredura do CI. Os achados, com valor mascarado, estão no passo anterior deste job.
+> Bloqueado: segredo detectado na varredura do CI. Os achados, com valor mascarado, estão nos passos de varredura deste job.
 >
 > Regra: constituição, seção "O que nunca fazer" ("Nunca colocar segredo no repositório").
 >
