@@ -4,6 +4,24 @@ Régua de versão, pela ótica do contrato que o agente adotante lê: major queb
 
 O hash autoritativo de cada versão é o `INTEGRIDADE.txt` da tag correspondente no repositório de distribuição; a linha `Integridade:` aqui é cópia gravada após o release.
 
+## 0.9.0 — 2026-09-16
+
+Classificação: minor (muda o que um script distribuído grava, onde grava e o que diz; precedente da 0.8.0, em que o comportamento de enforcement mudou sem nome, caminho ou instrução deixar de resolver; nenhum agente lê o log como contrato; quem tem o arquivo antigo precisa ler esta entrada, e patch a subcomunicaria).
+
+Corrige:
+
+- O hook `spec-approval-warn` deixa de gravar caminho absoluto (plugin#13). O log passa a morar em `$(git rev-parse --git-common-dir)/itxpro-sdd/hooks-log.jsonl`, fora da árvore de trabalho e nunca indexado. O campo `path` de cada linha passa a ser um destes três: o caminho relativo à raiz do projeto, o marcador `fora-da-raiz` ou `erro-interno: <tipo>`. Sem diretório git resolvível, o hook não grava nada. O texto da mensagem do hook mudou: ele diz onde o log mora e o que a linha carrega.
+
+Quem adotou o plugin em qualquer versão de 0.1.0 a 0.8.0 tem `.claude/hooks-log.jsonl` na raiz do projeto, com caminhos absolutos que carregam o nome de usuário do sistema. O hook novo nunca lê nem reescreve o log antigo; nem o hook nem o setup agem sobre ele. O roteiro abaixo é do adotante.
+
+Migração (nota da 0.9.0):
+1. Confira índice e histórico: `git ls-files --error-unmatch .claude/hooks-log.jsonl` diz se o arquivo está no índice; `git log --all --oneline -- .claude/hooks-log.jsonl` lista os commits que o carregam.
+2. Se está no índice: `git rm --cached .claude/hooks-log.jsonl`, linha `.claude/hooks-log.jsonl` no `.gitignore` e commit.
+3. Apague o arquivo antigo: `rm -f .claude/hooks-log.jsonl`. As linhas velhas carregam o caminho absoluto, e a métrica do log perde essas linhas; a perda é aceita.
+4. Se o histórico carrega o arquivo e o remoto é compartilhado ou público, o dado já saiu da máquina. Decida: reescrever o histórico com `git filter-repo --invert-paths --path .claude/hooks-log.jsonl` (ou `filter-branch`), depois `git reflog expire --expire=now --all && git gc --prune=now` e `git push --force`, que a proteção de branch pode barrar e que obriga todo clone a re-clonar; ou conviver com a exposição. A reescrita não apaga o que já foi clonado, bifurcado ou guardado pelo provedor: em fork e em ref de pull request os objetos continuam, e commit reescrito segue acessível por SHA até o host purgar; remoção completa exige pedido ao suporte do host. O plugin não reescreve histórico.
+
+Integridade: sha256:c028bbe707a23680d03e98960427d9c5a3647333e6611e78843c25bc59943ca3 (amarração 0.9.0 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
+
 ## 0.8.0 — 2026-09-04
 
 Classificação: minor (adiciona cobertura ao gate local e à varredura do CI; muda comportamento de enforcement e pode pintar de vermelho check que era verde; nenhum nome, caminho ou instrução deixa de resolver).
@@ -29,7 +47,7 @@ Migração (nota da 0.8.0):
 6. O `sdd-setup` copia só o que não existe (copy-if-absent) e nunca sobrescreve arquivo que já está no projeto: leve você mesmo o `base/gitleaks.yml` da v0.8.0 para o seu `.github/workflows/gitleaks.yml`. Compare os dois antes de copiar, na sessão com o plugin carregado: `diff "${CLAUDE_PLUGIN_ROOT}/base/gitleaks.yml" .github/workflows/gitleaks.yml`. Se você mudou o gatilho (`on:`), o runner (`runs-on:`), o nome do job (`name:`) ou acrescentou passos, a cópia cega apaga a sua customização, e aí traga só os dois passos de varredura para o seu arquivo em vez de sobrescrever. O nome do job é o nome do check: a cópia cega renomeia o check, a proteção de branch fica exigindo um nome que ninguém mais reporta e a fila de PR trava.
 7. Quem ainda não copiou o `gitleaks.yml` da v0.8.0 está no estado da 0.7.0, com a cegueira declarada no CHANGELOG 0.7.0; copiar é o único caminho que fecha.
 
-Integridade: sha256:e7e882c8d4e8e3b0725fc5c5decf7198a9913c89744a59016076e83e47366a03 (amarração 0.8.0 → hash; conjunto do pacote, excluindo CHANGELOG.md e INTEGRIDADE.txt).
+Integridade: sha256:e7e882c8d4e8e3b0725fc5c5decf7198a9913c89744a59016076e83e47366a03 (amarração 0.8.0 → hash; autoritativo no `INTEGRIDADE.txt` da tag v0.8.0)
 
 ## 0.7.0 — 2026-08-21
 

@@ -1,15 +1,15 @@
-# INTEGRIDADE — itxpro-sdd@0.8.0
+# INTEGRIDADE — itxpro-sdd@0.9.0
 # Manifesto legível por máquina (plano da 003, R5).
 # conjunto: SHA-256 da lista ordenada de hashes de todos os arquivos,
 # excluindo INTEGRIDADE.txt e CHANGELOG.md (que carrega o próprio hash).
-versao: 0.8.0
-tag: v0.8.0
-commit-canonico: edfbd0b420eff83150b5db5d07f00992902e7d51
-conjunto: e7e882c8d4e8e3b0725fc5c5decf7198a9913c89744a59016076e83e47366a03
+versao: 0.9.0
+tag: v0.9.0
+commit-canonico: bd0bc82278a4c452bc7873def562fb2e5013b923
+conjunto: c028bbe707a23680d03e98960427d9c5a3647333e6611e78843c25bc59943ca3
 arquivos:
 efdab1c4d930ea83e52a571c8915df95bc7bd06acf9fc84641afdb1b08cf987d  ./.claude-plugin/marketplace.json
-d9e9282b6586377d93ba197072390b162d60be2679a9ebe4ccc0ada8ef3a0d68  ./.claude-plugin/plugin.json
-08b51303ef84a5f01aa6ed9daee15ead344750397e91adf57fb42bd3ceb029b4  ./CHANGELOG.md
+de3484ce052aba682983cebe5ae97263e8860afbfd41271acaa0ddf84fc8b374  ./.claude-plugin/plugin.json
+d62f8804fcebaf28f860d327b181556be93c7d3dedb1c7838e50140c52b40a1b  ./CHANGELOG.md
 3db4853e8f1c06b088f1c13d7caf0ba97bf8ef00a4f281b4438aaca6292c07bd  ./README.md
 d5bbbe7dd099800d8fbd87d5b5bbfa39892b13b3582b565258ce0773a3ed0157  ./agents/_engatilhados/agent-experience-architect.md
 751aeb18fac10e19a47ef3e19719d1860da7bc8aa9a81c8117739650d3bdaf92  ./agents/architect.md
@@ -44,13 +44,13 @@ c949717e13c6a96fb278af86241a0c2774d1024f0e02423d3818d3d369475965  ./base/padroes
 fbe41b194001befa0a536bc8b7cb649fe7bb5e3b776930d3d20533e3ae73bc20  ./base/templates/mapa-do-sistema-template.md
 ad304c496d6cee095d386c82bea62cf777816d0b426184a449693e2d34032461  ./commands/sdd.md
 dfb657336dab88aa1db6522a0d61b3155fb563a52a4de91df03d66efc2c9baeb  ./hooks/PINAGEM-HOOKIFY.md
-c6868dd7eb3f24e1adc7a2137b8e386aa513403cc1ad2f1956b833b7472c6c9a  ./hooks/VERSION
+17fa99867fc785ac45093268a6270a63a836b83645b66dd7a2621d3d96392de0  ./hooks/VERSION
 64cb1511f737a869748fc24594cd79e653a6240f058768228ee5c2e0fa6007f3  ./hooks/check-plugins.py
 3ac85618b365d19ab4fb9b3a7579ed87b007e1a64124060f2900bf0bc72a2f81  ./hooks/check-prereqs.sh
 682729745400874760d279412b996b4f98d858d502d8b9d36b5e5441fed56d9d  ./hooks/hooks.json
-6f33d7358bdfdb2aa62a00840f3776bc69a213daeb34cdaf819ff114a7a93483  ./hooks/mensagens.md
+743d9622ac979131ca30797343e27be03a3d3e402d685f32040c05e3307da369  ./hooks/mensagens.md
 39c61c7ef1df54ba43756ebaaa540064c6e716dcb6da0b91fa63125afdab734a  ./hooks/scripts/claude-md-limit-warn.py
 157f610fc3be009e7863ca46cdfd04c3885f27d447435c01a3a2383d7ba1590e  ./hooks/scripts/secret-commit-gate.py
-171cf8280e398080bc93ba1017acac9501ff04c9afd32f9c97af7eeb532212c0  ./hooks/scripts/spec-approval-warn.py
+1f0f68cb0593b12ecd50a58167e313f4f740dff78c517daf905f2ba19d48db86  ./hooks/scripts/spec-approval-warn.py
 21881a5acbf9f1bbf63e218de6e48397d4c1703946cc2e8ad9a47dba6bebd0a2  ./skills/sdd-conductor/SKILL.md
 b76023077771ec433449c43abbf99952fcfb5d7d4268e6e1589b20bf5771cbca  ./skills/sdd-setup/SKILL.md

@@ -76,7 +76,15 @@ Aviso, fail-open. Script `spec-approval-warn.py` (T05):
 >
 > Regra: constituição, seção "O que nunca fazer" ("Nunca começar uma fatia sem spec aprovada em `specs/`").
 >
-> Caminho: leve a fatia à mesa de Intenção e aprove a spec no portão humano; a linha `Status: aprovada` no `01-spec.md` encerra o aviso. Este disparo ficou registrado em `.claude/hooks-log.jsonl` (regra, timestamp e path, nunca conteúdo).
+> Caminho: leve a fatia à mesa de Intenção e aprove a spec no portão humano; a linha `Status: aprovada` no `01-spec.md` encerra o aviso. Este disparo ficou registrado fora da árvore do projeto, no diretório git do clone: `$(git rev-parse --git-common-dir)/itxpro-sdd/hooks-log.jsonl` (regra, timestamp e caminho relativo à raiz do projeto, ou o marcador `fora-da-raiz`; nunca conteúdo de arquivo, nunca dado da máquina: caminho absoluto, diretório home ou nome de usuário).
+
+Variante sem registro (o hook não achou diretório git resolvível a partir da raiz, ou ele não aceitou a escrita; nada é gravado, em lugar nenhum):
+
+> Aviso: escrita de código em `{arquivo}` sem nenhuma spec aprovada (nenhum `specs/*/01-spec.md` com a linha `Status: aprovada`).
+>
+> Regra: constituição, seção "O que nunca fazer" ("Nunca começar uma fatia sem spec aprovada em `specs/`").
+>
+> Caminho: leve a fatia à mesa de Intenção e aprove a spec no portão humano; a linha `Status: aprovada` no `01-spec.md` encerra o aviso. Este disparo não ficou registrado: o hook grava só no diretório git do clone (`git rev-parse --git-common-dir`), que não resolveu a partir da raiz do projeto ou não aceitou a escrita, e ele nunca grava na árvore do projeto.
 
 ## 5. Teto de 120 linhas do `CLAUDE.md`
 
