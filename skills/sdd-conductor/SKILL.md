@@ -37,7 +37,7 @@ São cinco verbos, um por chamada, cada um respondendo uma pergunta só:
 
 Os comandos vivem no fence abaixo, sob o cabeçalho fixo "Sequência da retomada": a suíte do framework extrai esse bloco, confere que ele está dentro do Passo 0 e que o Passo 0 vem antes do Passo 1, e o executa. Mudar o texto sem o bloco quebra o teste, e mover o passo também.
 
-Códigos de saída deste passo, casa única: **70 não medi**, isto é, verbo ilegível, aridade fora do contrato ou medição que este fence não alcança; **71 árvore suja**, `git status --porcelain` não vazio, que para antes de escrever e devolve a decisão ao dono; **72 o ramo corrente difere da convenção da fase**; **73 o ramo esperado está em checkout em outro worktree** deste mesmo repositório; **74 o eixo (a) é falso**, o publicado não está no meu disco; **75 o eixo (b) é falso**, o meu trabalho não está no publicado; **76 os dois eixos falsos**, que é divergência de verdade e pede decisão da pessoa; **77 o branch não existe no remoto**, que é a resposta vazia para a ref pedida pelo nome; **78 eixo não medido**, nas três formas: a leitura do remoto sem resposta, o remoto que respondeu e não nomeou o branch padrão, e o publicado que está no disco e não resolve para commit; em nenhuma delas sai eixo com valor, e nas duas primeiras não sai frase sobre o branch; **80 box aberto em fatia entregue**, tarefa em `[~]` ou `[!]` em fatia que o roadmap declara entregue; **81 box fechado sem prova**, tarefa em `[x]` cuja linha não nomeia o ramo dela e um commit; **82 prova sem box**, tarefa em `[ ]` com ramo vivo em `refs/heads/sdd/<NNN>/`; **84 estado não medido**, fatia cujo estado o roadmap não responde no vocabulário fechado, ou fatia entregue cujo `04-tasks.md` não se lê. Zero só sai de medição que aconteceu. O condutor traduz o código em uma linha de prosa, sem caminho absoluto e sem URL de remoto.
+Códigos de saída deste passo, casa única: **70 não medi**, isto é, verbo ilegível, aridade fora do contrato ou medição que este fence não alcança; **71 árvore suja**, `git status --porcelain` não vazio, que para antes de escrever e devolve a decisão ao dono; **72 o ramo corrente difere da convenção da fase**; **73 o ramo esperado está em checkout em outro worktree** deste mesmo repositório; **74 o eixo (a) é falso**, o publicado não está no meu disco; **75 o eixo (b) é falso**, o meu trabalho não está no publicado; **76 os dois eixos falsos**, que é divergência de verdade e pede decisão da pessoa; **77 o branch não existe no remoto**, que é a resposta vazia para a ref pedida pelo nome; **78 eixo não medido**, nas três formas: a leitura do remoto sem resposta, o remoto que respondeu e não nomeou o branch padrão, e o publicado que está no disco e não resolve para commit; em nenhuma delas sai eixo com valor, e nas duas primeiras não sai frase sobre o branch; **80 box aberto em fatia entregue**, tarefa em `[~]` ou `[!]` em fatia que o roadmap declara entregue; **81 box fechado sem prova**, tarefa em `[x]` cuja linha não nomeia commit nenhum, no `boxes` e, em fatia que o roadmap declara entregue, também no `varre`; **82 prova sem box**, tarefa em `[ ]` com ramo vivo em `refs/heads/sdd/<NNN>/`; **83 marca de ato fora do repositório fora de ordem**, marca que sobreviveu ao fechamento ou que não nomeia dono ou commit; **84 estado não medido**, fatia cujo estado o roadmap não responde no vocabulário fechado, ou fatia entregue cujo `04-tasks.md` não se lê. Zero só sai de medição que aconteceu. O condutor traduz o código em uma linha de prosa, sem caminho absoluto e sem URL de remoto.
 
 **`ramo` nomeia o esperado e reporta o corrente.** A convenção do ramo de fase é `claude/fatia-<NNN>-<fase>`, literal. O verbo compõe esse nome, compara com o corrente e devolve a decisão à pessoa: ele **não cria ramo e não troca de ramo**, porque quem só foi medir não mexe no checkout de ninguém. `NNN` tem exatamente três dígitos e `<fase>` sai de vocabulário fechado, `intencao`, `desenho` e `construcao`, que são as três fases do fluxo. Fora disso o argumento é ilegível e sai `70`.
 
@@ -61,11 +61,11 @@ Os códigos `70` e `71` do `ramo` não imprimem linha, pela mesma razão do `70`
 
 Os dois ramos do `sessao` saem em `0`, e o código compartilhado é decisão, não descuido. A pergunta do verbo é uma só, qual é o título desta sessão pela convenção, e ele a responde igual nos dois ramos. Renomear a sessão não é ato deste fence, e código de saída não relata ato que não é dele. Quem separa os dois estados é a linha literal de cada ramo, nunca a ausência da outra. O `70` do `sessao` é o do argumento ilegível e, como todo `70` deste passo, não imprime linha.
 
-**`boxes` confere as duas direções entre o box declarado e a ferramenta.** O `04-tasks.md` diz o que aconteceu e o repositório mostra o que existe; quando os dois discordam, o verbo não escolhe um. A primeira direção é **box fechado sem prova**: a tarefa está em `[x]` e a linha dela não carrega o rastro com o ramo daquela tarefa e um commit, então o que o arquivo afirma ninguém confere. A segunda é **prova sem box**: a tarefa está em `[ ]`, que é "não começou", e existe ramo vivo dela em `refs/heads/sdd/<NNN>/`, então o trabalho existe e o arquivo o nega. Cada uma tem código próprio, `81` e `82`, porque o ato seguinte é diferente: no `81` se vai atrás do rastro, no `82` se vai atrás do ramo. Um código só para as duas devolveria "incoerente" a dois estados que pedem coisas diferentes.
+**`boxes` confere as duas direções entre o box declarado e a ferramenta.** O `04-tasks.md` diz o que aconteceu e o repositório mostra o que existe; quando os dois discordam, o verbo não escolhe um. A primeira direção é **box fechado sem prova**: a tarefa está em `[x]` e a linha dela não carrega commit nenhum, então o que o arquivo afirma ninguém confere. A segunda é **prova sem box**: a tarefa está em `[ ]`, que é "não começou", e existe ramo vivo dela em `refs/heads/sdd/<NNN>/`, então o trabalho existe e o arquivo o nega. Cada uma tem código próprio, `81` e `82`, porque o ato seguinte é diferente: no `81` se vai atrás do rastro, no `82` se vai atrás do ramo. Um código só para as duas devolveria "incoerente" a dois estados que pedem coisas diferentes.
 
-A forma do rastro é a da seção "Estado durável e escritor único", e esta seção não a copia: o verbo procura, na linha daquela tarefa, o ramo dela com um id de commit, nas formas que aquela seção fixa. Ramo vivo se lê com `git for-each-ref` sobre `refs/heads/sdd/<NNN>/*`, a mesma primitiva com que o condutor reconstrói o despacho, e nunca com `git branch`: ela não abre worktree, não escreve e responde vazio com código zero quando ramo nenhum casa o padrão. A tarefa do dono fica fora das duas direções, porque ela fecha por ato fora do repositório e ramo nenhum a provaria; o rastro dela é a marca de ato fora do repositório, da mesma seção, e quem a mede é o `varre`.
+A forma do rastro é a da seção "Estado durável e escritor único", e esta seção não a copia: o verbo procura, na linha daquela tarefa, um id de commit, em qualquer das formas que aquela seção fixa. **A prova é o commit, nunca o nome do ramo onde ele nasceu**, e a razão é medida: a cadeia do release é executada pelo condutor sem worktree e sem ramo de despacho, e prova igual, em `ramo: main @ <sha>` ou no rastro do próprio rito; exigir `sdd/<NNN>/<Txx>` reprovava essas tarefas por construção. Ramo vivo se lê com `git for-each-ref` sobre `refs/heads/sdd/<NNN>/*`, a mesma primitiva com que o condutor reconstrói o despacho, e nunca com `git branch`: ela não abre worktree, não escreve e responde vazio com código zero quando ramo nenhum casa o padrão. A tarefa do dono fica fora das duas direções, porque ela fecha por ato fora do repositório e ramo nenhum a provaria; o rastro dela é a marca de ato fora do repositório, da mesma seção, e quem a mede é o `varre`.
 
-**O que este verbo não mede, dito na letra.** Ele responde duas perguntas e não afirma além delas. Ele **não** confere se o commit do rastro existe no repositório, então rastro que aponta objeto inexistente passa por prova. Ele **não** julga qual das formas de rastro está ali, só que ela nomeia ramo e commit. E ele **não** pergunta nada sobre `[~]` e `[!]`: `[~]` sem ramo vivo e `[!]` com ramo vivo são incoerências que esta medida não alcança, e o silêncio delas aqui não é aprovação. Arquivo sem linha de tarefa sai `70`, porque coerência apurada sobre zero tarefa é vácuo, não acordo.
+**O que este verbo não mede, dito na letra.** Ele responde duas perguntas e não afirma além delas. Ele **não** confere se o commit do rastro existe no repositório, então rastro que aponta objeto inexistente passa por prova. Ele **não** julga qual das formas de rastro está ali, nem de que ramo o commit veio, só que a linha nomeia um commit. E ele **não** pergunta nada sobre `[~]` e `[!]`: `[~]` sem ramo vivo e `[!]` com ramo vivo são incoerências que esta medida não alcança, e o silêncio delas aqui não é aprovação. Arquivo sem linha de tarefa sai `70`, porque coerência apurada sobre zero tarefa é vácuo, não acordo.
 
 - `boxes da fatia <NNN>` abre a resposta em `0`, `81` e `82`, e nomeia a fatia medida.
 - `(1) box fechado sem prova: <as tarefas | nenhuma>` é a primeira direção, e ela sozinha sai `81`.
@@ -84,15 +84,16 @@ As duas linhas de direção saem sempre, preenchidas ou com `nenhuma`, e é isso
 
 **A resposta nomeia fatia e tarefa, e a linha do arquivo nunca aparece nela.** O par sai na forma `<NNN>/<Txx>`, que diz onde procurar sem despejar o texto da tarefa. O motivo do não medido sai de uma lista fechada de nomes, nunca do valor que a célula carregava: repetir o valor recusado seria imprimir pedaço de linha crua para dizer que não se imprime linha crua. O motivo da marca segue a mesma régua, e ela aperta mais ali: o dono é dado de pessoa, o verbo o lê para julgar a forma e **nunca** o devolve na saída, nem para dizer que ele está errado.
 
-- `varredura de box em fatia entregue` abre a resposta em `0`, `80`, `83` e `84`.
+- `varredura de box em fatia entregue` abre a resposta em `0`, `80`, `81`, `83` e `84`.
 - `(1) box aberto em fatia entregue: <as fatias e tarefas | nenhuma>` é o achado, e ele sozinho sai `80`.
-- `(2) não medido: <as fatias e o motivo | nenhuma>` é o terceiro estado, e ele sai `84`.
-- `(3) marca de ato fora do repositório: <as fatias e tarefas com o motivo | nenhuma>` é a segunda pergunta, e ela sozinha sai `83`.
+- `(2) box fechado sem prova: <as fatias e tarefas | nenhuma>` é a mesma pergunta do `boxes`, na mesma régua e com o mesmo código, e ele sozinho sai `81`. A tarefa do dono fica fora, como lá.
+- `(3) não medido: <as fatias e o motivo | nenhuma>` é o terceiro estado, e ele sai `84`.
+- `(4) marca de ato fora do repositório: <as fatias e tarefas com o motivo | nenhuma>` é a segunda pergunta, e ela sozinha sai `83`.
 - `fatias lidas: <quantas>, entregues: <quantas>, arquivos de tarefa lidos: <quantos>` fecha a resposta e diz sobre quantas a varredura valeu e sobre quantos arquivos a marca valeu.
 
-As três linhas saem sempre, como no `boxes`, e é isso que deixa o código escolher sem esconder. Com as três acusando, o código é `84`, e a ordem é decisão: `84` é a confissão de que sobrou fatia que eu não li, e devolver achado enquanto calo a fatia cega afirmaria uma cobertura que a corrida não teve; entre os dois achados, `80` vem antes de `83` porque um é sobre o trabalho e o outro é sobre o rastro dele, e enquanto a tarefa está aberta a forma da marca dela é pergunta de segunda ordem. As linhas `(1)` e `(3)` continuam nomeando o par, então nada se perde. O `70` do `varre` é o de sempre, argumento fora do contrato, roadmap ilegível, `<specs>` que não é diretório ou escopo vazio, e ele não imprime linha.
+As quatro linhas saem sempre, como no `boxes`, e é isso que deixa o código escolher sem esconder. Com as quatro acusando, o código é `84`, e a ordem é decisão: `84` é a confissão de que sobrou fatia que eu não li, e devolver achado enquanto calo a fatia cega afirmaria uma cobertura que a corrida não teve; entre os achados, `80` e `81` vêm antes de `83` porque os dois primeiros são sobre o trabalho e o terceiro é sobre o rastro dele, e enquanto a tarefa está aberta a forma da marca dela é pergunta de segunda ordem; `80` vem antes de `81` porque box em execução numa fatia entregue é contradição mais dura que box fechado cuja prova ninguém escreveu. As linhas `(1)`, `(2)` e `(4)` continuam nomeando o par, então nada se perde. O `70` do `varre` é o de sempre, argumento fora do contrato, roadmap ilegível, `<specs>` que não é diretório ou escopo vazio, e ele não imprime linha.
 
-**Os dois momentos, e esta é a metade que some.** A varredura roda na retomada e no fechamento, com a mesma invocação nos dois: `varre docs/roadmap.md specs`. Na retomada ela é o quinto verbo do Passo 0, depois do `boxes`, e ali os três estados só se reportam à pessoa, porque a retomada mede e não decide. No fechamento ela roda antes de publicar, porque o fechamento é o ato que muda o que ela mede, e lá o `80` e o `83` param. Prescrever a varredura num momento só é o defeito que ela existe para fechar: a sessão que abre herda o estado que a sessão que fechou deixou.
+**Os dois momentos, e esta é a metade que some.** A varredura roda na retomada e no fechamento, com a mesma invocação nos dois: `varre docs/roadmap.md specs`. Na retomada ela é o quinto verbo do Passo 0, depois do `boxes`, e ali os quatro estados só se reportam à pessoa, porque a retomada mede e não decide. No fechamento ela roda antes de publicar, porque o fechamento é o ato que muda o que ela mede, e lá o `80`, o `81` e o `83` param. Prescrever a varredura num momento só é o defeito que ela existe para fechar: a sessão que abre herda o estado que a sessão que fechou deixou.
 
 **Modelo de resposta da sincronia.** O verbo imprime as linhas abaixo, e a prosa do condutor repete as duas direções com o nome de cada uma. Uma palavra só nunca responde: "sincronizado" é um rótulo para dois estados diferentes, e foi ele que deixou passar por sincronizado um ramo atrás do padrão. Cada eixo tem três valores, e **não medido** é um deles, de primeira classe: nos códigos `74`, `77` e `78` um dos lados fica sem resposta, e o modelo diz isso em vez de calar. Este é o modelo inteiro; linha fora dele o verbo não imprime.
 
@@ -131,6 +132,13 @@ esac
 # conferido contra os sufixos de ramo que este repositório já usou. Fase fora
 # desta lista é argumento ilegível, e argumento ilegível não mede nada.
 FASES='intencao desenho construcao'
+
+# A PROVA de um box fechado é o commit, nunca o nome do ramo onde ele nasceu
+# (nota de 2026-09-20, issue #158). Casa única das duas formas: `boxes` e
+# `varre` leem daqui. A régua escrita duas vezes foi o que os fez divergir, com
+# o `varre` cego a `[x]` sem prova enquanto o `boxes` o acusava; forma nova
+# entra numa linha só, e os dois a ganham juntos.
+PROVA='(@|parou em) [0-9a-f][0-9a-f]'
 
 # Árvore suja, casa única. Quem escreve mede antes de escrever: `git status
 # --porcelain` não vazio para em 71, sem ter escrito nada, e devolve a decisão
@@ -324,11 +332,15 @@ if [ "$VERBO" = boxes ]; then
   esac
   [ -r "$2" ] || exit 70                     # arquivo ausente ou ilegível: não medi
   # Uma leitura só do arquivo devolve as duas direções, marcadas na saída.
-  # `1 <Txx>`: box em `[x]` cuja linha não nomeia o ramo daquela tarefa E um
-  # commit. `2 <Txx>`: tarefa em `[ ]`, que é "não começou", candidata da
-  # segunda direção. A tarefa do dono fica fora das duas: ela fecha por ato
-  # fora do repositório, e ramo nenhum a provaria.
-  LINHAS=$(awk -v n="$3" '
+  # `1 <Txx>`: box em `[x]` cuja linha não carrega commit nenhum. A PROVA É O
+  # COMMIT, NUNCA O NOME DO RAMO: a cadeia do release é executada pelo condutor
+  # sem worktree e sem ramo de despacho, e prova igual, em `ramo: main @ <sha>`
+  # ou no rastro do próprio rito. Exigir `sdd/<NNN>/<Txx>` reprovava essas por
+  # construção (nota de 2026-09-20, issue #158). `2 <Txx>`: tarefa em `[ ]`,
+  # que é "não começou", candidata da segunda direção. A tarefa do dono fica
+  # fora das duas: ela fecha por ato fora do repositório, e commit nenhum a
+  # provaria.
+  LINHAS=$(awk -v prova="$PROVA" '
     index($0, "[DONO]") > 0 {next}
     substr($0, 1, 3) != "- [" {next}
     substr($0, 5, 2) != "] " {next}
@@ -338,8 +350,7 @@ if [ "$VERBO" = boxes ]; then
       if (resto !~ /^T[0-9]+ /) next
       id = substr(resto, 1, index(resto, " ") - 1)
       total = total + 1
-      alvo = "ramo: sdd/" n "/" id
-      com = ($0 ~ (alvo " @ [0-9a-f][0-9a-f]")) || ($0 ~ (alvo ", parou em [0-9a-f][0-9a-f]"))
+      com = ($0 ~ prova)
       if (box == "x" && com == 0) print "1 " id
       if (box == " ") print "2 " id
     }
@@ -454,6 +465,7 @@ if [ "$VERBO" = varre ]; then
   # silêncio sobre o valor que o verbo não entende que deixa o estado mentir.
   VOCABULARIO='prevista|em curso|entregue|arquivada'
   ACHADO=''
+  SEMPROVA=''
   CEGO=''
   MARCA=''
   LISTA_E=''
@@ -491,7 +503,7 @@ if [ "$VERBO" = varre ]; then
     # Uma leitura só do arquivo devolve os pares abertos e o censo de tarefas.
     # A marca do box é a do template: `~` em execução e `!` falhou, as duas
     # abertas. `x` e espaço não entram, e a linha crua nunca sai daqui.
-    V_L=$(awk -v n="$V_N" '
+    V_L=$(awk -v n="$V_N" -v prova="$PROVA" '
       substr($0, 1, 3) != "- [" {next}
       substr($0, 5, 2) != "] " {next}
       {
@@ -499,7 +511,9 @@ if [ "$VERBO" = varre ]; then
         resto = substr($0, 7)
         if (resto !~ /^T[0-9]+ /) next
         total = total + 1
-        if (box == "~" || box == "!") print "aberta " n "/" substr(resto, 1, index(resto, " ") - 1)
+        id = substr(resto, 1, index(resto, " ") - 1)
+        if (box == "~" || box == "!") print "aberta " n "/" id
+        if (box == "x" && index($0, "[DONO]") == 0 && $0 !~ prova) print "semprova " n "/" id
       }
       END {print "total " total + 0}
     ' "$V_T") || exit 70
@@ -510,6 +524,9 @@ if [ "$VERBO" = varre ]; then
     fi
     for V_P in $(printf '%s\n' "$V_L" | awk '$1 == "aberta" {print $2}'); do
       ACHADO="$ACHADO $V_P"
+    done
+    for V_P in $(printf '%s\n' "$V_L" | awk '$1 == "semprova" {print $2}'); do
+      SEMPROVA="$SEMPROVA $V_P"
     done
   done
   # A marca de ato fora do repositório se lê em TODA fatia do escopo, em laço
@@ -561,19 +578,22 @@ if [ "$VERBO" = varre ]; then
     done
   done
   ACHADO=${ACHADO# }; [ -n "$ACHADO" ] || ACHADO=nenhuma
+  SEMPROVA=${SEMPROVA# }; [ -n "$SEMPROVA" ] || SEMPROVA=nenhuma
   CEGO=${CEGO# }; [ -n "$CEGO" ] || CEGO=nenhuma
   MARCA=${MARCA# }; [ -n "$MARCA" ] || MARCA=nenhuma
-  # As três linhas saem sempre, e é isso que deixa o código escolher sem
-  # esconder: com as três acusando, o código é 84 e as linhas (1) e (3)
+  # As quatro linhas saem sempre, e é isso que deixa o código escolher sem
+  # esconder: com as quatro acusando, o código é 84 e as linhas (1), (2) e (4)
   # continuam nomeando o par. A resposta nomeia fatia e tarefa, nunca a linha
   # do arquivo, e nunca o dono que a marca carrega.
   printf 'varredura de box em fatia entregue\n'
   printf '(1) box aberto em fatia entregue: %s\n' "$ACHADO"
-  printf '(2) não medido: %s\n' "$CEGO"
-  printf '(3) marca de ato fora do repositório: %s\n' "$MARCA"
+  printf '(2) box fechado sem prova: %s\n' "$SEMPROVA"
+  printf '(3) não medido: %s\n' "$CEGO"
+  printf '(4) marca de ato fora do repositório: %s\n' "$MARCA"
   printf 'fatias lidas: %s, entregues: %s, arquivos de tarefa lidos: %s\n' "$LIDAS" "$ENTREGUES" "$ARQUIVOS"
   [ "$CEGO" = nenhuma ] || exit 84   # sobrou fatia que eu não li: não medido
   [ "$ACHADO" = nenhuma ] || exit 80 # box aberto no que o roadmap declara entregue
+  [ "$SEMPROVA" = nenhuma ] || exit 81 # box fechado sem prova no que ele declara entregue
   [ "$MARCA" = nenhuma ] || exit 83  # marca de ato fora do repositório fora de ordem
   exit 0                             # nada aberto no que o roadmap declara entregue
 fi

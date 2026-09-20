@@ -1,15 +1,15 @@
-# INTEGRIDADE — itxpro-sdd@0.10.0
+# INTEGRIDADE — itxpro-sdd@0.11.0
 # Manifesto legível por máquina (plano da 003, R5).
 # conjunto: SHA-256 da lista ordenada de hashes de todos os arquivos,
 # excluindo INTEGRIDADE.txt e CHANGELOG.md (que carrega o próprio hash).
-versao: 0.10.0
-tag: v0.10.0
-commit-canonico: a4848ea192ad7216bd313b0232b6a0b59aede805
-conjunto: 0e785bf6cce8907bfa853dd3180680432efcab28736d8a0c44e168a9621126eb
+versao: 0.11.0
+tag: v0.11.0
+commit-canonico: 11edc2f184302605a16f2bfd81f0e28ab0a2a542
+conjunto: d97a3f4211ee477198ac4a072d0c8912f7da7731370f6262e2debeed6feb17c1
 arquivos:
 efdab1c4d930ea83e52a571c8915df95bc7bd06acf9fc84641afdb1b08cf987d  ./.claude-plugin/marketplace.json
-6abd5ae04149889b1d6875bac9d8abe8eec256a3809f83371b3211601aa48ccc  ./.claude-plugin/plugin.json
-b6d5f62ca7c7bd1ba743be444e528be49452aeab173668515ca327b1afac9096  ./CHANGELOG.md
+30dc8049948493770e8d41ad2f88e88aba34d13dd5f86588385fdec8a43203c6  ./.claude-plugin/plugin.json
+6212ee003c5729a631100326e7c2271a6b3093d5640decfe8a4ed96c1942f26a  ./CHANGELOG.md
 9d033be36ceb444b9f98e1bc1a9b64979a265c14410ce04598394557b86d48b9  ./README.md
 d5bbbe7dd099800d8fbd87d5b5bbfa39892b13b3582b565258ce0773a3ed0157  ./agents/_engatilhados/agent-experience-architect.md
 751aeb18fac10e19a47ef3e19719d1860da7bc8aa9a81c8117739650d3bdaf92  ./agents/architect.md
@@ -52,5 +52,5 @@ dfb657336dab88aa1db6522a0d61b3155fb563a52a4de91df03d66efc2c9baeb  ./hooks/PINAGE
 39c61c7ef1df54ba43756ebaaa540064c6e716dcb6da0b91fa63125afdab734a  ./hooks/scripts/claude-md-limit-warn.py
 157f610fc3be009e7863ca46cdfd04c3885f27d447435c01a3a2383d7ba1590e  ./hooks/scripts/secret-commit-gate.py
 1f0f68cb0593b12ecd50a58167e313f4f740dff78c517daf905f2ba19d48db86  ./hooks/scripts/spec-approval-warn.py
-30a5b8cf7cfa849e92b1d3f06fb1a64e54c8242d767108d30134b12466a70d01  ./skills/sdd-conductor/SKILL.md
+a21ceba8b39034f74becd6b4a626be26c26b9ca80db42fbed6d9d9b3b61dddd1  ./skills/sdd-conductor/SKILL.md
 73d07473b8c1954575585d1b0e086e44b35eb9ceaadb77e0c158c93cc24a2ef5  ./skills/sdd-setup/SKILL.md
