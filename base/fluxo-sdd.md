@@ -105,6 +105,44 @@ A mesa gasta token e contexto, e os dois têm teto:
 
 O trabalho que alimenta as mesas vem do GitHub Issues (`P0`, `P1`, `P2`) e do `docs/roadmap.md`. Issue promovida entra na mesa de Intenção e vira fatia. Detalhe na nota de decisão de origem do framework.
 
+## A regra da materialização
+
+Estado que precisa sobreviver à fatia precisa de um passo prescrito que o materialize onde a sessão seguinte lê. Sem esse passo, o estado fica pendurado na memória de uma sessão que o próprio framework declara descartável. O disco é a memória, a sessão é descartável, e estado durável sem escritor prescrito apodrece calado: a sessão seguinte lê uma afirmação que ninguém conferiu contra a fonte.
+
+Passo prescrito quer dizer três coisas juntas, e nenhuma basta sozinha: escritor nomeado, destino em disco que a sessão seguinte abre, e o commit em que a escrita acontece. Passo que diz o que fazer sem dizer quem faz e em qual commit não materializa nada.
+
+O escopo desta regra é nominal e fechado. Ela vale para quatro casos:
+
+1. **Tarefa de duas metades, cuja segunda metade acontece depois do merge.** O rito que executa a segunda metade fecha o box da tarefa, com o rastro do que conferiu, no mesmo commit em que grava o resultado.
+2. **Ressalva do Veredito que não vira tarefa da fatia.** Ela vira issue rotulada, e o registro do Veredito cita o número ao lado da ressalva.
+3. **Linha da fatia no roadmap, no fechamento de fase.** O fechamento escreve o estado novo na linha antes de publicar.
+4. **Box de critério cumprido fora do repositório.** A marca nasce com dono nomeado e commit nomeado, porque a regra do escritor único cobre o despacho da tarefa e não alcança o ato que aconteceu fora.
+
+Fechado significa fechado. Caso novo entra por decisão que o nomeie, nunca por semelhança com os quatro. Regra larga aplicada por analogia é a mesma doença um nível acima: um passo que promete mais do que o caso que o originou mediu.
+
+A skill do condutor e o mandato do reviewer citam esta regra pelo nome e por este caminho, e nenhum dos dois a copia. Texto normativo copiado deriva, e duas cópias que divergem deixam de ter casa única.
+
+## A regra da medida nomeada
+
+A regra cabe em uma frase de duas metades: o rito nomeia a pergunta que mediu e só afirma o que ela responde; medição que não distingue dois estados devolve os dois nomeados, nunca escolhe um.
+
+As duas metades tratam doenças diferentes, e nenhuma cobre a outra. A primeira barra a afirmação larga: o rito roda um teste estreito e devolve a resposta com o nome de uma pergunta maior. A segunda barra a escolha silenciosa: a medição não separa dois estados, e o rito devolve um nome só, quase sempre o mais confortável de ler. Rito que cumpre a primeira e falha a segunda continua mentindo, agora por resolução: ele nomeia o teste certo e colapsa dois caminhos de ação em uma palavra.
+
+Não medir é resposta legítima, e barata. Cara é a afirmação sem medida, porque a sessão seguinte age sobre ela. Ausência de dado também não é veredito: ela não reprova por vácuo nem passa por vácuo, e o rito declara a ausência em uma linha antes de seguir.
+
+O escopo desta regra é nominal e fechado. Ela vale para seis casos:
+
+1. **Conferência de sincronia entre o disco e o remoto.** São duas perguntas, "o publicado está no meu disco" e "o meu trabalho está publicado", e um teste responde uma só. O rito mede as duas direções em separado e nomeia a que falhou, nunca a palavra sincronizado sozinha.
+2. **Abertura de sessão que lê só o git local.** Ela não consulta o remoto e entrega a conferência à pessoa. O rito mede o remoto na abertura ou declara em uma linha que não mediu, porque leitura local responde sobre o local.
+3. **Código de dúvida que cobre dois motivos.** A conferência de superfície não resolve a tarefa no arquivo e devolve dúvida, e a mesma dúvida cobre o sufixo ilegível e a tarefa que ainda não existe naquele commit. Enquanto a medição não separa os dois, a resposta nomeia os dois, e o rito nunca escolhe o motivo benigno.
+4. **Sinal externo que o passo espera e não encontra.** O passo declara a ausência em uma linha e segue. Ele não a trata como aprovação nem como reprovação, porque não mediu nenhuma das duas.
+5. **Conferência entre o box e o artefato, numa direção só.** Ela pergunta se a tarefa marcada pronta tem o artefato e cala sobre a tarefa aberta que já o tem. O rito nomeia a direção que mediu e não afirma coerência das duas.
+6. **Aviso de branch à frente, na abertura do despacho.** Ele conclui sobre o remoto a partir da cópia local, que o disco guarda de uma leitura anterior, e conta uma direção só. O rito mede antes de avisar, sem escrever ref, ou declara em uma linha que não mediu.
+
+O escopo é fechado na mesma disciplina da regra irmã: caso novo entra por decisão que o nomeie, nunca por semelhança com os seis.
+
+A skill do condutor e o mandato do reviewer citam esta regra pelo nome e por este caminho, sem copiá-la, e a citação carrega as duas metades. Citação que leva só a primeira reproduz a doença que a regra trata: ela afirma a regra inteira e cobre metade.
+
 ## Padrões nomeados
 
 O framework implementa padrões conhecidos da engenharia de agentes. Os nomes alinham o vocabulário com o mercado e tornam o framework ensinável:

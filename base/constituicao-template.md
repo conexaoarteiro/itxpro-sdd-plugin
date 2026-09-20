@@ -51,7 +51,7 @@ Os cartões de padrão de engenharia (evals de IA, observabilidade e os que vier
 ## Gestão de trabalho
 
 - O backlog macro é o `docs/roadmap.md`: a ordem oficial das fatias.
-- O backlog granular vive no GitHub Issues deste repositório, com label de prioridade: `P0` fura a fila do roadmap, `P1` entra na próxima janela, `P2` espera agrupamento. Milestones podem mapear fatias futuras.
+- O backlog granular vive no GitHub Issues deste repositório, e toda issue nasce rotulada com uma das três labels de prioridade: `P0` fura a fila do roadmap, `P1` entra na próxima janela, `P2` espera agrupamento. Vale para a issue que uma pessoa abre e para a que uma automação abre. Milestones podem mapear fatias futuras.
 - Issue não vira código, issue vira fatia. Quando promovida, entra na mesa de Intenção e nasce uma spec. A issue referencia a spec e fecha quando a fatia sobe.
 - Não existe `backlog.md`. Backlog é consultado sob demanda via `gh issue list`, filtrado por label. Ele não entra no contexto das sessões.
 

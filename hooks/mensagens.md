@@ -10,13 +10,13 @@ Vocabulário único nas três camadas de segredo (aviso na escrita, gate de comm
 
 ## 1. `backlog.md` proibido
 
-Bloqueio. Regras hookify `block-backlog-md` (evento file, `hookify.block-backlog-md.local.md`) e `block-backlog-md-bash` (evento bash, `hookify.block-backlog-md-bash.local.md`, bloqueia `touch`, redireção `>`/`>>` e `cp`/`mv` com destino `backlog.md`). O critério da spec é "tentativa de criar `backlog.md` em qualquer diretório é bloqueada", então a via Bash tem a mesma regra e a mesma mensagem. Mensagem estática:
+Bloqueio. Regras hookify `block-backlog-md` (evento file, `hookify.block-backlog-md.local.md`) e `block-backlog-md-bash` (evento bash, `hookify.block-backlog-md-bash.local.md`, bloqueia `touch`, redireção `>`/`>>` e `cp`/`mv` com destino `backlog.md`). O critério da spec é "tentativa de criar `backlog.md` em qualquer diretório é bloqueada", então a via Bash tem a mesma regra e a mesma mensagem. A linha da regra aponta a seção da constituição e não repete o texto dela: a regra da label de prioridade tem casa única no template de constituição, e mensagem que a copiasse viraria segunda casa, livre para divergir. Mensagem estática:
 
 > Bloqueado: tentativa de escrever `backlog.md`. Backlog não vive em markdown neste repositório.
 >
-> Regra: constituição, seção "O que nunca fazer" ("Nunca manter backlog em markdown no repo") e seção "Gestão de trabalho".
+> Regra: constituição, seção "O que nunca fazer" ("Nunca manter backlog em markdown no repo") e seção "Gestão de trabalho", onde mora a regra da label de prioridade da issue.
 >
-> Caminho: registre a demanda como issue e consulte sob demanda:
+> Caminho: registre a demanda como issue, já com a label que aquela regra pede, e consulte sob demanda:
 >
 > `gh issue create --title "resumo da demanda" --label P1`
 >

@@ -32,6 +32,8 @@ O que entra, o que sai, e as variáveis de ambiente necessárias.
 
 (security-privacy-architect, proporcional ao risco) Para risco alto, STRIDE para segurança e LINDDUN para privacidade. Ameaça, vetor e mitigação. Requisitos de controle de acesso por papel. O que não vai para log nem erro.
 
+**Requisito de segurança nasce numerado aqui (RS-N), com texto completo; critério que o cita cita o número.**
+
 ## Experiência e sistema de design
 
 (ux-architect) Fluxo de telas e estados (carregando, vazio, erro, sucesso). Micro-interação e transição. Componentes do sistema de design aplicados. Meta de performance percebida.

@@ -31,5 +31,53 @@ A primeira mensagem mostra, nesta ordem: a versão instalada, a fatia corrente (
 
 Depois da próxima ação, dois complementos:
 
-- **Aviso de branch à frente**, só quando detectável e verdadeiro. Detecte o branch padrão com `git symbolic-ref --short refs/remotes/origin/HEAD` (sem `origin/HEAD` local, nenhum aviso: residual declarado, o fechamento de fase do condutor detecta com `set-head`). Se o branch corrente difere do padrão e `git rev-list --count origin/<padrão>..HEAD -- specs/` é maior que zero, uma linha: "Branch `<nome>` está N commit(s) à frente de origin/<padrão> em `specs/`; o estado da fatia só existe neste branch até o fechamento de fase integrar e publicar." Só nome do branch, contagem e `specs/`: nunca URL de remoto, caminho absoluto ou saída bruta de git.
+- **Aviso de branch à frente**, medido antes de concluir. Rode o fence de "Medida do branch à frente" e imprima a linha que ele devolver, sem recompor. Ele lê o remoto com uma chamada só, `git ls-remote --symref origin HEAD`, que traz o branch padrão e o sha na mesma resposta e não escreve ref nenhuma, e responde as duas direções contadas em `specs/`: quanto este branch está à frente do publicado e quanto está atrás. O que essa leitura não responder sai nomeado como não medido, em uma linha, com o mesmo peso do caminho feliz. Sem linha nenhuma, não há o que avisar. Nunca conclua sobre o remoto por `refs/remotes/origin/HEAD` nem por contagem contra `origin/<padrão>`: essas refs são a visão do último `fetch`, e afirmar a partir delas é afirmar mais do que se mediu. Só nome de branch, contagem e `specs/`: nunca URL de remoto, caminho absoluto ou saída bruta de git.
 - **Rodapé de feedback**, sempre, uma linha: "Lacuna do framework? Abra issue em https://github.com/conexaoarteiro/itxpro-sdd-plugin/issues (pública: sem segredo, log bruto, .env nem dado pessoal; descreva por categoria e cite itxpro-sdd@X.Y.Z)."
+
+## Aviso de branch à frente
+
+O comando abaixo é o aviso: ele mede e devolve a linha pronta. A suíte do framework o extrai pelo cabeçalho fixo "Medida do branch à frente" e o executa em repositório temporário, então mudar o texto sem o bloco quebra o teste. Códigos de saída, casa única: **0** medido, **74** o commit publicado não está no meu disco, **70** não medi. Em 70 e em 74 a linha sai mesmo assim, nomeando o que ficou sem resposta.
+
+### Medida do branch à frente
+
+```bash
+# Aviso de branch à frente do despachante /sdd (fatia 013, CA32).
+# O remoto se mede ANTES de concluir, com UMA leitura que não escreve:
+# `git ls-remote --symref origin HEAD` traz o branch padrão e o sha do publicado
+# na mesma resposta. `git fetch` e `git remote set-head` estão fora daqui: os
+# dois escrevem ref no repositório de quem só abriu o comando. A visão local do
+# remoto também está fora, porque ela é o retrato do último fetch, e concluir
+# dela é afirmar mais do que se mediu. O que a leitura não responde sai nomeado.
+# Saída: a linha do aviso, pronta para imprimir, com as duas direções contadas
+# em specs/; nenhuma linha quando não há o que avisar. Sem URL de remoto, sem
+# caminho absoluto e sem saída bruta de git (RS-6).
+# 0 medido | 74 o publicado não está no meu disco | 70 não medi.
+RESSALVA='; o estado da fatia só existe neste branch até o fechamento de fase integrar e publicar.'
+nao_medi() {   # <motivo>: a linha de não medido tem o peso do caminho feliz
+  printf 'Aviso de branch: não medi o remoto (%s); as duas direções ficam sem resposta e o estado da fatia pode existir só neste branch.\n' "$1"
+  exit 70
+}
+git remote get-url origin >/dev/null 2>&1 || nao_medi 'sem origin configurado'
+LEITURA=$(git ls-remote --symref origin HEAD 2>/dev/null) || nao_medi 'a leitura de origin não respondeu'
+PADRAO=$(printf '%s\n' "$LEITURA" | awk '$1=="ref:" && $3=="HEAD" {sub(/^refs\/heads\//,"",$2); print $2; exit}')
+SHA=$(printf '%s\n' "$LEITURA" | awk '$1!="ref:" && $2=="HEAD" {print $1; exit}')
+{ [ -n "$PADRAO" ] && [ -n "$SHA" ]; } || nao_medi 'a leitura de origin veio sem branch padrão ou sem sha'
+ATUAL=$(git symbolic-ref --quiet --short HEAD 2>/dev/null) || ATUAL='(HEAD solto)'
+[ "$ATUAL" != "$PADRAO" ] || exit 0    # no próprio padrão não há branch à frente a avisar
+# `cat-file -e` SEM peel: o objeto ausente sai 1 e nunca fatal. Com peel sai 128,
+# e 128 é "não consegui olhar" vestido de "não".
+git cat-file -e "$SHA" >/dev/null 2>&1; NO_DISCO=$?
+if [ "$NO_DISCO" -eq 1 ]; then
+  printf 'Aviso de branch: %s, atrás de %s: sim, o commit publicado não está no meu disco; à frente: não medido, porque medi-lo exigiria buscar o objeto, e buscar escreve ref%s\n' \
+    "$ATUAL" "$PADRAO" "$RESSALVA"
+  exit 74
+fi
+[ "$NO_DISCO" -eq 0 ] || nao_medi 'a presença do publicado no disco não respondeu'
+FRENTE=$(git rev-list --count "$SHA..HEAD" -- specs/ 2>/dev/null) || nao_medi 'a contagem local não respondeu'
+ATRAS=$(git rev-list --count "HEAD..$SHA" -- specs/ 2>/dev/null) || nao_medi 'a contagem local não respondeu'
+{ [ -n "$FRENTE" ] && [ -n "$ATRAS" ]; } || nao_medi 'a contagem local veio vazia'
+[ "$FRENTE" -gt 0 ] || [ "$ATRAS" -gt 0 ] || exit 0    # nada a avisar
+printf 'Aviso de branch: %s em specs/: à frente de %s em %s commit(s), atrás em %s commit(s). Medido agora no remoto por leitura, sem escrever ref%s\n' \
+  "$ATUAL" "$PADRAO" "$FRENTE" "$ATRAS" "$RESSALVA"
+exit 0
+```
